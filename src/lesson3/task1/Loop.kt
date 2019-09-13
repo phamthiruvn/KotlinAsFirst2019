@@ -75,7 +75,7 @@ fun digitNumber(n: Int): Int {
     var n2: Int = n
 
 
-    while (n2 >= 0) {
+    while (n2 != 0) {
         n2 = n2 / 10
         if (n2 == 0) break
         numnum += 1
@@ -94,13 +94,26 @@ fun digitNumber(n: Int): Int {
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
 fun fib(n: Int): Int {
-    var num: Int =n
-    when {
-        n == 1 -> num=1
-        n == 2 -> num=1
-        n>2 -> num=fib(num-1) + fib(num-2)
+    var a = 1
+    var b = 1
+    var c: Int=1
+    var nmax=n
+
+    if (n == 1)
+        return c
+    if (n == 2)
+        return c
+    if (n > 2)
+    {for (n in 3..n) {
+        c = a + b
+        a = b
+        b = c
+        if(n==nmax)    return c
     }
-    return num
+
+    }
+    return c
+
 }
 
 /**
@@ -111,9 +124,13 @@ fun fib(n: Int): Int {
  */
 fun lcm(m: Int, n: Int): Int {
     val h: Int = m * n
+    val l: Int = max(m,n)
+    val v: Int = min(m,n)
+
     for (k in 1..h) {
-        if ((k % m == 0) && (k % n == 0)) {
-            return k
+
+        if ((((l*k)%v)==0)) {
+            return (k*l)
         }
     }
 
@@ -145,12 +162,12 @@ fun minDivisor(n: Int): Int {
 fun maxDivisor(n: Int): Int {
 
     val h: Int
-    for(k:Int in 2..n)
+    for(k:Int in n-1 downTo 1)
     {
         if(n%k==0)
         {
-            h=n/k
-            return h
+
+            return k
         }
     }
     return 0
@@ -275,12 +292,12 @@ fun sin(x: Double, eps: Double): Double {
 
         all = all + sinx(x1, num)
         if (kotlin.math.abs(sinx(x1, num)) < eps) {
-            return (all.toInt()).toDouble()
+            return all
 
         }
         num += 1
     }
-    return (all.toInt()).toDouble()
+    return all
 
     }
 
@@ -488,13 +505,25 @@ fun squareSequenceDigit(n: Int): Int {
 fun fibSequenceDigit(n: Int): Int {
 
     fun fib(n: Int): Int {
-        var num: Int =n
-        when {
-            n == 1 -> num=1
-            n == 2 -> num=1
-            n>2 -> num= lesson3.task1.fib(num - 1) + lesson3.task1.fib(num - 2)
+        var a = 1
+        var b = 1
+        var c: Int=1
+        var nmax=n
+
+        if (n == 1)
+            return c
+        if (n == 2)
+            return c
+        if (n > 2)
+        {for (n in 3..n) {
+            c = a + b
+            a = b
+            b = c
+            if(n==nmax)    return c
         }
-        return num
+
+        }
+        return c
     }
     fun findsquare(n:Int):  Int {
 
