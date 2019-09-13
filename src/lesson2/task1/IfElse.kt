@@ -112,8 +112,8 @@ fun timeForHalfWay(
     t2: Double, v2: Double,
     t3: Double, v3: Double
 ): Double {
-    var S: Double = (t1 * v1 + t2 * v2 + t3 * v3) / 2
-    var t: Double
+    val S: Double = (t1 * v1 + t2 * v2 + t3 * v3) / 2
+    val t: Double
     if ((v1 * t1) > S) {
         t = S / v1
         return t
@@ -144,7 +144,7 @@ fun whichRookThreatens(
     rookX1: Int, rookY1: Int,
     rookX2: Int, rookY2: Int
 ): Int {
-    var count: Int
+    val count: Int
     if ((kingX == rookX1 || kingY == rookY1) && (kingX == rookX2 || kingY == rookY2)) {
         count = 3
         return count
@@ -178,7 +178,7 @@ fun rookOrBishopThreatens(
     rookX: Int, rookY: Int,
     bishopX: Int, bishopY: Int
 ): Int {
-    var count: Int
+    val count: Int
     if ((kingX == rookX || kingY == rookY) && ((kingX + kingY) == (bishopX + bishopY) || (kingX - kingY) == (bishopX - bishopY))) {
         count = 3
         return count
@@ -207,12 +207,12 @@ fun rookOrBishopThreatens(
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
 
-    var result: Int
-    var c1: Double = maxOf(a, b, c)
-    var a1: Double = minOf(a, b, c)
-    var b1: Double = a + b + c - a1 - c1
 
-    var corner: Double = ((a1 * a1 + b1 * b1 - c1 * c1) / (2 * a1 * b1))
+    val c1: Double = maxOf(a, b, c)
+    val a1: Double = minOf(a, b, c)
+    val b1: Double = a + b + c - a1 - c1
+
+    val corner: Double = ((a1 * a1 + b1 * b1 - c1 * c1) / (2 * a1 * b1))
     if ((a1 + b1) < c1)
         return -1
 
@@ -245,15 +245,15 @@ fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
     if ((c - b) > 0 || (a - d) > 0)
         return -1
     if ((a > c && b > d) || (a < c && b < d)) {
-        var AD: Int = abs(a - d)
-        var BC: Int = abs(b - c)
-        var result: Int = minOf(AD, BC)
+        val AD: Int = abs(a - d)
+        val BC: Int = abs(b - c)
+        val result: Int = minOf(AD, BC)
         return result
     }
-    if (((a - c) * (d - b)) > 0) {
-        var AB: Int = abs(a - b)
-        var DC: Int = abs(d - c)
-        var result: Int = minOf(AB, DC)
+    if (((a - c) * (d - b)) >= 0) {
+        val AB: Int = abs(a - b)
+        val DC: Int = abs(d - c)
+        val result: Int = minOf(AB, DC)
         return result
 
     }

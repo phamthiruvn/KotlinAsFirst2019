@@ -145,7 +145,7 @@ class Tests {
     @Tag("Easy")
     fun squareBetweenExists() {
         assertTrue(squareBetweenExists(1, 1))
-        assertTrue(squareBetweenExists(21, 28))
+         assertTrue(squareBetweenExists(21, 28))
         assertTrue(squareBetweenExists(36, 48))
         assertTrue(squareBetweenExists(50, 64))
         assertFalse(squareBetweenExists(51, 61))
@@ -180,6 +180,7 @@ class Tests {
         assertEquals(0.0, sin(100 * PI, 1e-5), 1e-5)
         assertNotEquals(kotlin.math.sin(1.0), sin(1.0, 1.0))
         assertNotEquals(kotlin.math.sin(-0.5), sin(-0.5, 1.0))
+
     }
 
     @Test
