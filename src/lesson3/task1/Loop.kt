@@ -71,13 +71,13 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun digitNumber(n: Int): Int {
-    var numnum: Int = 1
+    var numnum: Int = 0
     var n2: Int = n
 
-
+if (n==0)
     while (n2 != 0) {
         n2 = n2 / 10
-        if (n2 == 0) break
+
         numnum += 1
 
 
@@ -97,7 +97,7 @@ fun fib(n: Int): Int {
     var a = 1
     var b = 1
     var c: Int=1
-    var nmax=n
+
 
     if (n == 1)
         return c
@@ -108,7 +108,7 @@ fun fib(n: Int): Int {
         c = a + b
         a = b
         b = c
-        if(n==nmax)    return c
+
     }
 
     }

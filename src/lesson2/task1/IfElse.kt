@@ -77,11 +77,11 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  */
 fun ageDescription(age: Int): String {
     var ageru: String = age.toString()
-    if (age >= 5 && age <= 20) {
+    if (age in 5..20) {
         ageru = ageru.plus(" лет")
         return ageru
     }
-    if (age >= 105 && age <= 120) {
+    if (age in 105..120) {
         ageru = ageru.plus(" лет")
         return ageru
     }
@@ -240,9 +240,9 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Если пересечения нет, вернуть -1.
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-    if ((a - b) * (c - d) * (b - c) * (a - d) == 0)
+    if ((b - c) * (a - d) == 0)
         return 0
-    if ((c - b) > 0 || (a - d) > 0)
+    if ((a - b) ==0|| (c - d) ==0||(c - b) > 0 || (a - d) > 0)
         return -1
     if ((a > c && b > d) || (a < c && b < d)) {
         val AD: Int = abs(a - d)

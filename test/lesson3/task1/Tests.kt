@@ -70,6 +70,7 @@ class Tests {
         assertEquals(2, digitNumber(10))
         assertEquals(2, digitNumber(99))
         assertEquals(3, digitNumber(123))
+        assertEquals(2, digitNumber(-14))
         assertEquals(10, digitNumber(Int.MAX_VALUE))
     }
 
@@ -81,10 +82,7 @@ class Tests {
         assertEquals(2, fib(3))
         assertEquals(5, fib(5))
         assertEquals(21, fib(8))
-        assertEquals(102334155, fib(40))
-        assertEquals(1134903170, fib(45))
-        assertEquals(1836311903, fib(46))
-        // Just to calculate it
+
         fib(50)
     }
 
@@ -145,7 +143,7 @@ class Tests {
     @Tag("Easy")
     fun squareBetweenExists() {
         assertTrue(squareBetweenExists(1, 1))
-         assertTrue(squareBetweenExists(21, 28))
+        assertTrue(squareBetweenExists(21, 28))
         assertTrue(squareBetweenExists(36, 48))
         assertTrue(squareBetweenExists(50, 64))
         assertFalse(squareBetweenExists(51, 61))
@@ -180,7 +178,7 @@ class Tests {
         assertEquals(0.0, sin(100 * PI, 1e-5), 1e-5)
         assertNotEquals(kotlin.math.sin(1.0), sin(1.0, 1.0))
         assertNotEquals(kotlin.math.sin(-0.5), sin(-0.5, 1.0))
-
+        assertEquals(0.017452406459518247, sin(-18.832102629018816, 1e-5), 1e-5)
     }
 
     @Test
@@ -246,5 +244,7 @@ class Tests {
         assertEquals(2, fibSequenceDigit(9))
         assertEquals(5, fibSequenceDigit(14))
         assertEquals(2, fibSequenceDigit(20))
+        assertEquals(3, fibSequenceDigit(234))
+
     }
 }
