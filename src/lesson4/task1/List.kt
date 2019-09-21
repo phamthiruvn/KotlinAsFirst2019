@@ -751,35 +751,33 @@ fun russian(n: Int): String {
         val n3 = n / 1000
         if (n3 == 0) return ""
         if (n3 == 0) return ""
-        when (n3 % 10) {
-            1 -> {
+        when {
+            n3 % 10==1 &&(n3 % 100 !in 11..20) -> {
                 alone = (three1p5(n3) + " тысяча").trim()
                 return alone + " "
             }
-            in 2..4 -> {
+            n3 % 10 in 2..4 &&(n3 % 100 !in 11..20) -> {
                 alone = (three1p5(n3) + " тысячи").trim()
                 return alone + " "
             }
+            n3 % 10 in 5..9 &&(n3 % 100 !in 11..20) -> {
+                alone = (three1p5(n3) + " тысяч").trim()
+                return alone + " "
+            }
+            n3 % 100 in 20..99 -> {
+                alone = (three1p5(n3) + " тысяч").trim()
+                return alone + " "
+            }
+            n3 % 10==0 -> {
+                alone = (three1p5(n3) + " тысяч").trim()
+                return alone + " "
+            }
+            n3 % 100 in 11..20 ->{
+                alone = (three1p5(n3) + " тысяч").trim()
+                return alone + " "
+            }
 
-            in 5..9 -> {
-                alone = (three1p5(n3) + " тысяч").trim()
-                return alone + " "
-            }
-            in 20..99 -> {
-                alone = (three1p5(n3) + " тысяч").trim()
-                return alone + " "
-            }
-            0 -> {
-                alone = (three1p5(n3) + " тысяч").trim()
-                return alone + " "
-            }
 
-        }
-        when (n3 % 100) {
-            in 11..20 -> {
-                alone = (three1p5(n3) + " тысяч").trim()
-                return alone + " "
-            }
         }
         return ""
     }
