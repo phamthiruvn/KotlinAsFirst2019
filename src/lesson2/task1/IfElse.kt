@@ -77,26 +77,28 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  */
 fun ageDescription(age: Int): String {
     var ageru: String = age.toString()
-    if (age in 5..20) {
-        ageru = ageru.plus(" лет")
-        return ageru
+    when {
+        age in 5..20 -> {
+            ageru = ageru.plus(" лет")
+            return ageru
+        }
+        age in 105..120 -> {
+            ageru = ageru.plus(" лет")
+            return ageru
+        }
+        (age < 5 || age > 20) && (age % 10) == 1 -> {
+            ageru = ageru.plus(" год")
+            return ageru
+        }
+        (age < 5 || age > 20) && ((age % 10) == 2 || (age % 10) == 3 || (age % 10) == 4) -> {
+            ageru = ageru.plus(" года")
+            return ageru
+        }
+        else -> {
+            ageru = ageru.plus(" лет")
+            return ageru
+        }
     }
-    if (age in 105..120) {
-        ageru = ageru.plus(" лет")
-        return ageru
-    }
-    if ((age < 5 || age > 20) && (age % 10) == 1) {
-        ageru = ageru.plus(" год")
-        return ageru
-    }
-    if ((age < 5 || age > 20) && ((age % 10) == 2 || (age % 10) == 3 || (age % 10) == 4)) {
-        ageru = ageru.plus(" года")
-        return ageru
-    } else {
-        ageru = ageru.plus(" лет")
-        return ageru
-    }
-
 
 }
 
@@ -112,18 +114,18 @@ fun timeForHalfWay(
     t2: Double, v2: Double,
     t3: Double, v3: Double
 ): Double {
-    val S: Double = (t1 * v1 + t2 * v2 + t3 * v3) / 2
+    val s: Double = (t1 * v1 + t2 * v2 + t3 * v3) / 2
     val t: Double
-    if ((v1 * t1) > S) {
-        t = S / v1
+    if ((v1 * t1) > s) {
+        t = s / v1
         return t
     }
-    if ((v2 * t2) > (S - v1 * t1)) {
-        t = t1 + (S - v1 * t1) / v2
+    if ((v2 * t2) > (s - v1 * t1)) {
+        t = t1 + (s - v1 * t1) / v2
         return t
     }
-    if ((v3 * t3) > S) {
-        t = t1 + t2 + (S - v1 * t1 - v2 * t2) / v3
+    if ((v3 * t3) > s) {
+        t = t1 + t2 + (s - v1 * t1 - v2 * t2) / v3
         return t
     }
     return -1.0
@@ -144,22 +146,12 @@ fun whichRookThreatens(
     rookX1: Int, rookY1: Int,
     rookX2: Int, rookY2: Int
 ): Int {
-    val count: Int
-    if ((kingX == rookX1 || kingY == rookY1) && (kingX == rookX2 || kingY == rookY2)) {
-        count = 3
-        return count
-    }
-    if (kingX == rookX1 || kingY == rookY1) {
-        count = 1
+    when {
+        (kingX == rookX1 || kingY == rookY1) && (kingX == rookX2 || kingY == rookY2) -> return 3
+        kingX == rookX1 || kingY == rookY1 -> return 1
+        kingX == rookX2 || kingY == rookY2 -> return 2
+        else -> return 0
 
-        return count
-    }
-    if (kingX == rookX2 || kingY == rookY2) {
-        count = 2
-        return count
-    } else {
-        count = 0
-        return count
     }
 }
 
@@ -178,22 +170,11 @@ fun rookOrBishopThreatens(
     rookX: Int, rookY: Int,
     bishopX: Int, bishopY: Int
 ): Int {
-    val count: Int
-    if ((kingX == rookX || kingY == rookY) && ((kingX + kingY) == (bishopX + bishopY) || (kingX - kingY) == (bishopX - bishopY))) {
-        count = 3
-        return count
-    }
-    if (kingX == rookX || kingY == rookY) {
-        count = 1
-
-        return count
-    }
-    if ((kingX + kingY) == (bishopX + bishopY) || (kingX - kingY) == (bishopX - bishopY)) {
-        count = 2
-        return count
-    } else {
-        count = 0
-        return count
+    when {
+        ((kingX == rookX || kingY == rookY) && ((kingX + kingY) == (bishopX + bishopY) || (kingX - kingY) == (bishopX - bishopY))) -> return 3
+        (kingX == rookX || kingY == rookY) -> return 1
+        ((kingX + kingY) == (bishopX + bishopY) || (kingX - kingY) == (bishopX - bishopY)) -> return 2
+        else -> return 0
     }
 }
 
@@ -213,49 +194,41 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
     val b1: Double = a + b + c - a1 - c1
 
     val corner: Double = ((a1 * a1 + b1 * b1 - c1 * c1) / (2 * a1 * b1))
-    if ((a1 + b1) < c1)
-        return -1
 
-    if (corner < 0)
+        when {
+            a1 + b1 < c1 -> return -1
+            corner < 0 -> return 2
+            corner == 0.0 -> return 1
+            corner > 0 -> return 0
+        }
+return 100
+    }
 
-        return 2
+    /**
+     * Средняя
+     *
+     * Даны четыре точки на одной прямой: A, B, C и D.
+     * Координаты точек a, b, c, d соответственно, b >= a, d >= c.
+     * Найти длину пересечения отрезков AB и CD.
+     * Если пересечения нет, вернуть -1.
+     */
+    fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
+        if ((b - c) * (a - d) == 0)
+            return 0
+        if ((c - b) > 0 || (a - d) > 0)
+            return -1
+        if ((a > c && b > d) || (a < c && b < d)) {
+            val ad: Int = abs(a - d)
+            val bc: Int = abs(b - c)
+            val result: Int = minOf(ad, bc)
+            return result
+        }
+        if (((a - c) * (d - b)) >= 0) {
+            val ab: Int = abs(a - b)
+            val dc: Int = abs(d - c)
+            val result: Int = minOf(ab, dc)
+            return result
 
-    if (corner == 0.0)
-
+        }
         return 1
-
-    if (corner > 0)
-
-        return 0
-    return 1
-
-}
-
-/**
- * Средняя
- *
- * Даны четыре точки на одной прямой: A, B, C и D.
- * Координаты точек a, b, c, d соответственно, b >= a, d >= c.
- * Найти длину пересечения отрезков AB и CD.
- * Если пересечения нет, вернуть -1.
- */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-    if ((b - c) * (a - d) == 0)
-        return 0
-    if ((c - b) > 0 || (a - d) > 0)
-        return -1
-    if ((a > c && b > d) || (a < c && b < d)) {
-        val ad: Int = abs(a - d)
-        val bc: Int = abs(b - c)
-        val result: Int = minOf(ad, bc)
-        return result
     }
-    if (((a - c) * (d - b)) >= 0) {
-        val ab: Int = abs(a - b)
-        val dc: Int = abs(d - c)
-        val result: Int = minOf(ab, dc)
-        return result
-
-    }
-    return 1
-}

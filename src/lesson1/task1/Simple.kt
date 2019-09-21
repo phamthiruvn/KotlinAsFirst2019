@@ -135,15 +135,15 @@ fun accountInThreeYears(initial: Int1, percent: Int1): Double {
  * Необходимо вывести число, полученное из заданного перестановкой цифр в обратном порядке (например, 874).
  */
 fun numberRevert(number: Int1): Int1 {
-    var any: kotlin.Int
+    var an: Int1
     var number1 = number
-    var any10: kotlin.Int = 0
+    var an10: Int1 = 0
     while (number1 > 0) {
-        any = number1 % 10
-        any10 = any10 * 10 + any
+        an = number1 % 10
+        an10 = an10 * 10 + an
         number1 = number1 / 10
 
     }
-    return any10
+    return an10
 }
 

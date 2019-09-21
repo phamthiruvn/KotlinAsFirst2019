@@ -158,7 +158,6 @@ fun minDivisor(n: Int): Int {
  */
 fun maxDivisor(n: Int): Int {
 
-    val h: Int
     for(k:Int in n-1 downTo 1)
     {
         if(n%k==0)
@@ -364,9 +363,9 @@ fun cos(x: Double, eps: Double): Double {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun revert(n: Int): Int {
-    var any: kotlin.Int
+    var any: Int
     var number1 = n
-    var any10: kotlin.Int = 0
+    var any10: Int = 0
     while (number1 > 0) {
         any = number1 % 10
         any10 = any10 * 10 + any
@@ -391,8 +390,7 @@ fun isPalindrome(n: Int): Boolean {
         any = number1 % 10
         any10 = any10 * 10 + any
         number1 = number1 / 10}
-    if (any10==n) return true
-    else return false
+  return  any10==n
 }
 /**
  * Средняя
@@ -428,9 +426,8 @@ fun squareSequenceDigit(n: Int): Int {
 
         var h: Int = 0
         var a: Int = 1
-        var m: Int
         while (h < n) {
-            m = a * a
+
             fun number(m: Int): Int {
                 var k: Int = 0
                 var m1: Int = m
@@ -451,7 +448,6 @@ fun squareSequenceDigit(n: Int): Int {
     fun number(q: Int): Int {
         var h: Int = 0
         for (k in 1..q) {
-            var m = k * k
 
             fun numberbasic(m: Int): Int {
                 var k: Int = 0
@@ -471,8 +467,8 @@ fun squareSequenceDigit(n: Int): Int {
         return h
     }
 
-    var innumber:Int = findsquare(n)*findsquare(n)
-    var behind=number(findsquare(n)-1)
+    val innumber:Int = findsquare(n)*findsquare(n)
+    val behind=number(findsquare(n)-1)
     fun numberbasic(m: Int): Int {
         var k: Int = 0
         var m1: Int = m
@@ -483,10 +479,10 @@ fun squareSequenceDigit(n: Int): Int {
         return k
 
     }
-    var numnumber =numberbasic(innumber)
+    val numnumber =numberbasic(innumber)
 
-    var l: Double =(numnumber-((n-behind)-1)).toDouble()
-    var result: Int = ((innumber%(pow (10.0,l)))/(pow (10.0,(l-1)))).toInt()
+    val l: Double =(numnumber-((n-behind)-1)).toDouble()
+    val result: Int = ((innumber%(pow (10.0,l)))/(pow (10.0,(l-1)))).toInt()
     return result
 }
 
@@ -505,7 +501,7 @@ fun fibSequenceDigit(n: Int): Int {
         var a = 1
         var b = 1
         var c: Int=1
-        var nmax=n
+        val nmax=n
 
         if (n == 1)
             return c
@@ -526,9 +522,8 @@ fun fibSequenceDigit(n: Int): Int {
 
         var h: Int = 0
         var a: Int = 1
-        var m: Int
+
         while (h < n) {
-            m = fib(a)
             fun number(m: Int): Int {
                 var k: Int = 0
                 var m1: Int = m
@@ -549,7 +544,7 @@ fun fibSequenceDigit(n: Int): Int {
     fun number(q: Int): Int {
         var h: Int = 0
         for (k in 1..q) {
-            var m = fib(k)
+
 
             fun numberbasic(m: Int): Int {
                 var k: Int = 0
@@ -569,8 +564,8 @@ fun fibSequenceDigit(n: Int): Int {
         return h
     }
 
-    var innumber:Int = fib(findsquare(n))
-    var behind=number(findsquare(n)-1)
+    val innumber:Int = fib(findsquare(n))
+    val behind=number(findsquare(n)-1)
     fun numberbasic(m: Int): Int {
         var k: Int = 0
         var m1: Int = m
@@ -581,9 +576,9 @@ fun fibSequenceDigit(n: Int): Int {
         return k
 
     }
-    var numnumber =numberbasic(innumber)
+    val numnumber =numberbasic(innumber)
 
-    var l: Double =(numnumber-((n-behind)-1)).toDouble()
-    var result: Int = ((innumber%(pow (10.0,l)))/(pow (10.0,(l-1)))).toInt()
+    val l: Double =(numnumber-((n-behind)-1)).toDouble()
+    val result: Int = ((innumber%(pow (10.0,l)))/(pow (10.0,(l-1)))).toInt()
   return result
 }
