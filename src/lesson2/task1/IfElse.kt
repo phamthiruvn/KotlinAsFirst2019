@@ -242,18 +242,18 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
     if ((b - c) * (a - d) == 0)
         return 0
-    if ((a - b) ==0|| (c - d) ==0||(c - b) > 0 || (a - d) > 0)
+    if ((c - b) > 0 || (a - d) > 0)
         return -1
     if ((a > c && b > d) || (a < c && b < d)) {
-        val AD: Int = abs(a - d)
-        val BC: Int = abs(b - c)
-        val result: Int = minOf(AD, BC)
+        val ad: Int = abs(a - d)
+        val bc: Int = abs(b - c)
+        val result: Int = minOf(ad, bc)
         return result
     }
     if (((a - c) * (d - b)) >= 0) {
-        val AB: Int = abs(a - b)
-        val DC: Int = abs(d - c)
-        val result: Int = minOf(AB, DC)
+        val ab: Int = abs(a - b)
+        val dc: Int = abs(d - c)
+        val result: Int = minOf(ab, dc)
         return result
 
     }

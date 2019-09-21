@@ -73,8 +73,7 @@ fun digitCountInNumber(n: Int, m: Int): Int =
 fun digitNumber(n: Int): Int {
     var numnum: Int = 0
     var n2: Int = n
-
-if (n==0)
+if (n2==0) numnum =1
     while (n2 != 0) {
         n2 = n2 / 10
 
@@ -98,7 +97,6 @@ fun fib(n: Int): Int {
     var b = 1
     var c: Int=1
 
-
     if (n == 1)
         return c
     if (n == 2)
@@ -110,7 +108,6 @@ fun fib(n: Int): Int {
         b = c
 
     }
-
     }
     return c
 

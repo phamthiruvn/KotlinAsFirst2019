@@ -1,44 +1,119 @@
 import java.lang.Math.pow
-import kotlin.math.PI
-import kotlin.math.abs
-import kotlin.math.sqrt
-
-
 
 
 fun main() {
 
-    fun m(n: Int): List<Int> {
-        var list: MutableList<Int> = mutableListOf()
-        var x = 2
-        var n1 = n
-        fun many(x: Int, e: Int): List<Int> {
-            var list: MutableList<Int> = mutableListOf(e)
-            var x1 = x
-            while (x1 != e) {
+    fun decimalFromString(str: String, base: Int): Int {
+        var result: Int = 0
+        var a: Int
+        val abc: List<Char> = listOf(
+            'a',
+            'b',
+            'c',
+            'd',
+            'e',
+            'f',
+            'g',
+            'h',
+            'i',
+            'j',
+            'k',
+            'l',
+            'm',
+            'n',
+            'o',
+            'p',
+            'q',
+            'r',
+            's',
+            't',
+            'u',
+            'v',
+            'w',
+            'x',
+            'y',
+            'z'
+        )
+        for (x in 0..(str.length - 1)) {
 
-
-                x1 /= e
-                list.add(e)
+            val sp = abc.indexOf(str[x])
+            if (sp == -1) {
+                a = str[x].toInt() - 48
+                result += (a.toDouble() * pow(base.toDouble(), (str.length - x - 1).toDouble())).toInt()
             }
-            return list
+
+            if (sp != -1) {
+                a = sp + 10
+                result += (a.toDouble() * pow(base.toDouble(), (str.length - x - 1).toDouble())).toInt()
+            }
+
         }
-        for (a in 2..n) {
-            if ((2..a / 2).all { a % it != 0 } && n % a == 0) {
-                n1 /= a
-                list.add(a)
-                if (n1 % a == 0) {
-                    list + many(n1, a)
-
-
-                } else continue
-
-            } else continue
-        }
-
-
-
-return list
+        return result
     }
-    print (m(16))
+    fun convertToString(n: Int, base: Int): String {
+        var result: String = ""
+        val abc: List<String> = listOf(
+            "a",
+            "b",
+            "c",
+            "d",
+            "e",
+            "f",
+            "g",
+            "h",
+            "i",
+            "j",
+            "k",
+            "l",
+            "m",
+            "n",
+            "o",
+            "p",
+            "q",
+
+            "r",
+            "s",
+            "t",
+            "u",
+            "v",
+            "w",
+            "x",
+            "y",
+            "z"
+        )
+
+        fun m(n0: Int, base0: Int): Int {
+            var n1 = n0
+            var k: Int = 0
+            while (n1 / base0 > 0) {
+                n1 /= base0
+
+                k += 1
+
+            }
+            return k
+        }
+
+        var n1: Int = n
+        val base1: Int = base
+
+        for (i in m(n1, base1) downTo 0) {
+            val l = ((pow(base1.toDouble(), i.toDouble())).toInt())
+            val k = n1 / l
+            n1 = n1 - k * l
+            if (k in 10..36) {
+                val sym = abc[k - 10]
+                result += sym
+                continue
+
+            }
+            result += "$k"
+
+        }
+        return result
+    }
+
+
+
+    print(convertToString(159732, 35))
 }
