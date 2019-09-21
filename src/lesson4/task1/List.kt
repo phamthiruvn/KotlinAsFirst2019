@@ -756,12 +756,12 @@ fun russian(n: Int): String {
                 alone = (three1p5(n3) + " тысяча").trim()
                 return alone + " "
             }
-            in 2..3 -> {
+            in 2..4 -> {
                 alone = (three1p5(n3) + " тысячи").trim()
                 return alone + " "
             }
 
-            in 4..9 -> {
+            in 5..9 -> {
                 alone = (three1p5(n3) + " тысяч").trim()
                 return alone + " "
             }
