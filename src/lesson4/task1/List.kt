@@ -776,7 +776,7 @@ fun russian(n: Int): String {
 
         }
         when (n3 % 100) {
-            in 19..20 -> {
+            in 11..20 -> {
                 alone = (three1p5(n3) + " тысяч").trim()
                 return alone + " "
             }
