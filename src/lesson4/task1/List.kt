@@ -120,7 +120,7 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
 fun abs(v: List<Double>): Double {
     var result: Double = 0.0
     for(i in v)
-    { var i2= i*i
+    { val i2= i*i
         result+= i2
     }
     return sqrt(result)
@@ -151,11 +151,11 @@ fun mean(list: List<Double>): Double {
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun center(list: MutableList<Double>): MutableList<Double>  {
-    var sum = list.sum()
-    var minus = sum / (list.size)
+    val sum = list.sum()
+    val minus = sum / (list.size)
 
     for (num in 0..list.size-1) {
-        var x=list[num]-minus
+        val x=list[num]-minus
         list.removeAt(num)
         list.add(num, x)
     }
@@ -214,7 +214,7 @@ return result
  */
 fun accumulate(list: MutableList<Int>): MutableList<Int> {
     for (num in 1..list.size-1) {
-        var x:Int=list[num]+list[num-1]
+        val x:Int=list[num]+list[num-1]
         list.removeAt(num)
         list.add(num, x)
     }
@@ -231,7 +231,7 @@ fun accumulate(list: MutableList<Int>): MutableList<Int> {
 fun factorize(n: Int): List<Int> {
 
     fun Prime(n: Int): List<Int> {
-        var result: MutableList<Int> = mutableListOf()
+        val result: MutableList<Int> = mutableListOf()
         var n1=n
 
         fun isPrime(n: Int): Boolean {
@@ -272,7 +272,7 @@ fun factorize(n: Int): List<Int> {
 fun factorizeToString(n: Int): String {
 
     fun Prime(n: Int): List<Int> {
-        var result: MutableList<Int> = mutableListOf()
+        val result: MutableList<Int> = mutableListOf()
         var n1=n
 
         fun isPrime(n: Int): Boolean {
@@ -311,7 +311,7 @@ fun factorizeToString(n: Int): String {
  * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
  */
 fun convert(n: Int, base: Int): List<Int> {
-    var result: MutableList<Int> = mutableListOf()
+    val result: MutableList<Int> = mutableListOf()
     fun m(n0: Int, base0: Int): Int{
         var n1=n0
         var k: Int=0
@@ -325,11 +325,11 @@ fun convert(n: Int, base: Int): List<Int> {
         return k
     }
     var n1:Int =n
-    var base1:Int =base
+    val base1:Int =base
 
     for(i in m(n1 , base1) downTo 0 )
-    {var l=((pow(base1.toDouble(),i.toDouble())).toInt())
-        var k=n1/l
+    {val l=((pow(base1.toDouble(),i.toDouble())).toInt())
+        val k=n1/l
         n1=n1-k*l
         result.add(k)
 
@@ -352,7 +352,7 @@ fun convert(n: Int, base: Int): List<Int> {
  */
 fun convertToString(n: Int, base: Int): String {
     var result: String =""
-    var abc: List<String> = listOf("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","t","r","s","u","v","w","x","y","z")
+    val abc: List<String> = listOf("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","t","r","s","u","v","w","x","y","z")
     fun m(n0: Int, base0: Int): Int{
         var n1=n0
         var k: Int=0
@@ -366,16 +366,16 @@ fun convertToString(n: Int, base: Int): String {
         return k
     }
     var n1:Int =n
-    var base1:Int =base
+    val base1:Int =base
 
     for(i in m(n1 , base1) downTo 0 )
-    {var l=((pow(base1.toDouble(),i.toDouble())).toInt())
-        var k=n1/l
+    {val l=((pow(base1.toDouble(),i.toDouble())).toInt())
+        val k=n1/l
         n1=n1-k*l
         if(k in 10..36)
         {
-            var sym= abc[k-10]
-            result+="$sym"
+            val sym= abc[k-10]
+            result+=sym
             continue
 
         }
@@ -419,7 +419,7 @@ return result
 fun decimalFromString(str: String, base: Int): Int {
     var result: Int = 0
     var a: Int
-    var abc: List<Char> = listOf(
+    val abc: List<Char> = listOf(
         'a',
         'b',
         'c',
@@ -449,7 +449,7 @@ fun decimalFromString(str: String, base: Int): Int {
     )
     for (x in 0..(str.length - 1)) {
 
-        var sp = abc.indexOf(str[x])
+        val sp = abc.indexOf(str[x])
         if (sp == -1) {
             a = str[x].toInt() - 48
             result += (a.toDouble() * pow(base.toDouble(), (str.length - x - 1).toDouble())).toInt()
@@ -500,9 +500,9 @@ fun roman(n: Int): String {
                 }
 
             }
-            var a: String = loz[0]
-            var b: String= loz[1]
-            var c: String= loz[2]
+            val a: String = loz[0]
+            val b: String= loz[1]
+            val c: String= loz[2]
 
             when (n) {
                 1 -> result += a
@@ -533,7 +533,6 @@ fun roman(n: Int): String {
 
 
 fun russian(n: Int): String {
-    var alone: String
     fun dem(n: Int): Int {
         var n1 = n
         var m: Int = 0
@@ -544,9 +543,9 @@ fun russian(n: Int): String {
         return m
     }
     fun sourse(n: Int): String {
-        var numbers1: MutableList<String> =
-            mutableListOf("нуль", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
-        var numbers1p5: MutableList<String> = mutableListOf(
+        val numbers1: List<String> =
+            listOf("нуль", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
+        val numbers1p5: List<String> = listOf(
             "десять",
             "одиннадцать",
             "двенадцать",
@@ -558,7 +557,7 @@ fun russian(n: Int): String {
             "восемнадцать",
             "девятнадцать"
         )
-        var numbers2: MutableList<String> = mutableListOf(
+        val numbers2: List<String> = listOf(
             "двадцать",
             "тридцать",
             "сорок",
@@ -568,7 +567,7 @@ fun russian(n: Int): String {
             "восемьдесят",
             "девятносто"
         )
-        var numbers3: MutableList<String> = mutableListOf(
+        val numbers3: List<String> = listOf(
             "сто",
             "двести",
             "триста",
@@ -579,7 +578,7 @@ fun russian(n: Int): String {
             "восемньсот",
             "девятьсот"
         )
-        var alone: String
+        val alone: String
         when (n) {
             in 1..9 -> {
                 alone = numbers1[n]
@@ -603,41 +602,6 @@ fun russian(n: Int): String {
         return ""
     }
     fun three(n: Int): String {
-        var numbers1: MutableList<String> =
-            mutableListOf("нуль", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
-        var numbers1p5: MutableList<String> = mutableListOf(
-            "десять",
-            "одиннадцать",
-            "двенадцать",
-            "тринадцать",
-            "четырнадцать",
-            "пятнадцать",
-            "шестнадцать",
-            "семнадцать",
-            "восемнадцать",
-            "девятнадцать"
-        )
-        var numbers2: MutableList<String> = mutableListOf(
-            "двадцать",
-            "тридцать",
-            "сорок",
-            "пятньдесят",
-            "шестьдесят",
-            "семьдесят",
-            "восемьдесят",
-            "девятносто"
-        )
-        var numbers3: MutableList<String> = mutableListOf(
-            "сто",
-            "двести",
-            "триста",
-            "четыреста",
-            "пятьсот",
-            "шестьсот",
-            "семьсот",
-            "восемньсот",
-            "девятьсот"
-        )
         var a: Int
         var n1 = n
         var k: Int = 1
@@ -666,9 +630,8 @@ fun russian(n: Int): String {
     }
     fun threenext(n: Int): String {
         fun sourse1p5(n: Int): String {
-            var numbers1: MutableList<String> =
-                mutableListOf("", "одна", "две", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
-            var numbers1p5: MutableList<String> = mutableListOf(
+            val numbers1: List<String> = listOf("", "одна", "две", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
+            val numbers1p5:List<String> = listOf(
                 "десять",
                 "одиннадцать",
                 "двенадцать",
@@ -680,7 +643,7 @@ fun russian(n: Int): String {
                 "восемнадцать",
                 "девятнадцать"
             )
-            var numbers2: MutableList<String> = mutableListOf(
+            val numbers2: List<String> = listOf(
                 "двадцать",
                 "тридцать",
                 "сорок",
@@ -690,7 +653,7 @@ fun russian(n: Int): String {
                 "восемьдесят",
                 "девятносто"
             )
-            var numbers3: MutableList<String> = mutableListOf(
+            val numbers3: List<String> = listOf(
                 "сто",
                 "двести",
                 "триста",
@@ -701,7 +664,7 @@ fun russian(n: Int): String {
                 "восемньсот",
                 "девятьсот"
             )
-            var alone: String
+            val alone: String
             when (n) {
                 in 1..9 -> {
                     alone = numbers1[n]
@@ -724,41 +687,6 @@ fun russian(n: Int): String {
             return ""
         }
         fun three1p5(n: Int): String {
-            var numbers1: MutableList<String> =
-                mutableListOf("", "одна", "две", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
-            var numbers1p5: MutableList<String> = mutableListOf(
-                "десять",
-                "одиннадцать",
-                "двенадцать",
-                "тринадцать",
-                "четырнадцать",
-                "пятнадцать",
-                "шестнадцать",
-                "семнадцать",
-                "восемнадцать",
-                "девятнадцать"
-            )
-            var numbers2: MutableList<String> = mutableListOf(
-                "двадцать",
-                "тридцать",
-                "сорок",
-                "пятньдесят",
-                "шестьдесят",
-                "семьдесят",
-                "восемьдесят",
-                "девятносто"
-            )
-            var numbers3: MutableList<String> = mutableListOf(
-                "сто",
-                "двести",
-                "триста",
-                "четыреста",
-                "пятьсот",
-                "шестьсот",
-                "семьсот",
-                "восемньсот",
-                "девятьсот"
-            )
             var a: Int
             var n1 = n
             var k: Int = 1
@@ -783,9 +711,9 @@ fun russian(n: Int): String {
             }
             return result.trimEnd()
         }
-        var alone: String
+        val alone: String
 
-        var n3 = n / 1000
+        val n3 = n / 1000
         if (n3 == 0) return ""
         when (n3 % 100) {
 
