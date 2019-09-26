@@ -3,7 +3,6 @@
 package lesson3.task1
 
 
-
 import java.lang.Math.*
 import kotlin.math.sqrt
 
@@ -73,7 +72,7 @@ fun digitCountInNumber(n: Int, m: Int): Int =
 fun digitNumber(n: Int): Int {
     var numnum: Int = 0
     var n2: Int = n
-if (n2==0) numnum =1
+    if (n2 == 0) numnum = 1
     while (n2 != 0) {
         n2 = n2 / 10
 
@@ -95,19 +94,19 @@ if (n2==0) numnum =1
 fun fib(n: Int): Int {
     var a = 1
     var b = 1
-    var c: Int=1
+    var c : Int = 1
 
     if (n == 1)
         return c
     if (n == 2)
         return c
-    if (n > 2)
-    {for (n in 3..n) {
-        c = a + b
-        a = b
-        b = c
+    if (n > 2) {
+        for (n in 3..n) {
+            c = a + b
+            a = b
+            b = c
 
-    }
+        }
     }
     return c
 
@@ -121,13 +120,13 @@ fun fib(n: Int): Int {
  */
 fun lcm(m: Int, n: Int): Int {
     val h: Int = m * n
-    val l: Int = max(m,n)
-    val v: Int = min(m,n)
+    val l : Int = max(m , n)
+    val v : Int = min(m , n)
 
     for (k in 1..h) {
 
-        if ((((l*k)%v)==0)) {
-            return (k*l)
+        if ((((l * k) % v) == 0)) {
+            return (k * l)
         }
     }
 
@@ -141,10 +140,8 @@ fun lcm(m: Int, n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-    for(k:Int in 2..n)
-    {
-        if(n%k==0)
-        {
+    for (k : Int in 2..n) {
+        if (n % k == 0) {
             return k
         }
     }
@@ -158,16 +155,15 @@ fun minDivisor(n: Int): Int {
  */
 fun maxDivisor(n: Int): Int {
 
-    for(k:Int in n-1 downTo 1)
-    {
-        if(n%k==0)
-        {
+    for (k : Int in n - 1 downTo 1) {
+        if (n % k == 0) {
 
             return k
         }
     }
     return 0
 }
+
 /**
  * Простая
  *
@@ -178,7 +174,7 @@ fun maxDivisor(n: Int): Int {
 fun isCoPrime(m: Int, n: Int): Boolean {
 
     val h = minOf(m, n)
-    val i : Boolean= false
+    val i : Boolean = false
     for (k: Int in 2..h) {
         if (n % k == 0 && m % k == 0) {
 
@@ -186,8 +182,9 @@ fun isCoPrime(m: Int, n: Int): Boolean {
 
         }
     }
-    return  true
+    return true
 }
+
 /**
  * Простая
  *
@@ -196,11 +193,11 @@ fun isCoPrime(m: Int, n: Int): Boolean {
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
 fun squareBetweenExists(m: Int, n: Int): Boolean {
-    val m1:Int=((sqrt(m.toDouble())).toInt())
-    val n1:Int=((sqrt(n.toDouble())).toInt())
-    if ( m==m1*m1|| n==n1*n1) return true
-   else {
-        val i: Boolean = (m1!=n1)
+    val m1 : Int = ((sqrt(m.toDouble())).toInt())
+    val n1 : Int = ((sqrt(n.toDouble())).toInt())
+    if (m == m1 * m1 || n == n1 * n1) return true
+    else {
+        val i : Boolean = (m1 != n1)
         return i
     }
 
@@ -223,19 +220,19 @@ fun squareBetweenExists(m: Int, n: Int): Boolean {
  * этого для какого-либо начального X > 0.
  */
 fun collatzSteps(x: Int): Int {
-    var xnext : Int =x
-    var count: Int =0
+    var xnext : Int = x
+    var count : Int = 0
 
-        while (xnext != 1)
-        {if ((xnext % 2) == 0) {
-                xnext = xnext / 2
-                count += 1
-            if(xnext==1) break
-            }
+    while (xnext != 1) {
+        if ((xnext % 2) == 0) {
+            xnext = xnext / 2
+            count += 1
+            if (xnext == 1) break
+        }
         if ((xnext % 2) != 0) {
             xnext = 3 * xnext + 1
             count += 1
-            if(xnext==1) break
+            if (xnext == 1) break
         }
 
     }
@@ -295,8 +292,7 @@ fun sin(x: Double, eps: Double): Double {
     }
     return all
 
-    }
-
+}
 
 
 /**
@@ -309,48 +305,48 @@ fun sin(x: Double, eps: Double): Double {
  * Использовать kotlin.math.cos и другие стандартные реализации функции косинуса в этой задаче запрещается.
  */
 fun cos(x: Double, eps: Double): Double {
-        var num: Int = 1
-        var all: Double = 0.0
-        val x1: Double = (x-((x/(2* kotlin.math.PI)).toInt())*2* kotlin.math.PI)
+    var num : Int = 1
+    var all : Double = 0.0
+    val x1 : Double = (x - ((x / (2 * kotlin.math.PI)).toInt()) * 2 * kotlin.math.PI)
 
-        fun cosx(x: Double, num: Int): Double {
-            fun first(a: Int): Int {
-                val a1: Double = a.toDouble()
-                val k: Int = (pow(-1.0, a1 - 1.0)).toInt()
-                return k
-            }
-
-            fun facto(b: Int): Double {
-                var gt: Double = 1.0
-                if (b == 1) return gt
-                else {
-                    for (i: Int in 1..(2 * b - 2))
-
-                        gt *= i
-
-
-                    return gt
-                }
-            }
-
-            fun hat(c: Double, d: Double): Double {
-                val k: Double = 2 * d - 2
-                val h: Double = pow(c, k)
-                return h
-            }
-
-            val cosx = first(num) * hat(c = x, d = num.toDouble()) / facto(num)
-            return cosx
+    fun cosx(x : Double , num : Int) : Double {
+        fun first(a : Int) : Int {
+            val a1 : Double = a.toDouble()
+            val k : Int = (pow(-1.0 , a1 - 1.0)).toInt()
+            return k
         }
-        while (kotlin.math.abs(cosx(x1, num)) > (eps)) {
 
-            all = all + cosx(x1, num)
-            if (kotlin.math.abs(cosx(x1, num)) < eps) {
-                return all
+        fun facto(b : Int) : Double {
+            var gt : Double = 1.0
+            if (b == 1) return gt
+            else {
+                for (i : Int in 1..(2 * b - 2))
+
+                    gt *= i
+
+
+                return gt
             }
-            num += 1
         }
-        return all
+
+        fun hat(c : Double , d : Double) : Double {
+            val k : Double = 2 * d - 2
+            val h : Double = pow(c , k)
+            return h
+        }
+
+        val cosx = first(num) * hat(c = x , d = num.toDouble()) / facto(num)
+        return cosx
+    }
+    while (kotlin.math.abs(cosx(x1 , num)) > (eps)) {
+
+        all = all + cosx(x1 , num)
+        if (kotlin.math.abs(cosx(x1 , num)) < eps) {
+            return all
+        }
+        num += 1
+    }
+    return all
 
 
 }
@@ -369,7 +365,8 @@ fun revert(n: Int): Int {
     while (number1 > 0) {
         any = number1 % 10
         any10 = any10 * 10 + any
-        number1 = number1 / 10}
+        number1 = number1 / 10
+    }
     return any10
 }
 
@@ -383,15 +380,17 @@ fun revert(n: Int): Int {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun isPalindrome(n: Int): Boolean {
-    var any: kotlin.Int
+    var any : Int
     var number1 = n
-    var any10: kotlin.Int = 0
+    var any10 : Int = 0
     while (number1 > 0) {
         any = number1 % 10
         any10 = any10 * 10 + any
-        number1 = number1 / 10}
-  return  any10==n
+        number1 = number1 / 10
+    }
+    return any10 == n
 }
+
 /**
  * Средняя
  *
@@ -401,17 +400,18 @@ fun isPalindrome(n: Int): Boolean {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun hasDifferentDigits(n: Int): Boolean {
-    var a: Int =0
-    var b: Int =0
-    var n1: Int =n
-    while(a==b)
-    {a= n%10
-        n1=n1/10
-        b=n1%10
-    if (n1==0) return false
+    var a : Int = 0
+    var b : Int = 0
+    var n1 : Int = n
+    while (a == b) {
+        a = n % 10
+        n1 = n1 / 10
+        b = n1 % 10
+        if (n1 == 0) return false
     }
     return true
 }
+
 /**
  * Сложная
  *
@@ -422,7 +422,7 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun squareSequenceDigit(n: Int): Int {
-    fun findsquare(n:Int):  Int {
+    fun findsquare(n : Int) : Int {
 
         var h: Int = 0
         var a: Int = 1
@@ -443,8 +443,9 @@ fun squareSequenceDigit(n: Int): Int {
             a += 1
 
         }
-        return (a-1)
+        return (a - 1)
     }
+
     fun number(q: Int): Int {
         var h: Int = 0
         for (k in 1..q) {
@@ -467,8 +468,8 @@ fun squareSequenceDigit(n: Int): Int {
         return h
     }
 
-    val innumber:Int = findsquare(n)*findsquare(n)
-    val behind=number(findsquare(n)-1)
+    val innumber : Int = findsquare(n) * findsquare(n)
+    val behind = number(findsquare(n) - 1)
     fun numberbasic(m: Int): Int {
         var k: Int = 0
         var m1: Int = m
@@ -479,10 +480,11 @@ fun squareSequenceDigit(n: Int): Int {
         return k
 
     }
-    val numnumber =numberbasic(innumber)
 
-    val l: Double =(numnumber-((n-behind)-1)).toDouble()
-    val result: Int = ((innumber%(pow (10.0,l)))/(pow (10.0,(l-1)))).toInt()
+    val numnumber = numberbasic(innumber)
+
+    val l : Double = (numnumber - ((n - behind) - 1)).toDouble()
+    val result : Int = ((innumber % (pow(10.0 , l))) / (pow(10.0 , (l - 1)))).toInt()
     return result
 }
 
@@ -500,25 +502,26 @@ fun fibSequenceDigit(n: Int): Int {
     fun fib(n: Int): Int {
         var a = 1
         var b = 1
-        var c: Int=1
-        val nmax=n
+        var c : Int = 1
+        val nmax = n
 
         if (n == 1)
             return c
         if (n == 2)
             return c
-        if (n > 2)
-        {for (n in 3..n) {
-            c = a + b
-            a = b
-            b = c
-            if(n==nmax)    return c
-        }
+        if (n > 2) {
+            for (n in 3..n) {
+                c = a + b
+                a = b
+                b = c
+                if (n == nmax) return c
+            }
 
         }
         return c
     }
-    fun findsquare(n:Int):  Int {
+
+    fun findsquare(n : Int) : Int {
 
         var h: Int = 0
         var a: Int = 1
@@ -539,8 +542,9 @@ fun fibSequenceDigit(n: Int): Int {
             a += 1
 
         }
-        return (a-1)
+        return (a - 1)
     }
+
     fun number(q: Int): Int {
         var h: Int = 0
         for (k in 1..q) {
@@ -564,8 +568,8 @@ fun fibSequenceDigit(n: Int): Int {
         return h
     }
 
-    val innumber:Int = fib(findsquare(n))
-    val behind=number(findsquare(n)-1)
+    val innumber : Int = fib(findsquare(n))
+    val behind = number(findsquare(n) - 1)
     fun numberbasic(m: Int): Int {
         var k: Int = 0
         var m1: Int = m
@@ -576,9 +580,10 @@ fun fibSequenceDigit(n: Int): Int {
         return k
 
     }
-    val numnumber =numberbasic(innumber)
 
-    val l: Double =(numnumber-((n-behind)-1)).toDouble()
-    val result: Int = ((innumber%(pow (10.0,l)))/(pow (10.0,(l-1)))).toInt()
-  return result
+    val numnumber = numberbasic(innumber)
+
+    val l : Double = (numnumber - ((n - behind) - 1)).toDouble()
+    val result : Int = ((innumber % (pow(10.0 , l))) / (pow(10.0 , (l - 1)))).toInt()
+    return result
 }

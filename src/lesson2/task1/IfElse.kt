@@ -195,40 +195,40 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
 
     val corner: Double = ((a1 * a1 + b1 * b1 - c1 * c1) / (2 * a1 * b1))
 
-        when {
-            a1 + b1 < c1 -> return -1
-            corner < 0 -> return 2
-            corner == 0.0 -> return 1
-            corner > 0 -> return 0
-        }
-return 100
+    when {
+        a1 + b1 < c1 -> return -1
+        corner < 0 -> return 2
+        corner == 0.0 -> return 1
+        corner > 0 -> return 0
     }
+    return 100
+}
 
-    /**
-     * Средняя
-     *
-     * Даны четыре точки на одной прямой: A, B, C и D.
-     * Координаты точек a, b, c, d соответственно, b >= a, d >= c.
-     * Найти длину пересечения отрезков AB и CD.
-     * Если пересечения нет, вернуть -1.
-     */
-    fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-        if ((b - c) * (a - d) == 0)
-            return 0
-        if ((c - b) > 0 || (a - d) > 0)
-            return -1
-        if ((a > c && b > d) || (a < c && b < d)) {
-            val ad: Int = abs(a - d)
-            val bc: Int = abs(b - c)
-            val result: Int = minOf(ad, bc)
-            return result
-        }
-        if (((a - c) * (d - b)) >= 0) {
-            val ab: Int = abs(a - b)
-            val dc: Int = abs(d - c)
-            val result: Int = minOf(ab, dc)
-            return result
-
-        }
-        return 1
+/**
+ * Средняя
+ *
+ * Даны четыре точки на одной прямой: A, B, C и D.
+ * Координаты точек a, b, c, d соответственно, b >= a, d >= c.
+ * Найти длину пересечения отрезков AB и CD.
+ * Если пересечения нет, вернуть -1.
+ */
+fun segmentLength(a : Int , b : Int , c : Int , d : Int) : Int {
+    if ((b - c) * (a - d) == 0)
+        return 0
+    if ((c - b) > 0 || (a - d) > 0)
+        return -1
+    if ((a > c && b > d) || (a < c && b < d)) {
+        val ad : Int = abs(a - d)
+        val bc : Int = abs(b - c)
+        val result : Int = minOf(ad , bc)
+        return result
     }
+    if (((a - c) * (d - b)) >= 0) {
+        val ab : Int = abs(a - b)
+        val dc : Int = abs(d - c)
+        val result : Int = minOf(ab , dc)
+        return result
+
+    }
+    return 1
+}

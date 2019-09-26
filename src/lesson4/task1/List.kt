@@ -5,7 +5,6 @@ package lesson4.task1
 import lesson1.task1.discriminant
 import java.lang.Math.pow
 import kotlin.math.sqrt
-import kotlin.collections.MutableList
 
 /**
  * Пример
@@ -316,7 +315,7 @@ fun factorizeToString(n: Int): String {
  * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
  */
 fun convert(n: Int, base: Int): List<Int> {
-    val result: MutableList<Int> = mutableListOf()
+    val result : MutableList<Int> = mutableListOf()
     fun m(n0: Int, base0: Int): Int {
         var n1 = n0
         var k: Int = 0
