@@ -9,9 +9,9 @@ import kotlin.math.sqrt
 
 
 fun main() {
-    val x1 = quadraticRootNumber(2.0 , 4.0 , 2.0)
+    val x1 = quadraticRootNumber(2.0, 4.0, 2.0)
     println("Result " + x1)
-    val x2 : String = ageDescription(112)
+    val x2: String = ageDescription(112)
     println("Result " + x2)
 
 
@@ -22,8 +22,8 @@ fun main() {
  *
  * Найти число корней квадратного уравнения ax^2 + bx + c = 0
  */
-fun quadraticRootNumber(a : Double , b : Double , c : Double) : Int {
-    val discriminant = discriminant(a , b , c)
+fun quadraticRootNumber(a: Double, b: Double, c: Double): Int {
+    val discriminant = discriminant(a, b, c)
     return when {
         discriminant > 0.0 -> 2
         discriminant == 0.0 -> 1
@@ -37,7 +37,7 @@ fun quadraticRootNumber(a : Double , b : Double , c : Double) : Int {
  *
  * Получить строковую нотацию для оценки по пятибалльной системе
  */
-fun gradeNotation(grade : Int) : String = when (grade) {
+fun gradeNotation(grade: Int): String = when (grade) {
     5 -> "отлично"
     4 -> "хорошо"
     3 -> "удовлетворительно"
@@ -50,7 +50,7 @@ fun gradeNotation(grade : Int) : String = when (grade) {
  *
  * Найти наименьший корень биквадратного уравнения ax^4 + bx^2 + c = 0
  */
-fun minBiRoot(a : Double , b : Double , c : Double) : Double {
+fun minBiRoot(a: Double, b: Double, c: Double) : Double {
     // 1: в главной ветке if выполняется НЕСКОЛЬКО операторов
     if (a == 0.0) {
         if (b == 0.0) return Double.NaN // ... и ничего больше не делать
@@ -59,12 +59,12 @@ fun minBiRoot(a : Double , b : Double , c : Double) : Double {
         return -sqrt(bc)
         // Дальше функция при a == 0.0 не идёт
     }
-    val d = discriminant(a , b , c)   // 2
+    val d = discriminant(a, b, c)   // 2
     if (d < 0.0) return Double.NaN  // 3
     // 4
     val y1 = (-b + sqrt(d)) / (2 * a)
     val y2 = (-b - sqrt(d)) / (2 * a)
-    val y3 = max(y1 , y2)       // 5
+    val y3 = max(y1, y2)       // 5
     if (y3 < 0.0) return Double.NaN // 6
     return -sqrt(y3)           // 7
 }
@@ -75,8 +75,8 @@ fun minBiRoot(a : Double , b : Double , c : Double) : Double {
  * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
-fun ageDescription(age : Int) : String {
-    val a : String = age.toString()
+fun ageDescription(age: Int): String {
+    val a: String = age.toString()
     return when {
         age in 5..20 -> a.plus(" лет")
         age in 105..120 -> a.plus(" лет")
@@ -94,11 +94,11 @@ fun ageDescription(age : Int) : String {
  * Определить, за какое время он одолел первую половину пути?
  */
 fun timeForHalfWay(
-    t1 : Double , v1 : Double ,
-    t2 : Double , v2 : Double ,
-    t3 : Double , v3 : Double
-) : Double {
-    val s : Double = (t1 * v1 + t2 * v2 + t3 * v3) / 2
+    t1: Double, v1: Double ,
+    t2: Double, v2: Double ,
+    t3: Double, v3: Double
+): Double {
+    val s: Double = (t1 * v1 + t2 * v2 + t3 * v3) / 2
     val t : Double
     if ((v1 * t1) > s) {
         t = s / v1
@@ -126,10 +126,10 @@ fun timeForHalfWay(
  * Считать, что ладьи не могут загораживать друг друга
  */
 fun whichRookThreatens(
-    kingX : Int , kingY : Int ,
-    rookX1 : Int , rookY1 : Int ,
-    rookX2 : Int , rookY2 : Int
-) : Int {
+    kingX: Int, kingY: Int,
+    rookX1: Int, rookY1: Int,
+    rookX2: Int, rookY2: Int
+): Int {
     return when {
         (kingX == rookX1 || kingY == rookY1) && (kingX == rookX2 || kingY == rookY2) -> 3
         kingX == rookX1 || kingY == rookY1 -> 1
@@ -149,10 +149,10 @@ fun whichRookThreatens(
  * Считать, что ладья и слон не могут загораживать друг друга.
  */
 fun rookOrBishopThreatens(
-    kingX : Int , kingY : Int ,
-    rookX : Int , rookY : Int ,
-    bishopX : Int , bishopY : Int
-) : Int {
+    kingX: Int, kingY: Int,
+    rookX: Int, rookY: Int,
+    bishopX: Int, bishopY: Int
+): Int {
     return when {
         ((kingX == rookX || kingY == rookY) && ((kingX + kingY) == (bishopX + bishopY) || (kingX - kingY) == (bishopX - bishopY))) -> 3
         (kingX == rookX || kingY == rookY) -> 1
@@ -169,11 +169,11 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a : Double , b : Double , c : Double) : Int {
-    val c1 : Double = maxOf(a , b , c)
-    val a1 : Double = minOf(a , b , c)
-    val b1 : Double = a + b + c - a1 - c1
-    val corner : Double = ((a1 * a1 + b1 * b1 - c1 * c1) / (2 * a1 * b1))
+fun triangleKind(a: Double , b: Double , c: Double): Int {
+    val c1: Double = maxOf(a, b, c)
+    val a1: Double = minOf(a, b, c)
+    val b1: Double = a + b + c - a1 - c1
+    val corner: Double = ((a1 * a1 + b1 * b1 - c1 * c1) / (2 * a1 * b1))
     return when {
         a1 + b1 < c1 -> -1
         corner < 0 -> 2
@@ -190,14 +190,14 @@ fun triangleKind(a : Double , b : Double , c : Double) : Int {
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a : Int , b : Int , c : Int , d : Int) : Int {
-    val ad : Int = abs(a - d)
-    val bc : Int = abs(b - c)
-    val ab : Int = abs(a - b)
-    val dc : Int = abs(d - c)
+fun segmentLength(a: Int , b: Int , c: Int , d: Int): Int {
+    val ad: Int = abs(a - d)
+    val bc: Int = abs(b - c)
+    val ab: Int = abs(a - b)
+    val dc: Int = abs(d - c)
     return when {
-        ((a in c..d && b !in c..d) || (b in c..d && a !in c..d)) -> minOf(ad , bc)
-        ((a in c..d && b in c..d) || (c in a..b && d in a..b)) -> minOf(ab , dc)
+        ((a in c..d && b !in c..d) || (b in c..d && a !in c..d)) -> minOf(ad, bc)
+        ((a in c..d && b in c..d) || (c in a..b && d in a..b)) -> minOf(ab, dc)
         else -> -1
     }
 }
