@@ -76,30 +76,14 @@ fun minBiRoot(a : Double , b : Double , c : Double) : Double {
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
 fun ageDescription(age : Int) : String {
-    var ageru : String = age.toString()
-    when {
-        age in 5..20 -> {
-            ageru = ageru.plus(" лет")
-            return ageru
-        }
-        age in 105..120 -> {
-            ageru = ageru.plus(" лет")
-            return ageru
-        }
-        (age < 5 || age > 20) && (age % 10) == 1 -> {
-            ageru = ageru.plus(" год")
-            return ageru
-        }
-        (age < 5 || age > 20) && ((age % 10) == 2 || (age % 10) == 3 || (age % 10) == 4) -> {
-            ageru = ageru.plus(" года")
-            return ageru
-        }
-        else -> {
-            ageru = ageru.plus(" лет")
-            return ageru
-        }
+    val ageru : String = age.toString()
+    return when {
+        age in 5..20 -> ageru.plus(" лет")
+        age in 105..120 -> ageru.plus(" лет")
+        (age < 5 || age > 20) && (age % 10) == 1 -> ageru.plus(" год")
+        (age < 5 || age > 20) && ((age % 10) == 2 || (age % 10) == 3 || (age % 10) == 4) -> ageru.plus(" года")
+        else -> ageru.plus(" лет")
     }
-
 }
 
 /**
@@ -115,20 +99,12 @@ fun timeForHalfWay(
     t3 : Double , v3 : Double
 ) : Double {
     val s : Double = (t1 * v1 + t2 * v2 + t3 * v3) / 2
-    val t : Double
-    if ((v1 * t1) > s) {
-        t = s / v1
-        return t
+    return when {
+        ((v1 * t1) > s) -> s / v1
+        ((v2 * t2) > (s - v1 * t1)) -> t1 + (s - v1 * t1) / v2
+        ((v3 * t3) > s) -> t1 + t2 + (s - v1 * t1 - v2 * t2) / v3
+        else -> -1.0
     }
-    if ((v2 * t2) > (s - v1 * t1)) {
-        t = t1 + (s - v1 * t1) / v2
-        return t
-    }
-    if ((v3 * t3) > s) {
-        t = t1 + t2 + (s - v1 * t1 - v2 * t2) / v3
-        return t
-    }
-    return -1.0
 }
 
 
@@ -151,7 +127,6 @@ fun whichRookThreatens(
         kingX == rookX1 || kingY == rookY1 -> 1
         kingX == rookX2 || kingY == rookY2 -> 2
         else -> 0
-
     }
 }
 
@@ -187,21 +162,16 @@ fun rookOrBishopThreatens(
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a : Double , b : Double , c : Double) : Int {
-
-
     val c1 : Double = maxOf(a , b , c)
     val a1 : Double = minOf(a , b , c)
     val b1 : Double = a + b + c - a1 - c1
-
     val corner : Double = ((a1 * a1 + b1 * b1 - c1 * c1) / (2 * a1 * b1))
-
-    when {
-        a1 + b1 < c1 -> return -1
-        corner < 0 -> return 2
-        corner == 0.0 -> return 1
-        corner > 0 -> return 0
+    return when {
+        a1 + b1 < c1 -> -1
+        corner < 0 -> 2
+        corner > 0 -> 0
+        else -> 1
     }
-    return 100
 }
 
 /**
@@ -213,20 +183,13 @@ fun triangleKind(a : Double , b : Double , c : Double) : Int {
  * Если пересечения нет, вернуть -1.
  */
 fun segmentLength(a : Int , b : Int , c : Int , d : Int) : Int {
-    if ((b - c) * (a - d) == 0)
-        return 0
-    if ((c - b) > 0 || (a - d) > 0)
-        return -1
-    if ((a > c && b > d) || (a < c && b < d)) {
-        val ad : Int = abs(a - d)
-        val bc : Int = abs(b - c)
-        return minOf(ad , bc)
+    val ad : Int = abs(a - d)
+    val bc : Int = abs(b - c)
+    val ab : Int = abs(a - b)
+    val dc : Int = abs(d - c)
+    return when {
+        ((a in c..d && b !in c..d) || (b in c..d && a !in c..d)) -> minOf(ad , bc)
+        ((a in c..d && b in c..d) || (c in a..b && d in a..b)) -> minOf(ab , dc)
+        else -> -1
     }
-    if (((a - c) * (d - b)) >= 0) {
-        val ab : Int = abs(a - b)
-        val dc : Int = abs(d - c)
-        return minOf(ab , dc)
-
-    }
-    return 1
 }
