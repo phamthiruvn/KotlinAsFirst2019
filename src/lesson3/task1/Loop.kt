@@ -400,11 +400,9 @@ fun hasDifferentDigits(n : Int) : Boolean {
  */
 fun squareSequenceDigit(n : Int) : Int {
     fun findsquare(n : Int) : Int {
-
         var h = 0
         var a = 1
         while (h < n) {
-
             fun number(m : Int) : Int {
                 var k = 0
                 var m1 : Int = m
@@ -413,12 +411,9 @@ fun squareSequenceDigit(n : Int) : Int {
                     m1 /= 10
                 }
                 return k
-
             }
-
             h += number(a * a)
             a += 1
-
         }
         return (a - 1)
     }
@@ -426,7 +421,6 @@ fun squareSequenceDigit(n : Int) : Int {
     fun number(q : Int) : Int {
         var h = 0
         for (k in 1..q) {
-
             fun numberbasic(m : Int) : Int {
                 var k = 0
                 var m1 : Int = m
@@ -435,12 +429,8 @@ fun squareSequenceDigit(n : Int) : Int {
                     m1 /= 10
                 }
                 return k
-
             }
-
-
             h += numberbasic(k * k)
-
         }
         return h
     }
@@ -455,11 +445,9 @@ fun squareSequenceDigit(n : Int) : Int {
             m1 /= 10
         }
         return k
-
     }
 
     val numnumber = numberbasic(innumber)
-
     val l : Double = (numnumber - ((n - behind) - 1)).toDouble()
     return ((innumber % (10.0.pow(l))) / (10.0.pow((l - 1)))).toInt()
 }
@@ -474,13 +462,11 @@ fun squareSequenceDigit(n : Int) : Int {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun fibSequenceDigit(n : Int) : Int {
-
     fun fib(n : Int) : Int {
         var a = 1
         var b = 1
         var c = 1
         val nmax = n
-
         if (n == 1)
             return c
         if (n == 2)
@@ -492,16 +478,13 @@ fun fibSequenceDigit(n : Int) : Int {
                 b = c
                 if (n == nmax) return c
             }
-
         }
         return c
     }
 
     fun findsquare(n : Int) : Int {
-
         var h = 0
         var a = 1
-
         while (h < n) {
             fun number(m : Int) : Int {
                 var k = 0
@@ -511,12 +494,9 @@ fun fibSequenceDigit(n : Int) : Int {
                     m1 /= 10
                 }
                 return k
-
             }
-
             h += number(fib(a))
             a += 1
-
         }
         return (a - 1)
     }
@@ -524,8 +504,6 @@ fun fibSequenceDigit(n : Int) : Int {
     fun number(q : Int) : Int {
         var h = 0
         for (k in 1..q) {
-
-
             fun numberbasic(m : Int) : Int {
                 var k = 0
                 var m1 : Int = m
@@ -534,12 +512,8 @@ fun fibSequenceDigit(n : Int) : Int {
                     m1 /= 10
                 }
                 return k
-
             }
-
-
             h += numberbasic(fib(k))
-
         }
         return h
     }
@@ -554,11 +528,9 @@ fun fibSequenceDigit(n : Int) : Int {
             m1 /= 10
         }
         return k
-
     }
 
     val numnumber = numberbasic(innumber)
-
     val l : Double = (numnumber - ((n - behind) - 1)).toDouble()
     return ((innumber % (10.0.pow(l))) / (10.0.pow((l - 1)))).toInt()
 }
