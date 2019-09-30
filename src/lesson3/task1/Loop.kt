@@ -77,13 +77,8 @@ fun digitNumber(n : Int) : Int {
     if (n2 == 0) numnum = 1
     while (n2 != 0) {
         n2 /= 10
-
         numnum += 1
-
-
     }
-
-
     return numnum
 }
 
@@ -97,7 +92,6 @@ fun fib(n : Int) : Int {
     var a = 1
     var b = 1
     var c = 1
-
     if (n == 1)
         return c
     if (n == 2)
@@ -111,7 +105,6 @@ fun fib(n : Int) : Int {
         }
     }
     return c
-
 }
 
 /**
@@ -124,16 +117,12 @@ fun lcm(m : Int , n : Int) : Int {
     val h : Int = m * n
     val l : Int = max(m , n)
     val v : Int = min(m , n)
-
     for (k in 1..h) {
-
         if ((((l * k) % v) == 0)) {
             return (k * l)
         }
     }
-
     return 1
-
 }
 
 /**
@@ -156,7 +145,6 @@ fun minDivisor(n : Int) : Int {
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
 fun maxDivisor(n : Int) : Int {
-
     for (k : Int in n - 1 downTo 1) {
         if (n % k == 0) {
 
@@ -174,14 +162,11 @@ fun maxDivisor(n : Int) : Int {
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
 fun isCoPrime(m : Int , n : Int) : Boolean {
-
     val h = minOf(m , n)
     val i = false
     for (k : Int in 2..h) {
         if (n % k == 0 && m % k == 0) {
-
             return i
-
         }
     }
     return true

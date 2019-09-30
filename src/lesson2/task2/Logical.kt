@@ -44,15 +44,13 @@ fun daysInMonth(month : Int , year : Int) : Int {
         1 , 3 , 5 , 7 , 8 , 10 , 12 -> return 31
         4 , 6 , 9 , 11 -> return 30
         2 -> {
-            return if (year % 4 != 0 || ((year % 100 == 0 && year % 400 != 0)))
-                28
-            else 29
-
+            return when {
+                (year % 4 != 0 || ((year % 100 == 0 && year % 400 != 0))) -> 28
+                else -> 29
+            }
         }
         else -> 0
     }
-
-
 }
 
 /**
@@ -83,9 +81,5 @@ fun brickPasses(a : Int , b : Int , c : Int , r : Int , s : Int) : Boolean {
     val norb : Int = a + b + c - maxb - minb
     val maxh : Int = maxOf(r , s)
     val minh : Int = minOf(r , s)
-
-
     return (minh >= minb) && (maxh >= norb)
-
-
 }
