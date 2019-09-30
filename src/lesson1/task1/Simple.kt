@@ -34,8 +34,7 @@ fun discriminant(a : Double , b : Double , c : Double) = sqr(b) - 4 * a * c
  *
  * Поиск одного из корней квадратного уравнения
  */
-fun quadraticEquationRoot(a : Double , b : Double , c : Double) =
-    (-b + sqrt(discriminant(a , b , c))) / (2 * a)
+fun quadraticEquationRoot(a : Double , b : Double , c : Double) = (-b + sqrt(discriminant(a , b , c))) / (2 * a)
 
 /**
  * Пример
@@ -55,10 +54,7 @@ fun quadraticRootProduct(a : Double , b : Double , c : Double) : Double {
 fun main() {
     val x1x2 = quadraticRootProduct(1.0 , 13.0 , 42.0)
     println("Root product: $x1x2")
-
-
 }
-
 
 /**
  * Тривиальная
@@ -125,8 +121,6 @@ fun accountInThreeYears(initial : Int1 , percent : Int1) : Double {
     val percentDouble : Double = (percent).toDouble()
     val percent100 : Double = percentDouble / 100
     return initial * ((1 + percent100).pow(3))
-
-
 }
 
 /**
@@ -143,7 +137,6 @@ fun numberRevert(number : Int1) : Int1 {
         an = number1 % 10
         an10 = an10 * 10 + an
         number1 /= 10
-
     }
     return an10
 }
