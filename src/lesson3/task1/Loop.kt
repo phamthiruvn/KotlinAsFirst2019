@@ -3,8 +3,7 @@
 package lesson3.task1
 
 
-import java.lang.Math.max
-import java.lang.Math.min
+import java.lang.Math.*
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -462,6 +461,7 @@ fun squareSequenceDigit(n : Int) : Int {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun fibSequenceDigit(n : Int) : Int {
+
     fun fib(n : Int) : Int {
         var a = 1
         var b = 1
@@ -472,7 +472,7 @@ fun fibSequenceDigit(n : Int) : Int {
         if (n == 2)
             return c
         if (n > 2) {
-            for (i in 3..n) {
+            for (n in 3..n) {
                 c = a + b
                 a = b
                 b = c
@@ -491,11 +491,11 @@ fun fibSequenceDigit(n : Int) : Int {
                 var m1 : Int = m
                 while (m1 != 0) {
                     k += 1
-                    m1 /= 10
+                    m1 = m1 / 10
                 }
                 return k
             }
-            h += number(fib(a))
+            h = h + number(fib(a))
             a += 1
         }
         return (a - 1)
@@ -504,6 +504,8 @@ fun fibSequenceDigit(n : Int) : Int {
     fun number(q : Int) : Int {
         var h = 0
         for (k in 1..q) {
+
+
             fun numberbasic(m : Int) : Int {
                 var k = 0
                 var m1 : Int = m
@@ -512,8 +514,12 @@ fun fibSequenceDigit(n : Int) : Int {
                     m1 /= 10
                 }
                 return k
+
             }
+
+
             h += numberbasic(fib(k))
+
         }
         return h
     }
@@ -528,9 +534,11 @@ fun fibSequenceDigit(n : Int) : Int {
             m1 /= 10
         }
         return k
+
     }
 
     val numnumber = numberbasic(innumber)
     val l : Double = (numnumber - ((n - behind) - 1)).toDouble()
-    return ((innumber % (10.0.pow(l))) / (10.0.pow((l - 1)))).toInt()
+    return ((innumber % (10.0.pow(l))) / (pow(10.0 , (l - 1)))).toInt()
 }
+
