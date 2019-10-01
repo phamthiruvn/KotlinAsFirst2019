@@ -337,7 +337,6 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun squareSequenceDigit(n: Int): Int {
-
     fun numberbasic(m: Int): Int {
         var k = 0
         var m1: Int = m
@@ -347,22 +346,15 @@ fun squareSequenceDigit(n: Int): Int {
         }
         return k
     }
-
-    fun sum(q: Int): Int {
-        var h = 0
-        for (k in 1..q) {
-            h += numberbasic(k * k)
-        }
-        return h
-    }
-
+    var h = 0
     var k = 0
-    while (sum(k) <= n - 1) {
+    while (h < n) {
         k += 1
+        h += numberbasic(k * k)
     }
     var result = k * k
     var number = k * k
-    var m = sum(k) - n
+    var m = h - n
     while (m != -1) {
         result = number % 10
         number /= 10
@@ -384,7 +376,7 @@ fun fibSequenceDigit(n: Int): Int {
 
     fun numberbasic(m: Int): Int {
         var k = 0
-        var m1: Int = m
+        var m1 = m
         while (m1 != 0) {
             k += 1
             m1 /= 10
@@ -392,21 +384,15 @@ fun fibSequenceDigit(n: Int): Int {
         return k
     }
 
-    fun sum(q: Int): Int {
-        var h = 0
-        for (k in 1..q) {
-            h += numberbasic(fib(k))
-        }
-        return h
-    }
-
+    var h = 0
     var k = 0
-    while (sum(k) <= n - 1) {
+    while (h < n) {
         k += 1
+        h += numberbasic(fib(k))
     }
     var result = fib(k)
     var number = fib(k)
-    var m = sum(k) - n
+    var m = h - n
     while (m != -1) {
         result = number % 10
         number /= 10
