@@ -94,25 +94,23 @@ fun ageDescription(age: Int): String {
  * Определить, за какое время он одолел первую половину пути?
  */
 fun timeForHalfWay(
-    t1: Double, v1: Double ,
-    t2: Double, v2: Double ,
+    t1: Double, v1: Double,
+    t2: Double, v2: Double,
     t3: Double, v3: Double
 ): Double {
     val s: Double = (t1 * v1 + t2 * v2 + t3 * v3) / 2
-    val t: Double
-    if ((v1 * t1) > s) {
-        t = s / v1
-        return t
+    return when (s) {
+        in 0.0..v1 * t1 -> {
+            s / v1
+        }
+        in v1 * t1..(v2 * t2 + v1 * t1) -> {
+            t1 + (s - v1 * t1) / v2
+        }
+        in (v2 * t2 + v1 * t1)..2 * s -> {
+            t1 + t2 + (s - v1 * t1 - v2 * t2) / v3
+        }
+        else -> 0.0
     }
-    if ((v2 * t2) > (s - v1 * t1)) {
-        t = t1 + (s - v1 * t1) / v2
-        return t
-    }
-    if ((v3 * t3) > s) {
-        t = t1 + t2 + (s - v1 * t1 - v2 * t2) / v3
-        return t
-    }
-    return -1.0
 }
 
 

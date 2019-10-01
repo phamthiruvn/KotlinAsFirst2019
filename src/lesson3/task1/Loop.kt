@@ -1,4 +1,4 @@
-@file:Suppress("UNUSED_PARAMETER" , "NAME_SHADOWING")
+@file:Suppress("UNUSED_PARAMETER", "NAME_SHADOWING")
 
 package lesson3.task1
 
@@ -346,6 +346,7 @@ fun squareSequenceDigit(n: Int): Int {
         }
         return k
     }
+
     var h = 0
     var k = 0
     while (h < n) {
