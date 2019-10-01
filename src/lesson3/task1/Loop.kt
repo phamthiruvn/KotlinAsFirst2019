@@ -182,10 +182,7 @@ fun squareBetweenExists(m: Int, n: Int): Boolean {
     val m1: Int = ((sqrt(m.toDouble())).toInt())
     val n1: Int = ((sqrt(n.toDouble())).toInt())
     return if (m == m1 * m1 || n == n1 * n1) true
-    else {
-        (m1 != n1)
-    }
-
+    else (m1 != n1)
 }
 
 /**
@@ -219,7 +216,6 @@ fun collatzSteps(x: Int): Int {
             count += 1
             if (xnext == 1) break
         }
-
     }
     return count
 }
@@ -234,43 +230,17 @@ fun collatzSteps(x: Int): Int {
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
 fun sin(x: Double, eps: Double): Double {
-    var num = 1
-    var all = 0.0
+    var sinx = 0.0
     val x1: Double = (x - ((x / (2 * kotlin.math.PI)).toInt()) * 2 * kotlin.math.PI)
-
-    fun sinx(x: Double, num: Int): Double {
-        fun first(a: Int): Int {
-            val a1: Double = a.toDouble()
-            return ((-1.0).pow(a1 - 1.0)).toInt()
-        }
-
-        fun facto(b: Int): Double {
-            var gt = 1.0
-            for (i: Int in 1 until 2 * b) gt *= i
-
-            return gt
-        }
-
-
-        fun hat(c: Double, d: Double): Double {
-            val k: Double = 2 * d - 1
-            return c.pow(k)
-        }
-
-        return first(num) * hat(c = x, d = num.toDouble()) / facto(num)
-
+    var phantu = 1.0
+    var k = 1
+    while (abs(phantu) >= eps) {
+        phantu = (-1.0).pow((k - 1).toDouble()) * x1.pow((2 * k - 1).toDouble()) / factorial(2 * k - 1)
+        println(phantu)
+        sinx += phantu
+        k += 1
     }
-    while (kotlin.math.abs(sinx(x1, num)) > (eps)) {
-
-        all += sinx(x1, num)
-        if (kotlin.math.abs(sinx(x1, num)) < eps) {
-            return all
-
-        }
-        num += 1
-    }
-    return all
-
+    return sinx
 }
 
 
@@ -284,44 +254,17 @@ fun sin(x: Double, eps: Double): Double {
  * Использовать kotlin.math.cos и другие стандартные реализации функции косинуса в этой задаче запрещается.
  */
 fun cos(x: Double, eps: Double): Double {
-    var num = 1
-    var all = 0.0
+    var cosx = 0.0
     val x1: Double = (x - ((x / (2 * kotlin.math.PI)).toInt()) * 2 * kotlin.math.PI)
-
-    fun cosx(x: Double, num: Int): Double {
-        fun first(a: Int): Int {
-            val a1: Double = a.toDouble()
-            return ((-1.0).pow(a1 - 1.0)).toInt()
-        }
-
-        fun facto(b: Int): Double {
-            var gt = 1.0
-            return if (b == 1) gt
-            else {
-                for (i: Int in 1..(2 * b - 2))
-                    gt *= i
-                gt
-            }
-        }
-
-        fun hat(c: Double, d: Double): Double {
-            val k: Double = 2 * d - 2
-            return c.pow(k)
-        }
-
-        return first(num) * hat(c = x, d = num.toDouble()) / facto(num)
+    var phantu = 1.0
+    var k = 0
+    while (abs(phantu) >= eps) {
+        phantu = (-1.0).pow((k).toDouble()) * x1.pow((2 * k).toDouble()) / factorial(2 * k)
+        println(phantu)
+        cosx += phantu
+        k += 1
     }
-    while (kotlin.math.abs(cosx(x1, num)) > (eps)) {
-
-        all += cosx(x1, num)
-        if (kotlin.math.abs(cosx(x1, num)) < eps) {
-            return all
-        }
-        num += 1
-    }
-    return all
-
-
+    return cosx
 }
 
 /**
@@ -395,44 +338,7 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun squareSequenceDigit(n: Int): Int {
-    fun findsquare(n: Int): Int {
-        var h = 0
-        var a = 1
-        while (h < n) {
-            fun number(m: Int): Int {
-                var k = 0
-                var m1: Int = m
-                while (m1 != 0) {
-                    k += 1
-                    m1 /= 10
-                }
-                return k
-            }
-            h += number(a * a)
-            a += 1
-        }
-        return (a - 1)
-    }
 
-    fun number(q: Int): Int {
-        var h = 0
-        for (k in 1..q) {
-            fun numberbasic(m: Int): Int {
-                var k = 0
-                var m1: Int = m
-                while (m1 != 0) {
-                    k += 1
-                    m1 /= 10
-                }
-                return k
-            }
-            h += numberbasic(k * k)
-        }
-        return h
-    }
-
-    val innumber: Int = findsquare(n) * findsquare(n)
-    val behind = number(findsquare(n) - 1)
     fun numberbasic(m: Int): Int {
         var k = 0
         var m1: Int = m
@@ -443,9 +349,27 @@ fun squareSequenceDigit(n: Int): Int {
         return k
     }
 
-    val numnumber = numberbasic(innumber)
-    val l: Double = (numnumber - ((n - behind) - 1)).toDouble()
-    return ((innumber % (10.0.pow(l))) / (10.0.pow((l - 1)))).toInt()
+    fun sum(q: Int): Int {
+        var h = 0
+        for (k in 1..q) {
+            h += numberbasic(k * k)
+        }
+        return h
+    }
+
+    var k = 0
+    while (sum(k) <= n - 1) {
+        k += 1
+    }
+    var result = k * k
+    var number = k * k
+    var m = sum(k) - n
+    while (m != -1) {
+        result = number % 10
+        number /= 10
+        m -= 1
+    }
+    return result
 }
 
 /**
@@ -459,70 +383,6 @@ fun squareSequenceDigit(n: Int): Int {
  */
 fun fibSequenceDigit(n: Int): Int {
 
-    fun fib(n: Int): Int {
-        var a = 1
-        var b = 1
-        var c = 1
-        val nmax = n
-        if (n == 1)
-            return c
-        if (n == 2)
-            return c
-        if (n > 2) {
-            for (n in 3..n) {
-                c = a + b
-                a = b
-                b = c
-                if (n == nmax) return c
-            }
-        }
-        return c
-    }
-
-    fun findsquare(n: Int): Int {
-        var h = 0
-        var a = 1
-        while (h < n) {
-            fun number(m: Int): Int {
-                var k = 0
-                var m1: Int = m
-                while (m1 != 0) {
-                    k += 1
-                    m1 = m1 / 10
-                }
-                return k
-            }
-            h = h + number(fib(a))
-            a += 1
-        }
-        return (a - 1)
-    }
-
-    fun number(q: Int): Int {
-        var h = 0
-        for (k in 1..q) {
-
-
-            fun numberbasic(m: Int): Int {
-                var k = 0
-                var m1: Int = m
-                while (m1 != 0) {
-                    k += 1
-                    m1 /= 10
-                }
-                return k
-
-            }
-
-
-            h += numberbasic(fib(k))
-
-        }
-        return h
-    }
-
-    val innumber: Int = fib(findsquare(n))
-    val behind = number(findsquare(n) - 1)
     fun numberbasic(m: Int): Int {
         var k = 0
         var m1: Int = m
@@ -531,11 +391,28 @@ fun fibSequenceDigit(n: Int): Int {
             m1 /= 10
         }
         return k
-
     }
 
-    val numnumber = numberbasic(innumber)
-    val l: Double = (numnumber - ((n - behind) - 1)).toDouble()
-    return ((innumber % (10.0.pow(l))) / (pow(10.0 , (l - 1)))).toInt()
+    fun sum(q: Int): Int {
+        var h = 0
+        for (k in 1..q) {
+            h += numberbasic(fib(k))
+        }
+        return h
+    }
+
+    var k = 0
+    while (sum(k) <= n - 1) {
+        k += 1
+    }
+    var result = fib(k)
+    var number = fib(k)
+    var m = sum(k) - n
+    while (m != -1) {
+        result = number % 10
+        number /= 10
+        m -= 1
+    }
+    return result
 }
 
