@@ -10,7 +10,7 @@ import kotlin.math.sqrt
  *
  * Лежит ли точка (x, y) внутри окружности с центром в (x0, y0) и радиусом r?
  */
-fun pointInsideCircle(x :Double, y: Double, x0: Double, y0: Double, r: Double) =
+fun pointInsideCircle(x: Double, y: Double, x0: Double, y0: Double, r: Double) =
     sqr(x - x0) + sqr(y - y0) <= sqr(r)
 
 /**
@@ -29,7 +29,7 @@ fun isNumberHappy(number: Int): Boolean =
  * Определить, угрожают ли они друг другу. Вернуть true, если угрожают.
  * Считать, что ферзи не могут загораживать друг друга.
  */
-fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int) : Boolean =
+fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean =
     x1 == x2 || y1 == y2 || ((x1 + y1) == (x2 + y2)) || ((x1 - y1) == (x2 - y2))
 
 
@@ -76,7 +76,7 @@ fun circleInside(
  * Вернуть true, если кирпич пройдёт
  */
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
-    val maxb: Int = maxOf(a,b , c)
+    val maxb: Int = maxOf(a, b, c)
     val minb: Int = minOf(a, b, c)
     val norb: Int = a + b + c - maxb - minb
     val maxh: Int = maxOf(r, s)

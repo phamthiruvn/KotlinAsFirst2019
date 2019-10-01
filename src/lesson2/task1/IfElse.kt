@@ -50,7 +50,7 @@ fun gradeNotation(grade: Int): String = when (grade) {
  *
  * Найти наименьший корень биквадратного уравнения ax^4 + bx^2 + c = 0
  */
-fun minBiRoot(a: Double, b: Double, c: Double) : Double {
+fun minBiRoot(a: Double, b: Double, c: Double): Double {
     // 1: в главной ветке if выполняется НЕСКОЛЬКО операторов
     if (a == 0.0) {
         if (b == 0.0) return Double.NaN // ... и ничего больше не делать
@@ -76,7 +76,7 @@ fun minBiRoot(a: Double, b: Double, c: Double) : Double {
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
 fun ageDescription(age: Int): String {
-    val a: String = age.toString()
+    val a = age.toString()
     return when {
         age in 5..20 -> a.plus(" лет")
         age in 105..120 -> a.plus(" лет")
@@ -99,7 +99,7 @@ fun timeForHalfWay(
     t3: Double, v3: Double
 ): Double {
     val s: Double = (t1 * v1 + t2 * v2 + t3 * v3) / 2
-    val t : Double
+    val t: Double
     if ((v1 * t1) > s) {
         t = s / v1
         return t
@@ -169,7 +169,7 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double , b: Double , c: Double): Int {
+fun triangleKind(a: Double, b: Double, c: Double): Int {
     val c1: Double = maxOf(a, b, c)
     val a1: Double = minOf(a, b, c)
     val b1: Double = a + b + c - a1 - c1
@@ -190,7 +190,7 @@ fun triangleKind(a: Double , b: Double , c: Double): Int {
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int , b: Int , c: Int , d: Int): Int {
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
     val ad: Int = abs(a - d)
     val bc: Int = abs(b - c)
     val ab: Int = abs(a - b)

@@ -27,7 +27,7 @@ fun sqr(x: Double) = x * x
  *
  * Вычисление дискриминанта квадратного уравнения
  */
-fun discriminant(a: Double , b: Double , c: Double) = sqr(b) - 4 * a * c
+fun discriminant(a: Double, b: Double, c: Double) = sqr(b) - 4 * a * c
 
 /**
  * Пример
@@ -89,7 +89,7 @@ fun angleInRadian(deg: Int1, min: Int1, sec: Int1): Double =
  * Найти длину отрезка, соединяющего точки на плоскости с координатами (x1, y1) и (x2, y2).
  * Например, расстояние между (3, 0) и (0, 4) равно 5
  */
-fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double) :Double =
+fun trackLength(x1: Double, y1: Double, x2: Double, y2: Double): Double =
     (sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)))
 
 /**
@@ -117,7 +117,7 @@ fun travelMinutes(hoursDepart: Int1, minutesDepart: Int1, hoursArrive: Int1, min
  * Сколько денег будет на счету через 3 года (с учётом сложных процентов)?
  * Например, 100 рублей под 10% годовых превратятся в 133.1 рубля
  */
-fun accountInThreeYears(initial: Int1, percent: Int1) : Double {
+fun accountInThreeYears(initial: Int1, percent: Int1): Double {
     val percentDouble: Double = (percent).toDouble()
     val percent100: Double = percentDouble / 100
     return initial * ((1 + percent100).pow(3))
@@ -130,7 +130,7 @@ fun accountInThreeYears(initial: Int1, percent: Int1) : Double {
  * Необходимо вывести число, полученное из заданного перестановкой цифр в обратном порядке (например, 874).
  */
 fun numberRevert(number: Int1): Int1 {
-    var an :Int1
+    var an: Int1
     var number1 = number
     var an10 = 0
     while (number1 > 0) {

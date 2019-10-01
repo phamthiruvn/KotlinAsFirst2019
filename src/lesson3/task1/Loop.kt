@@ -204,7 +204,6 @@ fun squareBetweenExists(m: Int, n: Int): Boolean {
 fun collatzSteps(x: Int): Int {
     var xnext: Int = x
     var count = 0
-
     while (xnext != 1) {
         if ((xnext % 2) == 0) {
             xnext /= 2
