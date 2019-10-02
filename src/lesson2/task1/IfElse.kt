@@ -75,16 +75,14 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * Мой возраст. Для заданного 0 < n < 200, рассматриваемого как возраст человека,
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
-fun ageDescription(age: Int): String {
-    val a = age.toString()
-    return when {
-        age in 5..20 -> a.plus(" лет")
-        age in 105..120 -> a.plus(" лет")
-        (age < 5 || age > 20) && (age % 10) == 1 -> a.plus(" год")
-        (age < 5 || age > 20) && ((age % 10) == 2 || (age % 10) == 3 || (age % 10) == 4) -> a.plus(" года")
-        else -> a.plus(" лет")
-    }
+fun ageDescription(age: Int) = when {
+    age in 5..20 -> "$age лет"
+    age in 105..120 -> "$age лет"
+    (age < 5 || age > 20) && (age % 10) == 1 -> "$age год"
+    (age < 5 || age > 20) && ((age % 10) == 2 || (age % 10) == 3 || (age % 10) == 4) -> "$age года"
+    else -> "$age лет"
 }
+
 
 /**
  * Простая
@@ -100,15 +98,9 @@ fun timeForHalfWay(
 ): Double {
     val s: Double = (t1 * v1 + t2 * v2 + t3 * v3) / 2
     return when (s) {
-        in 0.0..v1 * t1 -> {
-            s / v1
-        }
-        in v1 * t1..(v2 * t2 + v1 * t1) -> {
-            t1 + (s - v1 * t1) / v2
-        }
-        in (v2 * t2 + v1 * t1)..2 * s -> {
-            t1 + t2 + (s - v1 * t1 - v2 * t2) / v3
-        }
+        in 0.0..v1 * t1 -> s / v1
+        in v1 * t1..(v2 * t2 + v1 * t1) -> t1 + (s - v1 * t1) / v2
+        in (v2 * t2 + v1 * t1)..2 * s -> t1 + t2 + (s - v1 * t1 - v2 * t2) / v3
         else -> 0.0
     }
 }
@@ -127,14 +119,13 @@ fun whichRookThreatens(
     kingX: Int, kingY: Int,
     rookX1: Int, rookY1: Int,
     rookX2: Int, rookY2: Int
-): Int {
-    return when {
-        (kingX == rookX1 || kingY == rookY1) && (kingX == rookX2 || kingY == rookY2) -> 3
-        kingX == rookX1 || kingY == rookY1 -> 1
-        kingX == rookX2 || kingY == rookY2 -> 2
-        else -> 0
-    }
+) = when {
+    (kingX == rookX1 || kingY == rookY1) && (kingX == rookX2 || kingY == rookY2) -> 3
+    kingX == rookX1 || kingY == rookY1 -> 1
+    kingX == rookX2 || kingY == rookY2 -> 2
+    else -> 0
 }
+
 
 /**
  * Простая
@@ -150,14 +141,13 @@ fun rookOrBishopThreatens(
     kingX: Int, kingY: Int,
     rookX: Int, rookY: Int,
     bishopX: Int, bishopY: Int
-): Int {
-    return when {
-        ((kingX == rookX || kingY == rookY) && ((kingX + kingY) == (bishopX + bishopY) || (kingX - kingY) == (bishopX - bishopY))) -> 3
-        (kingX == rookX || kingY == rookY) -> 1
-        ((kingX + kingY) == (bishopX + bishopY) || (kingX - kingY) == (bishopX - bishopY)) -> 2
-        else -> 0
-    }
+) = when {
+    ((kingX == rookX || kingY == rookY) && ((kingX + kingY) == (bishopX + bishopY) || (kingX - kingY) == (bishopX - bishopY))) -> 3
+    (kingX == rookX || kingY == rookY) -> 1
+    ((kingX + kingY) == (bishopX + bishopY) || (kingX - kingY) == (bishopX - bishopY)) -> 2
+    else -> 0
 }
+
 
 /**
  * Простая
@@ -168,10 +158,10 @@ fun rookOrBishopThreatens(
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-    val c1: Double = maxOf(a, b, c)
-    val a1: Double = minOf(a, b, c)
-    val b1: Double = a + b + c - a1 - c1
-    val corner: Double = ((a1 * a1 + b1 * b1 - c1 * c1) / (2 * a1 * b1))
+    val c1 = maxOf(a, b, c)
+    val a1 = minOf(a, b, c)
+    val b1 = a + b + c - a1 - c1
+    val corner = ((a1 * a1 + b1 * b1 - c1 * c1) / (2 * a1 * b1))
     return when {
         a1 + b1 < c1 -> -1
         corner < 0 -> 2
@@ -189,10 +179,10 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Если пересечения нет, вернуть -1.
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int {
-    val ad: Int = abs(a - d)
-    val bc: Int = abs(b - c)
-    val ab: Int = abs(a - b)
-    val dc: Int = abs(d - c)
+    val ad = abs(a - d)
+    val bc = abs(b - c)
+    val ab = abs(a - b)
+    val dc = abs(d - c)
     return when {
         ((a in c..d && b !in c..d) || (b in c..d && a !in c..d)) -> minOf(ad, bc)
         ((a in c..d && b in c..d) || (c in a..b && d in a..b)) -> minOf(ab, dc)

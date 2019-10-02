@@ -72,7 +72,7 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  */
 fun digitNumber(n: Int): Int {
     var numnum = 0
-    var n2: Int = n
+    var n2 = n
     if (n2 == 0) numnum = 1
     while (n2 != 0) {
         n2 /= 10
@@ -91,9 +91,7 @@ fun fib(n: Int): Int {
     var a = 1
     var b = 1
     var c = 1
-    if (n == 1)
-        return c
-    if (n == 2)
+    if (n < 3)
         return c
     if (n > 2) {
         for (i in 3..n) {
@@ -113,9 +111,9 @@ fun fib(n: Int): Int {
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    val h: Int = m * n
-    val l: Int = max(m, n)
-    val v: Int = min(m, n)
+    val h = m * n
+    val l = max(m, n)
+    val v = min(m, n)
     for (k in 1..h) {
         if ((((l * k) % v) == 0)) {
             return (k * l)
@@ -143,15 +141,7 @@ fun minDivisor(n: Int): Int {
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int {
-    for (k: Int in n - 1 downTo 1) {
-        if (n % k == 0) {
-
-            return k
-        }
-    }
-    return 0
-}
+fun maxDivisor(n: Int) = n / minDivisor(n)
 
 /**
  * Простая
@@ -179,8 +169,8 @@ fun isCoPrime(m: Int, n: Int): Boolean {
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
 fun squareBetweenExists(m: Int, n: Int): Boolean {
-    val m1: Int = ((sqrt(m.toDouble())).toInt())
-    val n1: Int = ((sqrt(n.toDouble())).toInt())
+    val m1 = ((sqrt(m.toDouble())).toInt())
+    val n1 = ((sqrt(n.toDouble())).toInt())
     return if (m == m1 * m1 || n == n1 * n1) true
     else (m1 != n1)
 }
@@ -202,18 +192,15 @@ fun squareBetweenExists(m: Int, n: Int): Boolean {
  * этого для какого-либо начального X > 0.
  */
 fun collatzSteps(x: Int): Int {
-    var xnext: Int = x
+    var xnext = x
     var count = 0
     while (xnext != 1) {
         if ((xnext % 2) == 0) {
             xnext /= 2
             count += 1
-            if (xnext == 1) break
-        }
-        if ((xnext % 2) != 0) {
+        } else {
             xnext = 3 * xnext + 1
             count += 1
-            if (xnext == 1) break
         }
     }
     return count
@@ -230,7 +217,7 @@ fun collatzSteps(x: Int): Int {
  */
 fun sin(x: Double, eps: Double): Double {
     var sinx = 0.0
-    val x1: Double = (x - ((x / (2 * kotlin.math.PI)).toInt()) * 2 * kotlin.math.PI)
+    val x1 = x % (2 * PI)
     var phantu = 1.0
     var k = 1
     while (abs(phantu) >= eps) {
@@ -254,7 +241,7 @@ fun sin(x: Double, eps: Double): Double {
  */
 fun cos(x: Double, eps: Double): Double {
     var cosx = 0.0
-    val x1: Double = (x - ((x / (2 * kotlin.math.PI)).toInt()) * 2 * kotlin.math.PI)
+    val x1 = x % (2 * PI)
     var phantu = 1.0
     var k = 0
     while (abs(phantu) >= eps) {
@@ -317,7 +304,7 @@ fun isPalindrome(n: Int): Boolean {
 fun hasDifferentDigits(n: Int): Boolean {
     var a = 0
     var b = 0
-    var n1: Int = n
+    var n1 = n
     while (a == b) {
         a = n % 10
         n1 /= 10
@@ -339,7 +326,7 @@ fun hasDifferentDigits(n: Int): Boolean {
 fun squareSequenceDigit(n: Int): Int {
     fun numberbasic(m: Int): Int {
         var k = 0
-        var m1: Int = m
+        var m1 = m
         while (m1 != 0) {
             k += 1
             m1 /= 10
