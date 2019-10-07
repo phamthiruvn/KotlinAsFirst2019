@@ -93,7 +93,7 @@ fun fib(n: Int): Int {
     var c = 1
     if (n < 3)
         return c
-    if (n > 2) {
+    if (n >= 3) {
         for (i in 3..n) {
             c = a + b
             a = b
@@ -304,6 +304,16 @@ fun hasDifferentDigits(n: Int): Boolean {
     return true
 }
 
+fun numberbasic(m: Int): Int {
+    var k = 0
+    var m1 = m
+    while (m1 != 0) {
+        k += 1
+        m1 /= 10
+    }
+    return k
+}
+
 /**
  * Сложная
  *
@@ -314,15 +324,6 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun squareSequenceDigit(n: Int): Int {
-    fun numberbasic(m: Int): Int {
-        var k = 0
-        var m1 = m
-        while (m1 != 0) {
-            k += 1
-            m1 /= 10
-        }
-        return k
-    }
 
     var h = 0
     var k = 0
@@ -351,16 +352,6 @@ fun squareSequenceDigit(n: Int): Int {
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun fibSequenceDigit(n: Int): Int {
-
-    fun numberbasic(m: Int): Int {
-        var k = 0
-        var m1 = m
-        while (m1 != 0) {
-            k += 1
-            m1 /= 10
-        }
-        return k
-    }
 
     var h = 0
     var k = 0
