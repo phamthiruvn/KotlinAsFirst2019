@@ -304,6 +304,9 @@ fun hasDifferentDigits(n: Int): Boolean {
     return true
 }
 
+/**
+ * Рассчитать количество цифр заданного числа
+ */
 fun numberbasic(m: Int): Int {
     var k = 0
     var m1 = m
