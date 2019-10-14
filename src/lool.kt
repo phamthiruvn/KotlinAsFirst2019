@@ -1,17 +1,17 @@
+import kotlin.math.nextTowards
+import kotlin.math.nextUp
 import kotlin.math.pow
 
 fun main() {
     fun russian(n : Int) : String {
-        fun count(n : Int) : Int {
-            var n1 = n
-            var m = 0
-            while (n1 != 0) {
-                n1 /= 10
-                m += 1
-            }
-            return m
+        var result = mutableListOf<String>()
+        var n1 = n
+        var dem = 0
+        if (n == 0) dem = 1
+        while (n1 != 0) {
+            n1 /= 10
+            dem++
         }
-
         val numbers1 =
             listOf("нуль" , "один" , "два" , "три" , "четыре" , "пять" , "шесть" , "семь" , "восемь" , "девять")
         val numbers1p5 = listOf(
@@ -47,67 +47,51 @@ fun main() {
             "восемьсот" ,
             "девятьсот"
         )
+        var a : Int
+        var n2 = n
+        var k = 1.0
+        while (k <= dem) {
+            a = (n2 % (10.0.pow(k))).toInt()
+            n2 -= a
+            println(a)
+            k++
+            when {
+                a == 0 -> result.add(".")
+                a in 1..9 -> result.add(numbers1[a % 10])
+                a in 10..19 -> {
+                    result[0] = "."
+                    result.add(numbers1p5[a % 10])
+                }
+                a in 20..99 -> result.add(numbers2[a / 10 - 2])
+                a in 100..999 -> result.add(numbers3[a / 100 - 1])
+                a / 1000 == 1 -> result.add("одна тысяча")
+                a / 1000 == 2 -> result.add("две тысячи")
+                a / 1000 in 3..9 -> result.add(numbers1[(a / 1000) % 10] + " тысяч")
+                a / 10000 == 1 -> {
+                    result[3] = "."
+                    result.add(numbers1p5[(n / 1000) % 100] + " тысяч")
+                }
+                a / 1000 in 20..99 -> result.add(numbers2[a / 10000 - 2])
+                a / 1000 in 100..999 -> result.add(numbers3[a / 100000 - 1])
+                else -> result.add("")
 
-        fun sourse(n : Int) : String {
-
-            return when (n) {
-                in 1..9 -> numbers1[n]
-                in 10..19 -> numbers1p5[n % 10]
-                in 20..99 -> numbers2[n / 10 - 2]
-                in 100..999 -> numbers3[n / 100 - 1]
-
-                else -> ""
             }
         }
+        println(result)
+        return result.filter { it != "." }.reversed().joinToString(separator = " ")
 
-        fun three(n : Int) : String {
-            var a : Int
-            var n1 = n
-            var k = 1
-            var result = ""
-            while (k <= count(n)) {
-                if (n1 % 100 in 10..19) {
-                    k = 2
-                    a = (n1 % (10.0.pow(k.toDouble()))).toInt()
-                    n1 -= a
-                    k += 1
-                    if (a == 0) continue
-                    result = sourse(a) + " " + result
-                } else {
-                    a = (n1 % (10.0.pow(k.toDouble()))).toInt()
-                    n1 -= a
-                    k += 1
-                    if (a == 0) continue
-                    result = sourse(a) + " " + result
-                }
-            }
-            return result.trim()
-        }
-
-        fun threenext(n : Int) : String {
-
-            val alone : String
-            val n3 = n / 1000
-            if (n3 == 0) return ""
-            return when {
-                n3 % 10 == 1 && (n3 % 100 != 11) -> {
-                    alone = ((three(n3) + " тысяча").trim())
-                    "$alone "
-                }
-                n3 % 10 in 2..4 && (n3 % 100 !in 12..14) -> {
-                    alone = (three(n3) + " тысячи").trim()
-                    "$alone "
-                }
-                n3 % 10 in 5..9 || n3 % 100 in 11..14 || n3 % 10 == 0 -> {
-                    alone = (three(n3) + " тысяч").trim()
-                    "$alone "
-                }
-                else -> ""
-            }
-        }
-
-        return (threenext(n) + three(n)).trimEnd()
     }
-    println((russian(332413)))
 
+    fun polynom(p : List<Int> , x : Int) = p
+
+    fun times(a : List<Int> , b : List<Int>) = (a.map { it * b[a.indexOf(it)] }).sum()
+
+    fun accumulate(list : MutableList<Int>) : List<Int> {
+        val newlist = list.map { list.subList(0 , list.indexOf(it) + 1).sum() }
+        for (num in 0 until list.size) {
+            list[num] = newlist[num]
+        }
+        return list
+    }
+    println(polynom(listOf(-1000 , -100) , -20))
 }

@@ -157,7 +157,7 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.
  */
-fun times(a: List<Int>, b: List<Int>) = (a.map { it * b[a.indexOf(it)] }).sum()
+fun times(a: List<Int>, b: List<Int>)= (a.map { it * b[a.indexOf(it)] }).sum()
 
 /**
  * Средняя
@@ -167,7 +167,7 @@ fun times(a: List<Int>, b: List<Int>) = (a.map { it * b[a.indexOf(it)] }).sum()
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0 при любом x.
  */
-fun polynom(p: List<Int>, x: Int) = p.map{ it * x.toDouble().pow(p.indexOf(it)) }.sum().toInt()
+fun polynom(p: List<Int>, x: Int) = (p.map{ it * x.toDouble().pow(p.indexOf(it)) }).sum().toInt()
 
 /**
  * Средняя
@@ -240,6 +240,7 @@ fun convert(n: Int, base: Int): List<Int> {
         n1 -= k * l
         result.add(k)
     }
+    if (n == 0) result.add(0)
     return result
 }
 
@@ -427,7 +428,8 @@ fun russian(n : Int) : String {
             a / 1000 == 0 -> result[3] = "тысяч"
             a / 1000 == 1 -> result[3] = "одна тысяча"
             a / 1000 == 2 -> result[3] = "две тысячи"
-            a / 1000 in 3..9 -> result[3] = numbers1[(a / 1000) % 10] + " тысяч"
+            a / 1000 in 3..4 -> result[3] = numbers1[(a / 1000) % 10] + " тысячи"
+            a / 1000 in 5..9 -> result[3] = numbers1[(a / 1000) % 10] + " тысяч"
             a / 10000 == 1 -> result[3] = numbers1p5[(n / 1000) % 10] + " тысяч"
             a / 1000 in 20..99 -> {
                 result[4] = numbers2[a / 10000 - 2]
