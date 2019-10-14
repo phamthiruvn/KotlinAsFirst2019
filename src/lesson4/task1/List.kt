@@ -127,7 +127,7 @@ fun abs(v: List<Double>) = sqrt((v.map{ it * it }).sum())
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
 fun mean(list: List<Double>): Double {
-
+    
     return if (list.isEmpty()) 0.0
     else {
         list.sum() / list.size
@@ -195,10 +195,8 @@ fun accumulate(list: MutableList<Int>): List<Int>{
  * Множители в списке должны располагаться по возрастанию.
  */
 fun factorize(n: Int): List<Int> {
-
     val result = mutableListOf<Int>()
     var n1 = n
-
     if (n == 2) result.add(2)
     return if (isPrime(n) && n > 2) {
         result.add(n)
@@ -269,7 +267,7 @@ fun convertToString(n: Int, base: Int): String {
         }
         result += "$k"
     }
-    if (n == 0) result = "0"
+    if(n == 0) result = "0"
     return result
 }
 
@@ -327,7 +325,7 @@ fun decimalFromString(str: String, base: Int): Int {
 fun roman(n: Int): String {
     var n1 = n
     var k = 0
-    var h : Int
+    var h: Int
     var result = ""
     while (n1 != 0) {
         h = n1 % 10
@@ -369,7 +367,7 @@ fun roman(n: Int): String {
  */
 
 
-fun russian(n : Int) : String {
+fun russian(n: Int) : String {
     var result = mutableListOf<String>(".", ".", ".", ".", ".", ".")
     var n1 = n
     var dem = 0
@@ -437,11 +435,11 @@ fun russian(n : Int) : String {
             a / 1000 in 100..999 -> {
                 result[5] = numbers3[a / 100000 - 1]
             }
-            n % 10000 == 0 -> result[3] = "тысяч"
+            (n / 1000) % 10 == 0 -> result[3] = "тысяч"
             else -> result.add("")
 
         }
     }
-    return ((result.filter { it != "." }).reversed().joinToString(separator = " ")).trimStart().trimEnd()
+    return ((result.filter { it != "." }).reversed().joinToString(separator = " ")).trimStart()
 
 }

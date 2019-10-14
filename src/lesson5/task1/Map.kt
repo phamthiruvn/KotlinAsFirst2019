@@ -93,7 +93,8 @@ fun buildWordSet(text : List<String>) : MutableSet<String> {
  */
 fun buildGrades(grades : Map<String , Int>) : Map<Int , List<String>> {
 
-    var map : MutableMap<Int , List<String>> = mutableMapOf()
+    var map : MutableMap<Int , List<String>>
+    val result0 : MutableList<String> = mutableListOf()
     val result1 : MutableList<String> = mutableListOf()
     val result2 : MutableList<String> = mutableListOf()
     val result3 : MutableList<String> = mutableListOf()
@@ -107,11 +108,13 @@ fun buildGrades(grades : Map<String , Int>) : Map<Int , List<String>> {
             3 -> result3.add(student)
             2 -> result2.add(student)
             1 -> result1.add(student)
+            0 -> result0.add(student)
         }
 
 
     }
     map = mutableMapOf(
+        0 to result0 ,
         1 to result1 ,
         2 to result2 ,
         3 to result3 ,
@@ -135,7 +138,7 @@ fun containsIn(a : Map<String , String> , b : Map<String , String>) : Boolean {
     for (entry in a) {
         var (x) = entry
 
-        if ((b.containsKey(x) && b[x] == a[x]) == true) {
+        if (!(b.containsKey(x) && b[x] == a[x])) {
             return true
 
         }
@@ -161,9 +164,7 @@ fun containsIn(a : Map<String , String> , b : Map<String , String>) : Boolean {
  */
 fun subtractOf(a : MutableMap<String , String> , b : Map<String , String>) {
     for ((x) in b) {
-        (a.containsKey(x) && a[x] == b[x])
-
-        b.filterKeys { (a.containsKey(x) && a[x] == b[x]) == false }
+        b.filterKeys { !(a.containsKey(x) && a[x] == b[x]) }
     }
 }
 
@@ -177,9 +178,10 @@ fun subtractOf(a : MutableMap<String , String> , b : Map<String , String>) {
 fun whoAreInBoth(a : List<String> , b : List<String>) : List<String> {
     val result = mutableListOf<String>()
     for (i in a) {
+        println(i)
         if (b.contains(i)) result.add(i)
-        return result
     }
+    println(result)
     return result
 }
 
@@ -201,8 +203,8 @@ fun whoAreInBoth(a : List<String> , b : List<String>) : List<String> {
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
 fun mergePhoneBooks(mapA : Map<String , String> , mapB : Map<String , String>) : Map<String , String> {
-    val mapA2 = mapA.toMutableMap()
-    var mapB2 = mapB.toMutableMap()
+    val mapA2 = (mapA.filterValues { it != "" }).toMutableMap()
+    var mapB2 = (mapB.filterValues { it != "" }).toMutableMap()
     var mapB3 = mapB
     for (entry in mapA) {
         val name = entry.key
@@ -328,6 +330,7 @@ fun canBuildFrom(chars : List<Char> , word : String) : Boolean {
     fun check(i : Int) = (0..word.length).all { chars.contains(word[i]) }
     return check(0)
 }
+
 /**
  * Средняя
  *
@@ -353,6 +356,7 @@ fun extractRepeats(list : List<String>) : Map<String , Int> {
         result.putAll(dem(i))
     return result.filterValues { it != 1 }
 }
+
 /**
  * Средняя
  *
@@ -373,7 +377,7 @@ fun hasAnagrams(words : List<String>) : Boolean {
     fun final(x : Int) : Boolean {
         var result : Boolean = false
         for (i in words.indices) {
-            if(i==x) continue
+            if (i == x) continue
             val a = words[x]
             val b = words[i]
             if ((a.length == b.length) && (re(b).containsAll(re(a)))) {
@@ -383,7 +387,7 @@ fun hasAnagrams(words : List<String>) : Boolean {
         }
         return result
     }
-    return (words.indices).any { final(it) == true }
+    return (words.indices).any { final(it) }
 }
 
 /**
