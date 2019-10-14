@@ -269,6 +269,7 @@ fun convertToString(n: Int, base: Int): String {
         }
         result += "$k"
     }
+    if (n == 0) result = "0"
     return result
 }
 
@@ -425,7 +426,6 @@ fun russian(n : Int) : String {
             a in 10..19 -> result[0] = numbers1p5[n % 10]
             a in 20..99 -> result[1] = numbers2[a / 10 - 2]
             a in 100..999 -> result[2] = numbers3[a / 100 - 1]
-            a / 1000 == 0 -> result[3] = "тысяч"
             a / 1000 == 1 -> result[3] = "одна тысяча"
             a / 1000 == 2 -> result[3] = "две тысячи"
             a / 1000 in 3..4 -> result[3] = numbers1[(a / 1000) % 10] + " тысячи"
@@ -437,7 +437,7 @@ fun russian(n : Int) : String {
             a / 1000 in 100..999 -> {
                 result[5] = numbers3[a / 100000 - 1]
             }
-
+            n % 10000 == 0 -> result[3] = "тысяч"
             else -> result.add("")
 
         }
