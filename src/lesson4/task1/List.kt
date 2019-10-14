@@ -21,7 +21,7 @@ fun sqRoots(y: Double) =
         else -> {
             val root = sqrt(y)
             // Результат!
-            listOf(-root , root)
+            listOf(-root, root)
         }
     }
 
@@ -110,7 +110,7 @@ fun isPalindrome(str: String): Boolean {
  * По имеющемуся списку целых чисел, например [3, 6, 5, 4, 9], построить строку с примером их суммирования:
  * 3 + 6 + 5 + 4 + 9 = 27 в данном случае.
  */
-fun buildSumExample(list : List<Int>) = list.joinToString(separator = " + " , postfix = " = ${list.sum()}")
+fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", postfix = " = ${list.sum()}")
 
 /**
  * Простая
@@ -119,7 +119,7 @@ fun buildSumExample(list : List<Int>) = list.joinToString(separator = " + " , po
  * по формуле abs = sqrt(a1^2 + a2^2 + ... + aN^2).
  * Модуль пустого вектора считать равным 0.0.
  */
-fun abs(v: List<Double>) = sqrt((v.map{ it * it }).sum())
+fun abs(v: List<Double>) = sqrt((v.map { it * it }).sum())
 
 /**
  * Простая
@@ -127,7 +127,7 @@ fun abs(v: List<Double>) = sqrt((v.map{ it * it }).sum())
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
 fun mean(list: List<Double>): Double {
-    
+
     return if (list.isEmpty()) 0.0
     else {
         list.sum() / list.size
@@ -157,7 +157,7 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.
  */
-fun times(a: List<Int>, b: List<Int>)= (a.map { it * b[a.indexOf(it)] }).sum()
+fun times(a: List<Int>, b: List<Int>) = (a.map { it * b[a.indexOf(it)] }).sum()
 
 /**
  * Средняя
@@ -167,7 +167,7 @@ fun times(a: List<Int>, b: List<Int>)= (a.map { it * b[a.indexOf(it)] }).sum()
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0 при любом x.
  */
-fun polynom(p: List<Int>, x: Int) = (p.map{ it * x.toDouble().pow(p.indexOf(it)) }).sum().toInt()
+fun polynom(p: List<Int>, x: Int) = (p.map { it * x.toDouble().pow(p.indexOf(it)) }).sum().toInt()
 
 /**
  * Средняя
@@ -179,8 +179,8 @@ fun polynom(p: List<Int>, x: Int) = (p.map{ it * x.toDouble().pow(p.indexOf(it))
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun accumulate(list: MutableList<Int>): List<Int>{
-    val newlist = list.map{ list.subList(0, list.indexOf(it) + 1).sum() }
+fun accumulate(list: MutableList<Int>): List<Int> {
+    val newlist = list.map { list.subList(0, list.indexOf(it) + 1).sum() }
     for (num in 0 until list.size) {
         list[num] = newlist[num]
     }
@@ -267,7 +267,7 @@ fun convertToString(n: Int, base: Int): String {
         }
         result += "$k"
     }
-    if(n == 0) result = "0"
+    if (n == 0) result = "0"
     return result
 }
 
@@ -334,10 +334,10 @@ fun roman(n: Int): String {
         var lov = listOf<String>()
         var resu = ""
         when (k) {
-            1 -> lov = listOf("I" , "V" , "X")
-            2 -> lov = listOf("X" , "L" , "C")
-            3 -> lov = listOf("C" , "D" , "M")
-            4 -> lov = listOf("M" , "MM" , "MMM")
+            1 -> lov = listOf("I", "V", "X")
+            2 -> lov = listOf("X", "L", "C")
+            3 -> lov = listOf("C", "D", "M")
+            4 -> lov = listOf("M", "MM", "MMM")
         }
         val a = lov[0]
         val b = lov[1]
@@ -358,6 +358,7 @@ fun roman(n: Int): String {
     }
     return result
 }
+
 /**
  * Очень сложная
  *
@@ -367,8 +368,8 @@ fun roman(n: Int): String {
  */
 
 
-fun russian(n: Int) : String {
-    var result = mutableListOf<String>(".", ".", ".", ".", ".", ".")
+fun russian(n: Int): String {
+    val result = mutableListOf(".", ".", ".", ".", ".", ".")
     var n1 = n
     var dem = 0
     if (n == 0) dem = 1
@@ -377,38 +378,38 @@ fun russian(n: Int) : String {
         dem++
     }
     val numbers1 =
-        listOf("нуль" , "один" , "два" , "три" , "четыре" , "пять" , "шесть" , "семь" , "восемь" , "девять")
+        listOf("нуль", "один", "два", "три", "четыре", "пять", "шесть", "семь", "восемь", "девять")
     val numbers1p5 = listOf(
-        "десять" ,
-        "одиннадцать" ,
-        "двенадцать" ,
-        "тринадцать" ,
-        "четырнадцать" ,
-        "пятнадцать" ,
-        "шестнадцать" ,
-        "семнадцать" ,
-        "восемнадцать" ,
+        "десять",
+        "одиннадцать",
+        "двенадцать",
+        "тринадцать",
+        "четырнадцать",
+        "пятнадцать",
+        "шестнадцать",
+        "семнадцать",
+        "восемнадцать",
         "девятнадцать"
     )
     val numbers2 = listOf(
-        "двадцать" ,
-        "тридцать" ,
-        "сорок" ,
-        "пятьдесят" ,
-        "шестьдесят" ,
-        "семьдесят" ,
-        "восемьдесят" ,
+        "двадцать",
+        "тридцать",
+        "сорок",
+        "пятьдесят",
+        "шестьдесят",
+        "семьдесят",
+        "восемьдесят",
         "девяносто"
     )
     val numbers3 = listOf(
-        "сто" ,
-        "двести" ,
-        "триста" ,
-        "четыреста" ,
-        "пятьсот" ,
-        "шестьсот" ,
-        "семьсот" ,
-        "восемьсот" ,
+        "сто",
+        "двести",
+        "триста",
+        "четыреста",
+        "пятьсот",
+        "шестьсот",
+        "семьсот",
+        "восемьсот",
         "девятьсот"
     )
     var a: Int
