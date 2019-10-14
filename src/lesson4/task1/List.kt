@@ -442,6 +442,6 @@ fun russian(n : Int) : String {
 
         }
     }
-    return ((result.filter { it != "." }).reversed().joinToString(separator = " "))
+    return ((result.filter { it != "." }).reversed().joinToString(separator = " ")).trimStart().trimEnd()
 
 }
