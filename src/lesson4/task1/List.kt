@@ -126,13 +126,8 @@ fun abs(v: List<Double>) = sqrt((v.map { it * it }).sum())
  *
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
-fun mean(list: List<Double>): Double {
-
-    return if (list.isEmpty()) 0.0
-    else {
-        list.sum() / list.size
-    }
-}
+fun mean(list: List<Double>) =
+    if (list.isEmpty()) 0.0 else { list.sum() / list.size }
 
 /**
  * Средняя
@@ -157,7 +152,7 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.
  */
-fun times(a: List<Int>, b: List<Int>) = (a.map { it * b[a.indexOf(it)] }).sum()
+fun times(a: List<Int>, b: List<Int>) = a.mapIndexed { index , _ -> a[index] * b[index] }.sum()
 
 /**
  * Средняя
@@ -167,7 +162,8 @@ fun times(a: List<Int>, b: List<Int>) = (a.map { it * b[a.indexOf(it)] }).sum()
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0 при любом x.
  */
-fun polynom(p: List<Int>, x: Int) = (p.map { it * x.toDouble().pow(p.indexOf(it)) }).sum().toInt()
+fun polynom(p: List<Int>, x: Int) =
+    (p.mapIndexed { index , _ -> p[index] * x.toDouble().pow(index.toDouble()) }).sum().toInt()
 
 /**
  * Средняя
@@ -180,9 +176,8 @@ fun polynom(p: List<Int>, x: Int) = (p.map { it * x.toDouble().pow(p.indexOf(it)
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
 fun accumulate(list: MutableList<Int>): List<Int> {
-    val newlist = list.map { list.subList(0, list.indexOf(it) + 1).sum() }
-    for (num in 0 until list.size) {
-        list[num] = newlist[num]
+    for (num in 1 until list.size) {
+        list[num] += list[num - 1]
     }
     return list
 }
@@ -232,14 +227,14 @@ fun factorizeToString(n: Int) = factorize(n).joinToString(separator = "*")
 fun convert(n: Int, base: Int): List<Int> {
     val result = mutableListOf<Int>()
     var n1 = n
-    for (i in log(n.toDouble(), base.toDouble()).toInt() downTo 0) {
-        val l = ((base.toDouble().pow(i.toDouble())).toInt())
-        val k = n1 / l
-        n1 -= k * l
+    var k: Int
+    while (n1 > 0) {
+        k = n1 % base
+        n1 /= base
         result.add(k)
     }
     if (n == 0) result.add(0)
-    return result
+    return result.reversed()
 }
 
 /**
@@ -253,23 +248,9 @@ fun convert(n: Int, base: Int): List<Int> {
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, n.toString(base) и подобные), запрещается.
  */
-fun convertToString(n: Int, base: Int): String {
-    var result = ""
-    var n1 = n
-    for (i in log(n.toDouble(), base.toDouble()).toInt() downTo 0) {
-        val l = ((base.toDouble().pow(i.toDouble())).toInt())
-        val k = n1 / l
-        n1 -= k * l
-        if (k in 10..36) {
-            val sym = 'a' + k - 10
-            result += sym
-            continue
-        }
-        result += "$k"
-    }
-    if (n == 0) result = "0"
-    return result
-}
+fun convertToString(n: Int, base: Int) =
+    convert(n, base).map { if (it > 9) ('a' + it - 10) else (it + 48).toChar() }.toString()
+
 
 /**
  * Средняя
@@ -278,13 +259,9 @@ fun convertToString(n: Int, base: Int): String {
  * из системы счисления с основанием base в десятичную.
  * Например: digits = (1, 3, 12), base = 14 -> 250
  */
-fun decimal(digits: List<Int>, base: Int): Int {
-    var result = 0
-    for (x in digits.indices) {
-        result += (digits[x] * base.toDouble().pow((digits.size - x - 1).toDouble())).toInt()
-    }
-    return result
-}
+fun decimal(digits: List<Int>, base: Int) = digits.foldRightIndexed(0 ,
+    { index , _ , result -> result + (digits[index] * (base.toDouble()).pow(digits.size - 1 - index.toDouble()).toInt()) }
+)
 
 /**
  * Сложная
@@ -298,21 +275,8 @@ fun decimal(digits: List<Int>, base: Int): Int {
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, str.toInt(base)), запрещается.
  */
-fun decimalFromString(str: String, base: Int): Int {
-    var result = 0
-    var a: Int
-    for (x in str.indices) {
+fun decimalFromString(str: String, base: Int) = decimal((str.toList()).map { (if (it.isDigit()) it.toInt() - 48 else (it - 'a' + 10)) }, base)
 
-        if (str[x].isDigit()) {
-            a = str[x].toInt() - 48
-            result += (a.toDouble() * base.toDouble().pow((str.length - x - 1).toDouble())).toInt()
-        } else {
-            a = str[x] - 'a' + 10
-            result += (a.toDouble() * base.toDouble().pow((str.length - x - 1).toDouble())).toInt()
-        }
-    }
-    return result
-}
 
 /**
  * Сложная
