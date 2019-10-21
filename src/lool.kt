@@ -1,10 +1,9 @@
-import kotlin.math.nextTowards
-import kotlin.math.nextUp
+import lesson4.task1.convert
 import kotlin.math.pow
 
 fun main() {
     fun russian(n : Int) : String {
-        var result = mutableListOf<String>(".", ".", ".", ".", ".", ".")
+        var result = mutableListOf<String>("." , "." , "." , "." , "." , ".")
         var n1 = n
         var dem = 0
         if (n == 0) dem = 1
@@ -47,7 +46,7 @@ fun main() {
             "восемьсот" ,
             "девятьсот"
         )
-        var a: Int
+        var a : Int
         var n2 = n
         var k = 1.0
         while (k <= dem) {
@@ -79,6 +78,14 @@ fun main() {
         return ((result.filter { it != "." }).reversed().joinToString(separator = " ")).trimStart()
 
     }
-println(russian(200002))
+    println(russian(200002))
+    fun mean(list : List<Double>) = if (list.isEmpty()) 0.0 else {
+        list.sum() / list.size
+    }
+val p =listOf(-1000, -1000, -1000, -1000, -1000, -1000)
+    val x = -20
 
+    val t = (p.mapIndexed { index , _ -> (p[index]) * x.toDouble().pow(index.toDouble()) })
+    println(t)
+    println(t.sum())
 }

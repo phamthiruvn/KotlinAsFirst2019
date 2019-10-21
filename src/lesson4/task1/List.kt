@@ -249,7 +249,8 @@ fun convert(n: Int, base: Int): List<Int> {
  * (например, n.toString(base) и подобные), запрещается.
  */
 fun convertToString(n: Int, base: Int) =
-    convert(n, base).map { if (it > 9) ('a' + it - 10) else (it + 48).toChar() }.toString()
+    convert(n, base).joinToString(separator = ""){ if (it > 9) ('a' + it - 10).toString() else it.toString() }
+
 
 
 /**
