@@ -91,15 +91,11 @@ fun fib(n: Int): Int {
     var a = 1
     var b = 1
     var c = 1
-    if (n < 3)
-        return c
-    if (n >= 3) {
-        for (i in 3..n) {
-            c = a + b
-            a = b
-            b = c
+    for (i in 3..n) {
+        c = a + b
+        a = b
+        b = c
 
-        }
     }
     return c
 }

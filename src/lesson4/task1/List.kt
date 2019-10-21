@@ -163,7 +163,7 @@ fun times(a: List<Int>, b: List<Int>) = a.mapIndexed { index , _ -> a[index] * b
  * Значение пустого многочлена равно 0 при любом x.
  */
 fun polynom(p: List<Int>, x: Int) =
-    (p.mapIndexed { index , _ -> p[index] * x.toDouble().pow(index.toDouble()) }).sum().toInt()
+    (p.mapIndexed { index , _ -> (p[index]) * x.toDouble().pow(index.toDouble()) }).sum().toInt()
 
 /**
  * Средняя
