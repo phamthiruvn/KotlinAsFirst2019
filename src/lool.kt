@@ -78,14 +78,13 @@ fun main() {
         return ((result.filter { it != "." }).reversed().joinToString(separator = " ")).trimStart()
 
     }
-    println(russian(200002))
-    fun mean(list : List<Double>) = if (list.isEmpty()) 0.0 else {
-        list.sum() / list.size
-    }
-val p =listOf(-1000, -1000, -1000, -1000, -1000, -1000)
-    val x = -20
 
-    val t = (p.mapIndexed { index , _ -> (p[index]) * x.toDouble().pow(index.toDouble()) })
+    val p = listOf(-1000 , -1000 , -1000 , -1000 , -1000, -1000)
+    val x = -20
+    val t = p.foldIndexed(0 ,
+        { index , result , _ -> result + (((p[index]) * x.toDouble().pow(index.toDouble()).toInt())) })
+
     println(t)
-    println(t.sum())
+
+
 }

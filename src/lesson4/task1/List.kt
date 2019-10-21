@@ -162,8 +162,8 @@ fun times(a: List<Int>, b: List<Int>) = a.mapIndexed { index , _ -> a[index] * b
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0 при любом x.
  */
-fun polynom(p: List<Int>, x: Int) =
-    (p.mapIndexed { index , _ -> (p[index]) * x.toDouble().pow(index.toDouble()) }).sum().toInt()
+fun polynom(p: List<Int>, x: Int) = p.foldIndexed(0 ,
+    { index , result , _ -> result + (((p[index]) * x.toDouble().pow(index.toDouble()).toInt())) })
 
 /**
  * Средняя
