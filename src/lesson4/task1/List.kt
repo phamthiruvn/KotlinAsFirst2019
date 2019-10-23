@@ -4,8 +4,6 @@ package lesson4.task1
 
 import lesson1.task1.discriminant
 import lesson3.task1.isPrime
-import java.lang.Math.pow
-import kotlin.math.log
 import kotlin.math.pow
 import kotlin.math.sqrt
 
@@ -127,7 +125,7 @@ fun abs(v: List<Double>) = sqrt((v.map { it * it }).sum())
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
 fun mean(list: List<Double>) =
-    if (list.isEmpty()) 0.0 else { list.sum() / list.size }
+    if (list.isEmpty()) 0.0 else list.sum() / list.size
 
 /**
  * Средняя
@@ -152,7 +150,7 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.
  */
-fun times(a: List<Int>, b: List<Int>) = a.mapIndexed { index , _ -> a[index] * b[index] }.sum()
+fun times(a: List<Int>, b: List<Int>) = a.mapIndexed { index, _ -> a[index] * b[index] }.sum()
 
 /**
  * Средняя
@@ -162,8 +160,8 @@ fun times(a: List<Int>, b: List<Int>) = a.mapIndexed { index , _ -> a[index] * b
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0 при любом x.
  */
-fun polynom(p: List<Int>, x: Int) = p.foldIndexed(0 ,
-    { index , result , _ -> result + (((p[index]) * x.toDouble().pow(index.toDouble()).toInt())) })
+fun polynom(p: List<Int>, x: Int) = p.foldIndexed(0,
+    { index, result, _ -> result + (((p[index]) * x.toDouble().pow(index.toDouble()).toInt())) })
 
 /**
  * Средняя
@@ -206,7 +204,6 @@ fun factorize(n: Int): List<Int> {
     }
 }
 
-
 /**
  * Сложная
  *
@@ -215,7 +212,6 @@ fun factorize(n: Int): List<Int> {
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
 fun factorizeToString(n: Int) = factorize(n).joinToString(separator = "*")
-
 
 /**
  * Средняя
@@ -249,9 +245,7 @@ fun convert(n: Int, base: Int): List<Int> {
  * (например, n.toString(base) и подобные), запрещается.
  */
 fun convertToString(n: Int, base: Int) =
-    convert(n, base).joinToString(separator = ""){ if (it > 9) ('a' + it - 10).toString() else it.toString() }
-
-
+    convert(n, base).joinToString(separator = "") { if (it > 9) ('a' + it - 10).toString() else it.toString() }
 
 /**
  * Средняя
@@ -260,8 +254,8 @@ fun convertToString(n: Int, base: Int) =
  * из системы счисления с основанием base в десятичную.
  * Например: digits = (1, 3, 12), base = 14 -> 250
  */
-fun decimal(digits: List<Int>, base: Int) = digits.foldRightIndexed(0 ,
-    { index , _ , result -> result + (digits[index] * (base.toDouble()).pow(digits.size - 1 - index.toDouble()).toInt()) }
+fun decimal(digits: List<Int>, base: Int) = digits.foldRightIndexed(0,
+    { index, _, result -> result + (digits[index] * (base.toDouble()).pow(digits.size - 1 - index.toDouble()).toInt()) }
 )
 
 /**
@@ -276,7 +270,8 @@ fun decimal(digits: List<Int>, base: Int) = digits.foldRightIndexed(0 ,
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, str.toInt(base)), запрещается.
  */
-fun decimalFromString(str: String, base: Int) = decimal((str.toList()).map { (if (it.isDigit()) it.toInt() - 48 else (it - 'a' + 10)) }, base)
+fun decimalFromString(str: String, base: Int) =
+    decimal((str.toList()).map { (if (it.isDigit()) it - '0' else (it - 'a' + 10)) }, base)
 
 
 /**
