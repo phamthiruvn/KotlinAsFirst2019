@@ -132,7 +132,7 @@ fun subtractOf(a : MutableMap<String , String> , b : Map<String , String>) {
  * В выходном списке не должно быть повторяюихся элементов,
  * т. е. whoAreInBoth(listOf("Марат", "Семён, "Марат"), listOf("Марат", "Марат")) == listOf("Марат")
  */
-fun whoAreInBoth(a : List<String> , b : List<String>) = a.filter { b.contains(it) }
+fun whoAreInBoth(a : List<String> , b : List<String>) = a.filter { b.contains(it) }.distinct()
 
 /**
  * Средняя
@@ -191,7 +191,7 @@ fun findCheapestStuff(stuff : Map<String , Pair<String , Double>> , kind : Strin
  * Например:
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
-fun canBuildFrom(chars : List<Char> , word : String) = word.toList().containsAll(chars) && chars.isNotEmpty()
+fun canBuildFrom(chars : List<Char> , word : String) = word.toList().containsAll(chars) && chars.isNotEmpty() || chars.isEmpty() && word == ""
 
 /**
  * Средняя
