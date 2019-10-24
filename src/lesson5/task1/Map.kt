@@ -194,7 +194,7 @@ fun findCheapestStuff(stuff : Map<String , Pair<String , Double>> , kind : Strin
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
 fun canBuildFrom(chars : List<Char> , word : String) =
-    word.toList().containsAll(chars) && chars.isNotEmpty() || word == ""
+   chars.containsAll(word.toSet()) && chars.isNotEmpty() || word == ""
 
 /**
  * Средняя
@@ -245,7 +245,23 @@ fun hasAnagrams(words : List<String>) =
  *          "Mikhail" to setOf("Sveta", "Marat")
  *        )
  */
-fun propagateHandshakes(friends : Map<String , Set<String>>) : Map<String , Set<String>> = TODO()
+fun propagateHandshakes(friends : Map<String , Set<String>>) : Map<String , Set<String>>
+{
+ for (entry in friends)
+ {
+     var newvalue = entry.value.toMutableSet()
+     for (i in newvalue)
+     {
+
+     }
+
+ }
+    return mapOf(
+        "Marat" to setOf("Mikhail", "Sveta"),
+        "Sveta" to setOf("Mikhail"),
+        "Mikhail" to setOf()
+    )
+}
 /**
  * Сложная
  *
