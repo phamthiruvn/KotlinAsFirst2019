@@ -106,7 +106,7 @@ fun buildGrades(grades : Map<String , Int>) = (grades.toList().groupBy{ it.secon
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "z", "b" to "sweet")) -> true
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")) -> false
  */
-fun containsIn(a : Map<String , String> , b : Map<String , String>) = a.any { it.value == b[it.key] }
+fun containsIn(a : Map<String , String> , b : Map<String , String>) = (a.toList() + b.toList()) != (a.toList() + b.toList()).distinct()
 /**
  * Простая
  *
@@ -191,7 +191,8 @@ fun findCheapestStuff(stuff : Map<String , Pair<String , Double>> , kind : Strin
  * Например:
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
-fun canBuildFrom(chars : List<Char> , word : String) = word.toList().containsAll(chars) && chars.isNotEmpty() || chars.isEmpty() && word == ""
+fun canBuildFrom(chars : List<Char> , word : String) =
+    word.toList().containsAll(chars) && chars.isNotEmpty() || word == ""
 
 /**
  * Средняя
