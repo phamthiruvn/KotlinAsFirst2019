@@ -94,7 +94,8 @@ fun buildWordSet(text : List<String>) : MutableSet<String> {
  *   buildGrades(mapOf("Марат" to 3, "Семён" to 5, "Михаил" to 5))
  *     -> mapOf(5 to listOf("Семён", "Михаил"), 3 to listOf("Марат"))
  */
-fun buildGrades(grades : Map<String , Int>) = (grades.toList().groupBy{ it.second }).mapValues { entry -> (entry.value).map { it.first }}
+fun buildGrades(grades : Map<String , Int>) =
+    (grades.toList().groupBy{ it.second }).mapValues { entry -> (entry.value).map { it.first }}
 
 /**
  * Простая
@@ -106,7 +107,8 @@ fun buildGrades(grades : Map<String , Int>) = (grades.toList().groupBy{ it.secon
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "z", "b" to "sweet")) -> true
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")) -> false
  */
-fun containsIn(a : Map<String , String> , b : Map<String , String>) = (a.toList() + b.toList()) != (a.toList() + b.toList()).distinct()
+fun containsIn(a : Map<String , String> , b : Map<String , String>) =
+    a + b == b + a
 /**
  * Простая
  *
@@ -244,7 +246,6 @@ fun hasAnagrams(words : List<String>) =
  *        )
  */
 fun propagateHandshakes(friends : Map<String , Set<String>>) : Map<String , Set<String>> = TODO()
-
 /**
  * Сложная
  *
