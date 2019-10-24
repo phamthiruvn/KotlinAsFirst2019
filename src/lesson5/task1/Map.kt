@@ -94,7 +94,7 @@ fun buildWordSet(text: List<String>): MutableSet<String> {
  *     -> mapOf(5 to listOf("Семён", "Михаил"), 3 to listOf("Марат"))
  */
 fun buildGrades(grades: Map<String, Int>) =
-    (grades.toList().groupBy{ it.second }).mapValues { entry -> (entry.value).map { it.first } }
+    (grades.toList().groupBy { it.second }).mapValues { entry -> (entry.value).map { it.first } }
 
 /**
  * Простая
@@ -106,8 +106,8 @@ fun buildGrades(grades: Map<String, Int>) =
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "z", "b" to "sweet")) -> true
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")) -> false
  */
-fun containsIn(a: Map<String, String> , b: Map<String, String>) =
-    a.any{ it.value == b[it.key] }
+fun containsIn(a: Map<String, String>, b: Map<String, String>) =
+    a.any { it.value == b[it.key] }
 /**
  * Простая
  *
@@ -122,7 +122,7 @@ fun containsIn(a: Map<String, String> , b: Map<String, String>) =
  *   subtractOf(a = mutableMapOf("a" to "z"), mapOf("a" to "z"))
  *     -> a changes to mutableMapOf() aka becomes empty
  */
-fun subtractOf(a: MutableMap<String, String> , b: Map<String, String>) {
+fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
     b.filterKeys { !(a.containsKey(it) && a[it] == b[it]) }
 }
 
@@ -167,6 +167,7 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>) =
  */
 fun averageStockPrice(stockPrices: List<Pair<String, Double>>) =
     (stockPrices.groupBy { it.first }).mapValues { entry -> mean((entry.value).map { it.second }) }
+
 /**
  * Средняя
  *
@@ -183,7 +184,8 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>) =
  *   ) -> "Мария"
  */
 fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String) =
-    (((stuff.filter { it.value.first == kind }).mapValues { (it.value).second }).minBy { it.value })!!.key
+    (((stuff.filter { it.value.first == kind }).mapValues { (it.value).second }).minBy { it.value })?.key
+
 /**
  * Средняя
  *
@@ -194,7 +196,7 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String) =
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
 fun canBuildFrom(chars: List<Char>, word: String) =
-    chars.containsAll(word.toSet()) && chars.isNotEmpty() || word == ""
+    chars.containsAll(word.toSet()) || word == ""
 
 /**
  * Средняя
@@ -221,6 +223,7 @@ fun extractRepeats(list: List<String>) = list.groupBy { it }.mapValues { it.valu
  */
 fun hasAnagrams(words: List<String>) =
     words.map{ it.toList().sorted() } != (words.map { it.toList().sorted() }).distinct()
+
 /**
  * Сложная
  *
