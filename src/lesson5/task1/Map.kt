@@ -106,16 +106,15 @@ fun buildGrades(grades: Map<String, Int>) =
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "z", "b" to "sweet")) -> true
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")) -> false
  */
-fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean
-{
-    for ((key , value) in a) {
+fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
+    for ((key, value) in a) {
         if (value == b[key]) {
             return true
-            break
         } else continue
     }
     return false
 }
+
 /**
  * Простая
  *
@@ -230,7 +229,7 @@ fun extractRepeats(list: List<String>) = list.groupBy { it }.mapValues { it.valu
  *   hasAnagrams(listOf("тор", "свет", "рот")) -> true
  */
 fun hasAnagrams(words: List<String>) =
-    words.map{ it.toList().sorted() } != (words.map { it.toList().sorted() }).distinct()
+    words.map { it.toList().sorted() } != (words.map { it.toList().sorted() }).distinct()
 
 /**
  * Сложная
@@ -256,7 +255,8 @@ fun hasAnagrams(words: List<String>) =
  *          "Mikhail" to setOf("Sveta", "Marat")
  *        )
  */
-fun propagateHandshakes(friends : Map<String , Set<String>>) : Map<String , Set<String>> = TODO()
+fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<String>> = TODO()
+
 /**
  * Сложная
  *
@@ -274,13 +274,13 @@ fun propagateHandshakes(friends : Map<String , Set<String>>) : Map<String , Set<
  *   findSumOfTwo(listOf(1, 2, 3), 4) -> Pair(0, 2)
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
-fun findSumOfTwo(list : List<Int> , number : Int) : Pair<Int , Int> {
-    var listss = list.sorted()
-    val x = Pair(-1 , -1)
+fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
+    val listss = list.sorted()
+    val x = Pair(-1, -1)
     val a = list.size / 2
     for (t in 0..(a + 1)) {
-        if ((number - listss[t]) in listss) return Pair(list.indexOf(listss[t]) , list.indexOf(number - listss[t]))
-        else return x
+        return if ((number - listss[t]) in listss) Pair(list.indexOf(listss[t]) , list.indexOf(number - listss[t]))
+        else x
     }
     return x
 }
@@ -306,4 +306,4 @@ fun findSumOfTwo(list : List<Int> , number : Int) : Pair<Int , Int> {
  *     450
  *   ) -> emptySet()
  */
-fun bagPacking(treasures : Map<String , Pair<Int , Int>> , capacity : Int) : Set<String> = TODO()
+fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> = TODO()
