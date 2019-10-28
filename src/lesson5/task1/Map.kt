@@ -255,7 +255,24 @@ fun hasAnagrams(words: List<String>) =
  *          "Mikhail" to setOf("Sveta", "Marat")
  *        )
  */
-fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<String>> = TODO()
+fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<String>> {
+    val allfriends = (friends.values.fold(
+        listOf<String>(),
+        { sum, next -> sum + next })).map { Pair(it, setOf<String>()) }.toMap() + friends
+
+    val plusthemselves = allfriends.mapValues {
+        it.value + it.key
+    }
+
+    val connect = allfriends.mapValues { it -> it.value.map { plusthemselves[it] } }.mapValues {
+        it.value.fold(
+            listOf<String>(),
+            { sum, next -> sum + next!! }).toSet()
+    }.mapValues { it.value - it.key }
+
+    return connect
+}
+
 
 /**
  * Сложная
