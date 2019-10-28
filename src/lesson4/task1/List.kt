@@ -396,7 +396,7 @@ fun russian(n: Int): String {
             a / 1000 in 100..999 -> {
                 result[5] = numbers3[a / 100000 - 1]
             }
-            (n / 1000) % 10 == 0 -> result[3] = "тысяч"
+            (n / 1000) % 10 == 0 && n / 1000 != 0 -> result[3] = "тысяч"
             else -> result.add("")
 
         }
