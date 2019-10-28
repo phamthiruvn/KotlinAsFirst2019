@@ -2,6 +2,8 @@
 
 package lesson6.task1
 
+import lesson2.task2.daysInMonth
+
 /**
  * Пример
  *
@@ -69,7 +71,29 @@ fun main() {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String = TODO()
+fun dateStrToDigit(str: String): String {
+    val course = listOf(
+        "января" ,
+        "февраля" ,
+        "марта" ,
+        "апреля" ,
+        "мая" ,
+        "июня" ,
+        "июля" ,
+        "августа" ,
+        "сентября" ,
+        "октября" ,
+        "ноября" ,
+        "декабря"
+    )
+    val parts = str.split(" ")
+    if (parts.size != 3) return ""
+    val dayis = parts[0].toInt()
+    val monthis = course.indexOf(parts[1]) + 1
+    val yearis = parts[2].toInt()
+    return if (dayis > daysInMonth(monthis, yearis) || monthis == 0) ""
+    else String.format("%02d.%02d.%02d", dayis, monthis, yearis)
+}
 
 /**
  * Средняя
@@ -81,7 +105,29 @@ fun dateStrToDigit(str: String): String = TODO()
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String = TODO()
+fun dateDigitToStr(digital: String): String {
+    val course = listOf(
+        "января" ,
+        "февраля" ,
+        "марта" ,
+        "апреля" ,
+        "мая" ,
+        "июня" ,
+        "июля" ,
+        "августа" ,
+        "сентября" ,
+        "октября" ,
+        "ноября" ,
+        "декабря"
+    )
+    val parts = digital.split(".")
+    if (parts.size != 3 || parts[1].toInt() !in 1..12) return ""
+    val dayis = parts[0].toInt()
+    val monthis = course[parts[1].toInt() - 1]
+    val yearis = parts[2].toInt()
+    return if (dayis > daysInMonth(parts[1].toInt(), yearis)) ""
+    else "$dayis $monthis $yearis"
+}
 
 /**
  * Средняя
