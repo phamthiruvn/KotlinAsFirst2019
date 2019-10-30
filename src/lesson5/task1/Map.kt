@@ -94,7 +94,7 @@ fun buildWordSet(text: List<String>): MutableSet<String> {
  *     -> mapOf(5 to listOf("Семён", "Михаил"), 3 to listOf("Марат"))
  */
 fun buildGrades(grades: Map<String, Int>) =
-    (grades.toList().groupBy { it.second }).mapValues { entry -> (entry.value).map { it.first } }
+    grades.toList().groupBy({ it.second }, { it.first })
 
 /**
  * Простая
@@ -129,8 +129,7 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
  *     -> a changes to mutableMapOf() aka becomes empty
  */
 fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
-    b.filter { !containsIn(a, b) }
-
+    a - a.filter { containsIn(a, b) }
 }
 
 /**
@@ -160,7 +159,9 @@ fun whoAreInBoth(a: List<String>, b: List<String>) = a.filter { b.contains(it) }
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
 fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>) =
-    ((mapA.toList() + mapB.toList()).groupBy { it.first }).mapValues { entry -> ((entry.value).distinct()).joinToString { it.second } }
+    (mapA.toList() + mapB.toList()).groupBy(
+        { it.first },
+        { it.second }).mapValues { it.value.distinct().joinToString() }
 
 /**
  * Средняя
@@ -173,7 +174,9 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>) =
  *     -> mapOf("MSFT" to 150.0, "NFLX" to 40.0)
  */
 fun averageStockPrice(stockPrices: List<Pair<String, Double>>) =
-    (stockPrices.groupBy { it.first }).mapValues { entry -> mean((entry.value).map { it.second }) }
+    stockPrices.groupBy(
+        { it.first },
+        { it.second }).mapValues { mean(it.value) }
 
 /**
  * Средняя
@@ -191,7 +194,7 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>) =
  *   ) -> "Мария"
  */
 fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String) =
-    (((stuff.filter { it.value.first == kind }).mapValues { (it.value).second }).minBy { it.value })?.key
+    stuff.filter { it.value.first == kind }.mapValues { (it.value).second }.minBy { it.value }?.key
 
 /**
  * Средняя

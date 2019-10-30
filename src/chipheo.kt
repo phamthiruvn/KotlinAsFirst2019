@@ -1,3 +1,4 @@
+import lesson4.task1.russian
 import java.lang.Math.pow
 
 
@@ -135,6 +136,8 @@ fun main() {
 println(allfriends)
     println(plusthemselves)
     println(connect)
+    println(setOf("Mikhail", "Sveta") == setOf("Sveta", "Mikhail"))
+
 
 
 }
