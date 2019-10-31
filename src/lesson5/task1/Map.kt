@@ -130,7 +130,7 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>) : Boolean {
  *     -> a changes to mutableMapOf() aka becomes empty
  */
 fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
-    for (i in b.filter { containsIn(a, b) }.keys) a.remove(i)
+    for (i in b.keys) if (i !in a.keys) a.remove(i)
 }
 
 /**
@@ -301,7 +301,7 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
     val listss = list.toSet().sorted()
     var result = Pair(-1, -1)
-    if ((list - number / 2).indexOf(number / 2) != -1) result = Pair(list.indexOf(number / 2), (list - number / 2).indexOf(number / 2))
+    if ((list - number / 2).indexOf(number / 2) != -1) result = Pair(list.indexOf(number / 2), list.lastIndexOf(number / 2))
     for (i in listss)
         if ((listss - i).contains(number - i)) result = Pair(list.indexOf(i), list.indexOf(number - i))
     return result.sorted()
