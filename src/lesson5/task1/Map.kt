@@ -107,14 +107,7 @@ fun buildGrades(grades: Map<String, Int>) =
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "z", "b" to "sweet")) -> true
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")) -> false
  */
-fun containsIn(a: Map<String, String>, b: Map<String, String>) : Boolean {
-    val aa = a.toList().toSet()
-    val bb = b.toList().toSet()
-    if (a == mapOf<String, String>() && b == mapOf<String, String>()) return true
-    for (i in aa) if (bb.contains(i)) return true
-    return false
-}
-
+fun containsIn(a: Map<String, String>, b: Map<String, String>) = a.keys.all { a[it] == b[it] }
 /**
  * Простая
  *
@@ -130,7 +123,7 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>) : Boolean {
  *     -> a changes to mutableMapOf() aka becomes empty
  */
 fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
-    for (i in b.keys) if (i !in a.keys) a.remove(i)
+    for (i in b.keys) if (a[i] == b[i]) a.remove(i)
 }
 
 /**
