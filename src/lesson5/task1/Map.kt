@@ -110,6 +110,7 @@ fun buildGrades(grades: Map<String, Int>) =
 fun containsIn(a: Map<String, String>, b: Map<String, String>) : Boolean {
     val aa = a.toList().toSet()
     val bb = b.toList().toSet()
+    if (a == mapOf<String, String>() && b == mapOf<String, String>()) return true
     for (i in aa) if (bb.contains(i)) return true
     return false
 }
@@ -300,9 +301,10 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
     val listss = list.toSet().sorted()
     var result = Pair(-1, -1)
+    if ((list - number / 2).indexOf(number / 2) != -1) result = Pair(list.indexOf(number / 2), (list - number / 2).indexOf(number / 2))
     for (i in listss)
         if ((listss - i).contains(number - i)) result = Pair(list.indexOf(i), list.indexOf(number - i))
-return result.sorted()
+    return result.sorted()
 }
 
 /**

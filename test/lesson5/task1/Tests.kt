@@ -129,6 +129,7 @@ class Tests {
                 mapOf("b43-sdf-=" to "afdasdfasdfsadfasdfasdf" , "b" to "sweet")
             )
         )
+
     }
 
     @Test
@@ -144,6 +145,11 @@ class Tests {
 
         subtractOf(from , mapOf("a" to "z"))
         assertEquals(from , mapOf("b" to "c"))
+
+        subtractOf(from , mapOf("a" to "z"))
+        assertEquals(from , mapOf("b" to "c"))
+
+
 
     }
 
