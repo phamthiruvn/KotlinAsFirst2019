@@ -107,10 +107,9 @@ fun buildGrades(grades: Map<String, Int>) =
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")) -> false
  */
 fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
-    for ((key , value) in a) {
-        if (!b.containsKey(key)) continue
-        if (value == b[key]) return true
-    }
+    val aa = a.toList().toSet()
+    val bb = b.toList().toSet()
+    for (i in aa) if (bb.contains(i)) return true
     return false
 }
 
@@ -263,7 +262,7 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
     val connect = ((friends.values.fold(
         listOf<String>(),
         { sum, next -> sum + next })).map { Pair(it, setOf<String>()) }.toMap() + friends).mapValues { it ->
-        it.value.map {
+        it.value.map { it ->
             ((friends.values.fold(
                 listOf<String>(),
                 { sum, next -> sum + next })).map { Pair(it, setOf<String>()) }.toMap() + friends).mapValues {
