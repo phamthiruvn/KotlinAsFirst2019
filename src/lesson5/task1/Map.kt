@@ -107,7 +107,7 @@ fun buildGrades(grades: Map<String, Int>) =
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "z", "b" to "sweet")) -> true
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")) -> false
  */
-fun containsIn(a: Map<String, String>, b: Map<String, String>) = a.keys.all { a[it] == b[it] }
+fun containsIn(a: Map<String, String>, b: Map<String, String>) = a.keys.all { it in b.keys && b[it] == a[it] }
 /**
  * Простая
  *
@@ -291,14 +291,12 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   findSumOfTwo(listOf(1, 2, 3), 4) -> Pair(0, 2)
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
-fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
-    val listss = list.toSet().sorted()
-    var result = Pair(-1, -1)
-    if ((list - number / 2).indexOf(number / 2) != -1) result = Pair(list.indexOf(number / 2), list.lastIndexOf(number / 2))
-    for (i in listss)
-        if ((listss - i).contains(number - i)) result = Pair(list.indexOf(i), list.indexOf(number - i))
-    return result.sorted()
-}
+fun findSumOfTwo(list: List<Int>, number: Int) = (list.mapIndexed { index, _ ->
+    Pair(
+        index,
+        list.indexOf(number - list[index])
+    )
+}.filter { it.first != it.second && it.second != -1 } + Pair(-1 , -1))[0].sorted()
 
 /**
  * Очень сложная
