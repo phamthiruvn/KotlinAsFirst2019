@@ -3,6 +3,7 @@
 package lesson5.task1
 
 import lesson4.task1.mean
+import ru.spbstu.wheels.sorted
 
 /**
  * Пример
@@ -106,7 +107,7 @@ fun buildGrades(grades: Map<String, Int>) =
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "z", "b" to "sweet")) -> true
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")) -> false
  */
-fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
+fun containsIn(a: Map<String, String>, b: Map<String, String>) : Boolean {
     val aa = a.toList().toSet()
     val bb = b.toList().toSet()
     for (i in aa) if (bb.contains(i)) return true
@@ -128,7 +129,7 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
  *     -> a changes to mutableMapOf() aka becomes empty
  */
 fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
-    a - a.filter { containsIn(a, b) }
+    for (i in b.filter { containsIn(a, b) }.keys) a.remove(i)
 }
 
 /**
@@ -297,14 +298,11 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
-    val listss = list.sorted()
-    val x = Pair(-1, -1)
-    val a = list.size / 2
-    for (t in 0..(a + 1)) {
-        return if ((number - listss[t]) in listss) Pair(list.indexOf(listss[t]) , list.indexOf(number - listss[t]))
-        else x
-    }
-    return x
+    val listss = list.toSet().sorted()
+    var result = Pair(-1, -1)
+    for (i in listss)
+        if ((listss - i).contains(number - i)) result = Pair(list.indexOf(i), list.indexOf(number - i))
+return result.sorted()
 }
 
 /**
