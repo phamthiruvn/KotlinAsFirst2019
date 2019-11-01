@@ -108,6 +108,7 @@ fun buildGrades(grades: Map<String, Int>) =
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")) -> false
  */
 fun containsIn(a: Map<String, String>, b: Map<String, String>) = a.keys.all { it in b.keys && b[it] == a[it] }
+
 /**
  * Простая
  *
@@ -296,7 +297,7 @@ fun findSumOfTwo(list: List<Int>, number: Int) = (list.mapIndexed { index, _ ->
         index,
         list.indexOf(number - list[index])
     )
-}.filter { it.first != it.second && it.second != -1 } + Pair(-1 , -1))[0].sorted()
+}.filter { it.first != it.second && it.second != -1 } + Pair(-1, -1))[0].sorted()
 
 /**
  * Очень сложная
