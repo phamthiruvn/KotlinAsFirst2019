@@ -341,6 +341,10 @@ fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<Strin
                     array[i - 1][j - bec[i - 1]].first + names[i - 1],
                     maxOf(xena[i - 1] + array[i - 1][j - bec[i - 1]].second, array[i - 1][j].second)
                 )
+                if (array[i][j].second == array[i-1][j].second) array[i][j] = Pair(
+                    array[i - 1][j].first,
+                    array[i - 1][j].second
+                )
             } else
                 array[i][j] = array[i - 1][j]
 
