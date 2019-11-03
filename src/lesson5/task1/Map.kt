@@ -189,7 +189,7 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>) =
  *   ) -> "Мария"
  */
 fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String) =
-    stuff.filter { it.value.first == kind }.mapValues { (it.value).second }.minBy { it.value }?.key
+    stuff.filter { it.value.first == kind }.minBy { it.value.second }?.key
 
 /**
  * Средняя
@@ -320,4 +320,31 @@ fun findSumOfTwo(list: List<Int>, number: Int) = (list.mapIndexed { index, _ ->
  *     450
  *   ) -> emptySet()
  */
-fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> = TODO()
+fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> {
+    val names = treasures.keys.toList()
+    val array = mutableListOf<MutableList<Pair<
+            List<String>, Int>>>()
+    val bec = treasures.map { it.value.first }.toList()
+
+    val xena = treasures.map { it.value.second }.toList()
+    for (i in 0..treasures.size) {
+        array.add(mutableListOf())
+        for (j in 0..capacity)
+            array[i].add(Pair(mutableListOf(), 0))
+    }
+    for (i in 0..treasures.size) {
+        for (j in 0..capacity) {
+            if (i == 0 || j == 0)
+                array[i][j] = Pair(mutableListOf(), 0)
+            else if (bec[i - 1] <= j) {
+                array[i][j] = Pair(
+                    array[i - 1][j - bec[i - 1]].first + names[i - 1],
+                    maxOf(xena[i - 1] + array[i - 1][j - bec[i - 1]].second, array[i - 1][j].second)
+                )
+            } else
+                array[i][j] = array[i - 1][j]
+
+        }
+    }
+    return array[treasures.size][capacity].first.toSet()
+}
