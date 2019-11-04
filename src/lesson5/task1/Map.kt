@@ -254,24 +254,31 @@ fun hasAnagrams(words: List<String>) =
  *        )
  */
 fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<String>> {
-
-    val connect = ((friends.values.fold(
+    val result = mutableMapOf<String, Set<String>>()
+    val allfr = (friends.values.fold(
         listOf<String>(),
-        { sum, next -> sum + next })).map { Pair(it, setOf<String>()) }.toMap() + friends).mapValues { it ->
-        it.value.map { it ->
-            ((friends.values.fold(
-                listOf<String>(),
-                { sum, next -> sum + next })).map { Pair(it, setOf<String>()) }.toMap() + friends).mapValues {
-                it.value + it.key
-            }[it]
+        { sum , next -> sum + next }) + friends.keys).toSet()
+    val array = mutableMapOf<String, Int>()
+    val wait = mutableListOf<String>()
+    for (each in allfr) {
+        for (i in allfr) {
+            array[i] = 0
         }
-    }.mapValues {
-        it.value.fold(
-            listOf<String>(),
-            { sum, next -> sum + next!! }).toSet()
-    }.mapValues { it.value - it.key }
-
-    return connect
+        array[each] = 1
+        wait.add(each)
+        while (wait.isNotEmpty()) {
+            var u = wait[0]
+            wait.removeAt(0)
+            for (entry in friends.getOrDefault(u, setOf("0"))) {
+                if (entry != "0" && array[entry] == 0) {
+                    array[entry] = 1
+                    wait.add(entry)
+                }
+            }
+        }
+        result[each] = array.filter { it.value == 1 && it.key != each }.keys.toSet()
+    }
+    return result
 }
 
 
@@ -322,10 +329,10 @@ fun findSumOfTwo(list: List<Int>, number: Int) = (list.mapIndexed { index, _ ->
  */
 fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> {
     val names = treasures.keys.toList()
-    val array = mutableListOf<MutableList<Pair<
-            Set<String>, Int>>>()
     val bec = treasures.map { it.value.first }.toList()
     val xena = treasures.map { it.value.second }.toList()
+    val array = mutableListOf<MutableList<Pair<
+            Set<String>, Int>>>()
     for (i in 0..treasures.size) {
         array.add(mutableListOf())
         for (j in 0..capacity)
