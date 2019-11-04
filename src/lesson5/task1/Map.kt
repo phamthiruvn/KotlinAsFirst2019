@@ -269,8 +269,8 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
         while (wait.isNotEmpty()) {
             var u = wait[0]
             wait.removeAt(0)
-            for (entry in friends.getOrDefault(u, setOf("0"))) {
-                if (entry != "0" && array[entry] == 0) {
+            for (entry in friends.getOrDefault(u, setOf(""))) {
+                if (entry != "" && array[entry] == 0) {
                     array[entry] = 1
                     wait.add(entry)
                 }
