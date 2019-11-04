@@ -257,7 +257,7 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
     val result = mutableMapOf<String, Set<String>>()
     val allfr = (friends.values.fold(
         listOf<String>(),
-        { sum , next -> sum + next }) + friends.keys).toSet()
+        { sum, next -> sum + next }) + friends.keys).toSet()
     val array = mutableMapOf<String, Int>()
     val wait = mutableListOf<String>()
     for (each in allfr) {
@@ -267,7 +267,7 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
         array[each] = 1
         wait.add(each)
         while (wait.isNotEmpty()) {
-            var u = wait[0]
+            val u = wait[0]
             wait.removeAt(0)
             for (entry in friends.getOrDefault(u, setOf(""))) {
                 if (entry != "" && array[entry] == 0) {
