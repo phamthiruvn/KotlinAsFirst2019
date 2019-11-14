@@ -86,14 +86,20 @@ fun dateStrToDigit(str: String): String {
         "ноября" ,
         "декабря"
     )
+
     val parts = str.split(" ")
     if (parts.size != 3) return ""
-    val dayis = parts[0].toInt()
-    val monthis = course.indexOf(parts[1]) + 1
-    val yearis = parts[2].toInt()
-    return if (dayis > daysInMonth(monthis, yearis) || monthis == 0) ""
-    else String.format("%02d.%02d.%02d", dayis, monthis, yearis)
+    return try {
+        val dayis = parts[0].toInt()
+        val monthis = course.indexOf(parts[1]) + 1
+        val yearis = parts[2].toInt()
+        if (dayis > daysInMonth(monthis , yearis) || monthis == 0) ""
+        else String.format("%02d.%02d.%02d" , dayis , monthis , yearis)
+    } catch (e: NumberFormatException) {
+        ""
+    }
 }
+
 
 /**
  * Средняя
@@ -121,12 +127,16 @@ fun dateDigitToStr(digital: String): String {
         "декабря"
     )
     val parts = digital.split(".")
-    if (parts.size != 3 || parts[1].toInt() !in 1..12) return ""
-    val dayis = parts[0].toInt()
-    val monthis = course[parts[1].toInt() - 1]
-    val yearis = parts[2].toInt()
-    return if (dayis > daysInMonth(parts[1].toInt(), yearis)) ""
-    else "$dayis $monthis $yearis"
+    if (parts.size != 3) return ""
+    return try {
+        val dayis = parts[0].toInt()
+        val monthis = course.getOrNull(parts[1].toInt() - 1)
+        val yearis = parts[2].toInt()
+        if (dayis > daysInMonth(parts[1].toInt() , yearis) || monthis == null) ""
+        else "$dayis $monthis $yearis"
+    } catch (e : NumberFormatException) {
+        ""
+    }
 }
 
 /**
@@ -143,8 +153,20 @@ fun dateDigitToStr(digital: String): String {
  *
  * PS: Дополнительные примеры работы функции можно посмотреть в соответствующих тестах.
  */
-fun flattenPhoneNumber(phone: String): String = TODO()
-
+fun flattenPhoneNumber(phone: String): String {
+    var result = ""
+    if (phone.contains("()")) return ""
+    val phonee = phone.split(" ", "-", "(", ")").filter { it != "" }
+    try {
+        for (part in phonee) {
+            part.toInt()
+            result += part
+        }
+    } catch (e : NumberFormatException) {
+        return ""
+    }
+    return result
+}
 /**
  * Средняя
  *
@@ -203,7 +225,8 @@ fun firstDuplicateIndex(str: String): Int = TODO()
  * или пустую строку при нарушении формата строки.
  * Все цены должны быть больше либо равны нуля.
  */
-fun mostExpensive(description: String): String = TODO()
+fun mostExpensive(description: String) =
+    description.split("; ").map { it.split(" ") }.maxBy { it[1].toDouble() }?.get(0).toString()
 
 /**
  * Сложная

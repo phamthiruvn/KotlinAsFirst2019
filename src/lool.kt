@@ -1,90 +1,44 @@
 import lesson4.task1.convert
 import kotlin.math.pow
+import java.util.ArrayList
+
 
 fun main() {
-    fun russian(n : Int) : String {
-        var result = mutableListOf<String>("." , "." , "." , "." , "." , ".")
-        var n1 = n
-        var dem = 0
-        if (n == 0) dem = 1
-        while (n1 != 0) {
-            n1 /= 10
-            dem++
-        }
-        val numbers1 =
-            listOf("нуль" , "один" , "два" , "три" , "четыре" , "пять" , "шесть" , "семь" , "восемь" , "девять")
-        val numbers1p5 = listOf(
-            "десять" ,
-            "одиннадцать" ,
-            "двенадцать" ,
-            "тринадцать" ,
-            "четырнадцать" ,
-            "пятнадцать" ,
-            "шестнадцать" ,
-            "семнадцать" ,
-            "восемнадцать" ,
-            "девятнадцать"
-        )
-        val numbers2 = listOf(
-            "двадцать" ,
-            "тридцать" ,
-            "сорок" ,
-            "пятьдесят" ,
-            "шестьдесят" ,
-            "семьдесят" ,
-            "восемьдесят" ,
-            "девяносто"
-        )
-        val numbers3 = listOf(
-            "сто" ,
-            "двести" ,
-            "триста" ,
-            "четыреста" ,
-            "пятьсот" ,
-            "шестьсот" ,
-            "семьсот" ,
-            "восемьсот" ,
-            "девятьсот"
-        )
-        var a : Int
-        var n2 = n
-        var k = 1.0
-        while (k <= dem) {
-            a = (n2 % (10.0.pow(k))).toInt()
-            n2 -= a
-            k++
-            when {
-
-                a in 1..9 -> result[0] = numbers1[a % 10]
-                a in 10..19 -> result[0] = numbers1p5[n % 10]
-                a in 20..99 -> result[1] = numbers2[a / 10 - 2]
-                a in 100..999 -> result[2] = numbers3[a / 100 - 1]
-                a / 1000 == 1 -> result[3] = "одна тысяча"
-                a / 1000 == 2 -> result[3] = "две тысячи"
-                a / 1000 in 3..4 -> result[3] = numbers1[(a / 1000) % 10] + " тысячи"
-                a / 1000 in 5..9 -> result[3] = numbers1[(a / 1000) % 10] + " тысяч"
-                a / 10000 == 1 -> result[3] = numbers1p5[(n / 1000) % 10] + " тысяч"
-                a / 1000 in 20..99 -> {
-                    result[4] = numbers2[a / 10000 - 2]
-                }
-                a / 1000 in 100..999 -> {
-                    result[5] = numbers3[a / 100000 - 1]
-                }
-                (n / 1000) % 10 == 0 -> result[3] = "тысяч"
-                else -> result.add("")
-
+    fun timeStrToSeconds(str : String) : Int {
+        val parts = str.split(":")
+        var result = 0
+        try {
+            for (part in parts) {
+                val number = part.toInt()
+                result = result * 60 + number
             }
+            return result
+        } catch (e : NumberFormatException) {
+            return -1
         }
-        return ((result.filter { it != "." }).reversed().joinToString(separator = " ")).trimStart()
-
     }
 
-    val p = listOf(-1000 , -1000 , -1000 , -1000 , -1000, -1000)
-    val x = -20
-    val t = p.foldIndexed(0 ,
-        { index , result , _ -> result + (((p[index]) * x.toDouble().pow(index.toDouble()).toInt())) })
+    fun flattenPhoneNumber(phone : String) : String {
+        var result = ""
+        val phonee = phone.split(" " , "-").filter { it != "" }
+        try {
+            for (part in phonee) {
+                part.toInt()
+                result += part
+            }
+        } catch (e : NumberFormatException) {
+            return ""
+        }
+        return result
+    }
 
-    println(t)
+    val loz =
+        "Хлеб 39.9; Молоко 62; Курица 184.0; Конфеты 89.9".split("; ").map { it.split(" ") }.maxBy { it[1].toDouble() }?.get(0)
 
 
+    println(loz)
 }
+
+
+
+

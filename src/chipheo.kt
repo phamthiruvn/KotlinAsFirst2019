@@ -1,38 +1,37 @@
-import lesson4.task1.russian
-import ru.spbstu.wheels.sorted
-import java.lang.Math.pow
-
-
 fun main() {
+    val treasure = mapOf("0" to (323 to 2) , "Слиток" to (324 to 1))
+    val capacity = 384
+    val names = treasure.keys.toList()
+    val result = mutableListOf<String>()
+    var array = mutableListOf<MutableList<Pair<
+            List<String> , Int>>>()
+    val bec = treasure.map { it.value.first }.toList()
 
+    val xena = treasure.map { it.value.second }.toList()
+    for (i : Int in 0..treasure.size) {
+        array.add(mutableListOf())
+        for (j : Int in 0..capacity)
+            array[i].add(Pair(mutableListOf() , 0))
+    }
+    for (i in 0..treasure.size) {
+        for (j in 0..capacity) {
+            if (i == 0 || j == 0)
+                array[i][j] = Pair(mutableListOf() , 0)
+            else if (bec[i - 1] <= j) {
+                array[i][j] = Pair(
+                    array[i - 1][j - bec[i - 1]].first + names[i - 1] ,
+                    maxOf(xena[i - 1] + array[i - 1][j - bec[i - 1]].second , array[i - 1][j].second)
+                )
+                if (array[i][j].second == array[i-1][j].second) array[i][j] = Pair(
+                    array[i - 1][j].first ,
+                    array[i - 1][j].second
+                )
+            } else
+                array[i][j] = array[i - 1][j]
 
-    val lol = mapOf(
-        "1" to setOf("2") ,
-        "2" to setOf("3" , "4") ,
-        "3" to setOf("1")
-
-    )
-    val alls = (lol.values.fold(
-        listOf<String>() ,
-        { sum , next -> sum + next }).map { Pair(it , setOf<String>()) }.toMap() + lol)
-
-    val allss = alls.mapValues { it.value + it.key }
-    println(allss)
-    println("" == "")
-
-    fun findSumOfTwo(list : List<Int> , number : Int) =
-        (list.mapIndexed { index, _ ->
-            Pair(
-                index,
-                list.indexOf(number - list[index])
-            )
-        }.filter { it.first != it.second && it.second != -1 } + Pair(-1, -1))[0].sorted()
-
-
-    println(findSumOfTwo(listOf(1 , 2 , 3) , 6))
-    println(findSumOfTwo(listOf(0 , 0 , 3) , 0))
-    println(findSumOfTwo(emptyList() , 1))
-
+        }
+    }
+    println(array[treasure.size][capacity].first)
 }
 
 
