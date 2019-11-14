@@ -94,7 +94,7 @@ fun dateStrToDigit(str: String): String {
         val monthis = course.indexOf(parts[1]) + 1
         val yearis = parts[2].toInt()
         if (dayis > daysInMonth(monthis , yearis) || monthis == 0) ""
-        else String.format("%02d.%02d.%02d" , dayis , monthis , yearis)
+        else String.format("%02d.%02d.%d" , dayis , monthis , yearis)
     } catch (e: NumberFormatException) {
         ""
     }
