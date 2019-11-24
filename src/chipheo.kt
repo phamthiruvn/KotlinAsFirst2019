@@ -7,7 +7,6 @@ fun main() {
     println(reg)
     val jmps = "220 + 224 %+ 228 %- 230 + 232 %%- 234 %".split(" ")
 
-    print("ISIDSIDISAD".split("").filter { it != "" })
 
 
 }

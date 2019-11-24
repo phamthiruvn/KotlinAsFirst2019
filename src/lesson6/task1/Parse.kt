@@ -265,7 +265,7 @@ fun mostExpensive(description: String) =
  * Вернуть -1, если roman не является корректным римским числом
  */
 fun fromRoman(roman: String): Int {
-    if (!roman.matches((Regex("""(M*)(CM|CD|D|)(C{0,3})(XC|XL|L|)(X{0,3})(IX|IV|V|)(I{0,3})"""))) && roman == "") return -1
+    if (!roman.matches((Regex("""(M*)(CM|CD|D|)(C{0,3})(XC|XL|L|)(X{0,3})(IX|IV|V|)(I{0,3})"""))) || roman == "") return -1
     val course = mapOf("I" to 1, "V" to 5, "X" to 10, "L" to 50, "C" to 100, "D" to 500, "M" to 1000)
     val rmn = roman.split("").filter { it != "" }.map { course[it] }.toMutableList()
     return rmn.foldIndexed(0 , { index , acc , _ ->
