@@ -3,6 +3,7 @@
 package lesson6.task1
 
 import lesson2.task2.daysInMonth
+import java.lang.Exception
 
 /**
  * Пример
@@ -200,23 +201,23 @@ fun plusMinus(expression: String): Int {
     require(exp[0] != "")
     var op = 1
     var result = 0
-    for (i in exp.indices) {
-        if (i % 2 == 0) {
-            try {
+    try {
+        for (i in exp.indices) {
+            if (i % 2 == 0) {
                 result += exp[i].toInt() * op
                 require(exp[i].toList().all { it in '0'..'9' })
-            } catch (e : NumberFormatException) {
-                throw NumberFormatException("Only signed numbers are allowed")
-            }
-        } else when {
-            exp[i] == "+" -> op = 1
-            exp[i] == "-" -> op = -1
-            else -> throw IllegalArgumentException()
-        }
-    }
-    return result
-}
 
+            } else when {
+                exp[i] == "+" -> op = 1
+                exp[i] == "-" -> op = -1
+                else -> throw IllegalArgumentException()
+            }
+        }
+        return result
+    } catch (e : Exception) {
+        throw IllegalArgumentException()
+    }
+}
 /**
  * Сложная
  *
@@ -263,7 +264,11 @@ fun mostExpensive(description: String) =
  *
  * Вернуть -1, если roman не является корректным римским числом
  */
-fun fromRoman(roman: String): Int = TODO()
+fun fromRoman(roman: String): Int {
+    if (Regex("""[^IVXLCDM]""").find(roman)?.value != null) return -1
+    val rmn = roman.split("").filter { it != "" }
+    return 0
+}
 
 /**
  * Очень сложная
