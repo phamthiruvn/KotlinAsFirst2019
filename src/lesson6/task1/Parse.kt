@@ -193,8 +193,11 @@ else (Regex("""\d+""").findAll(jumps).toList().map { it.value.toInt() } + -1).ma
  * При нарушении формата входной строки, а также в случае отсутствия удачных попыток,
  * вернуть -1.
  */
-fun bestHighJump(jumps : String) : Int = TODO()
-
+fun bestHighJump(jumps : String) = if (Regex("""[^(\d\s-+%)]""").find(jumps)?.value != null) -1
+else {
+    val jmps = jumps.split(" ")
+    (jmps.filterIndexed{index,_ -> jmps.getOrNull(index + 1) == "+"}.map { it.toInt() } + -1).max()
+}
 /**
  * Сложная
  *
@@ -206,6 +209,7 @@ fun bestHighJump(jumps : String) : Int = TODO()
  */
 fun plusMinus(expression : String) : Int {
     val exp = expression.split(" ")
+    require(exp[0] != "")
     var op = 1
     var result = 0
     for (i in exp.indices) {
