@@ -1,9 +1,8 @@
-@file:Suppress("UNUSED_PARAMETER" , "ConvertCallChainIntoSequence")
+@file:Suppress("UNUSED_PARAMETER", "ConvertCallChainIntoSequence")
 
 package lesson6.task1
 
 import lesson2.task2.daysInMonth
-import kotlin.math.pow
 
 /**
  * Пример
@@ -11,7 +10,7 @@ import kotlin.math.pow
  * Время представлено строкой вида "11:34:45", содержащей часы, минуты и секунды, разделённые двоеточием.
  * Разобрать эту строку и рассчитать количество секунд, прошедшее с начала дня.
  */
-fun timeStrToSeconds(str : String) : Int {
+fun timeStrToSeconds(str: String): Int {
     val parts = str.split(":")
     var result = 0
     for (part in parts) {
@@ -27,7 +26,7 @@ fun timeStrToSeconds(str : String) : Int {
  * Дано число n от 0 до 99.
  * Вернуть его же в виде двухсимвольной строки, от "00" до "99"
  */
-fun twoDigitStr(n : Int) = if (n in 0..9) "0$n" else "$n"
+fun twoDigitStr(n: Int) = if (n in 0..9) "0$n" else "$n"
 
 /**
  * Пример
@@ -35,11 +34,11 @@ fun twoDigitStr(n : Int) = if (n in 0..9) "0$n" else "$n"
  * Дано seconds -- время в секундах, прошедшее с начала дня.
  * Вернуть текущее время в виде строки в формате "ЧЧ:ММ:СС".
  */
-fun timeSecondsToStr(seconds : Int) : String {
+fun timeSecondsToStr(seconds: Int): String {
     val hour = seconds / 3600
     val minute = (seconds % 3600) / 60
     val second = seconds % 60
-    return String.format("%02d:%02d:%02d" , hour , minute , second)
+    return String.format("%02d:%02d:%02d", hour, minute, second)
 }
 
 /**
@@ -72,19 +71,19 @@ fun main() {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str : String) : String {
+fun dateStrToDigit(str: String): String {
     val course = listOf(
-        "января" ,
-        "февраля" ,
-        "марта" ,
-        "апреля" ,
-        "мая" ,
-        "июня" ,
-        "июля" ,
-        "августа" ,
-        "сентября" ,
-        "октября" ,
-        "ноября" ,
+        "января",
+        "февраля",
+        "марта",
+        "апреля",
+        "мая",
+        "июня",
+        "июля",
+        "августа",
+        "сентября",
+        "октября",
+        "ноября",
         "декабря"
     )
 
@@ -94,9 +93,9 @@ fun dateStrToDigit(str : String) : String {
         val dayis = parts[0].toInt()
         val monthis = course.indexOf(parts[1]) + 1
         val yearis = parts[2].toInt()
-        if (dayis > daysInMonth(monthis , yearis) || monthis == 0) ""
-        else String.format("%02d.%02d.%d" , dayis , monthis , yearis)
-    } catch (e : NumberFormatException) {
+        if (dayis > daysInMonth(monthis, yearis) || monthis == 0) ""
+        else String.format("%02d.%02d.%d", dayis, monthis, yearis)
+    } catch (e: NumberFormatException) {
         ""
     }
 }
@@ -112,19 +111,19 @@ fun dateStrToDigit(str : String) : String {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital : String) : String {
+fun dateDigitToStr(digital: String): String {
     val course = listOf(
-        "января" ,
-        "февраля" ,
-        "марта" ,
-        "апреля" ,
-        "мая" ,
-        "июня" ,
-        "июля" ,
-        "августа" ,
-        "сентября" ,
-        "октября" ,
-        "ноября" ,
+        "января",
+        "февраля",
+        "марта",
+        "апреля",
+        "мая",
+        "июня",
+        "июля",
+        "августа",
+        "сентября",
+        "октября",
+        "ноября",
         "декабря"
     )
     val parts = digital.split(".")
@@ -133,9 +132,9 @@ fun dateDigitToStr(digital : String) : String {
         val dayis = parts[0].toInt()
         val monthis = course.getOrNull(parts[1].toInt() - 1)
         val yearis = parts[2].toInt()
-        if (dayis > daysInMonth(parts[1].toInt() , yearis) || monthis == null) ""
+        if (dayis > daysInMonth(parts[1].toInt(), yearis) || monthis == null) ""
         else "$dayis $monthis $yearis"
-    } catch (e : NumberFormatException) {
+    } catch (e: NumberFormatException) {
         ""
     }
 }
@@ -154,20 +153,8 @@ fun dateDigitToStr(digital : String) : String {
  *
  * PS: Дополнительные примеры работы функции можно посмотреть в соответствующих тестах.
  */
-fun flattenPhoneNumber(phone : String) : String {
-    var result = ""
-    if (phone.contains("()")) return ""
-    val phonee = phone.split(" " , "-" , "(" , ")").filter { it != "" }
-    try {
-        for (part in phonee) {
-            part.toInt()
-            result += part
-        }
-    } catch (e : NumberFormatException) {
-        return ""
-    }
-    return result
-}
+fun flattenPhoneNumber(phone: String) = if (Regex("""[^\d\s-()^+]|\(\)""").find(phone)?.value != null) ""
+else Regex("""[\s-()]""").replace(phone, "")
 
 /**
  * Средняя
@@ -179,7 +166,7 @@ fun flattenPhoneNumber(phone : String) : String {
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
-fun bestLongJump(jumps : String) = if (Regex("""[^(\d\s-%)]""").find(jumps)?.value != null) -1
+fun bestLongJump(jumps: String) = if (Regex("""[^(\d\s-%)]""").find(jumps)?.value != null) -1
 else (Regex("""\d+""").findAll(jumps).toList().map { it.value.toInt() } + -1).max()
 
 /**
@@ -193,11 +180,12 @@ else (Regex("""\d+""").findAll(jumps).toList().map { it.value.toInt() } + -1).ma
  * При нарушении формата входной строки, а также в случае отсутствия удачных попыток,
  * вернуть -1.
  */
-fun bestHighJump(jumps : String) = if (Regex("""[^(\d\s-+%)]""").find(jumps)?.value != null) -1
+fun bestHighJump(jumps: String) = if (Regex("""[^(\d\s-+%)]""").find(jumps)?.value != null) -1
 else {
     val jmps = jumps.split(" ")
-    (jmps.filterIndexed{index,_ -> jmps.getOrNull(index + 1) == "+"}.map { it.toInt() } + -1).max()
+    (jmps.filterIndexed { index, _ -> jmps.getOrNull(index + 1) == "+" }.map { it.toInt() } + -1).max()
 }
+
 /**
  * Сложная
  *
@@ -207,15 +195,19 @@ else {
  * Вернуть значение выражения (6 для примера).
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
-fun plusMinus(expression : String) : Int {
+fun plusMinus(expression: String): Int {
     val exp = expression.split(" ")
     require(exp[0] != "")
     var op = 1
     var result = 0
     for (i in exp.indices) {
         if (i % 2 == 0) {
-            result += exp[i].toInt() * op
-            require(exp[i].toList().all { it in '0'..'9' })
+            try {
+                result += exp[i].toInt() * op
+                require(exp[i].toList().all { it in '0'..'9' })
+            } catch (e : NumberFormatException) {
+                throw NumberFormatException("Only signed numbers are allowed")
+            }
         } else when {
             exp[i] == "+" -> op = 1
             exp[i] == "-" -> op = -1
@@ -234,7 +226,7 @@ fun plusMinus(expression : String) : Int {
  * Вернуть индекс начала первого повторяющегося слова, или -1, если повторов нет.
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
-fun firstDuplicateIndex(str : String) : Int {
+fun firstDuplicateIndex(str: String): Int {
     val course = str.toLowerCase().split(" ")
     var result = 0
     if (course.size == 1) return -1
@@ -257,7 +249,7 @@ fun firstDuplicateIndex(str : String) : Int {
  * или пустую строку при нарушении формата строки.
  * Все цены должны быть больше либо равны нуля.
  */
-fun mostExpensive(description : String) =
+fun mostExpensive(description: String) =
     description.split("; ").map { it.split(" ") }.maxBy { it[1].toDouble() }?.get(0).toString()
 
 /**
@@ -271,7 +263,7 @@ fun mostExpensive(description : String) =
  *
  * Вернуть -1, если roman не является корректным римским числом
  */
-fun fromRoman(roman : String) : Int = TODO()
+fun fromRoman(roman: String): Int = TODO()
 
 /**
  * Очень сложная
@@ -309,4 +301,4 @@ fun fromRoman(roman : String) : Int = TODO()
  * IllegalArgumentException должен бросаться даже если ошибочная команда не была достигнута в ходе выполнения.
  *
  */
-fun computeDeviceCells(cells : Int , commands : String , limit : Int) : List<Int> = TODO()
+fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> = TODO()
