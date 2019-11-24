@@ -1,8 +1,9 @@
-@file:Suppress("UNUSED_PARAMETER", "ConvertCallChainIntoSequence")
+@file:Suppress("UNUSED_PARAMETER" , "ConvertCallChainIntoSequence")
 
 package lesson6.task1
 
 import lesson2.task2.daysInMonth
+import kotlin.math.pow
 
 /**
  * Пример
@@ -10,7 +11,7 @@ import lesson2.task2.daysInMonth
  * Время представлено строкой вида "11:34:45", содержащей часы, минуты и секунды, разделённые двоеточием.
  * Разобрать эту строку и рассчитать количество секунд, прошедшее с начала дня.
  */
-fun timeStrToSeconds(str: String): Int {
+fun timeStrToSeconds(str : String) : Int {
     val parts = str.split(":")
     var result = 0
     for (part in parts) {
@@ -26,7 +27,7 @@ fun timeStrToSeconds(str: String): Int {
  * Дано число n от 0 до 99.
  * Вернуть его же в виде двухсимвольной строки, от "00" до "99"
  */
-fun twoDigitStr(n: Int) = if (n in 0..9) "0$n" else "$n"
+fun twoDigitStr(n : Int) = if (n in 0..9) "0$n" else "$n"
 
 /**
  * Пример
@@ -34,11 +35,11 @@ fun twoDigitStr(n: Int) = if (n in 0..9) "0$n" else "$n"
  * Дано seconds -- время в секундах, прошедшее с начала дня.
  * Вернуть текущее время в виде строки в формате "ЧЧ:ММ:СС".
  */
-fun timeSecondsToStr(seconds: Int): String {
+fun timeSecondsToStr(seconds : Int) : String {
     val hour = seconds / 3600
     val minute = (seconds % 3600) / 60
     val second = seconds % 60
-    return String.format("%02d:%02d:%02d", hour, minute, second)
+    return String.format("%02d:%02d:%02d" , hour , minute , second)
 }
 
 /**
@@ -71,7 +72,7 @@ fun main() {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30.02.2009) считается неверными
  * входными данными.
  */
-fun dateStrToDigit(str: String): String {
+fun dateStrToDigit(str : String) : String {
     val course = listOf(
         "января" ,
         "февраля" ,
@@ -95,7 +96,7 @@ fun dateStrToDigit(str: String): String {
         val yearis = parts[2].toInt()
         if (dayis > daysInMonth(monthis , yearis) || monthis == 0) ""
         else String.format("%02d.%02d.%d" , dayis , monthis , yearis)
-    } catch (e: NumberFormatException) {
+    } catch (e : NumberFormatException) {
         ""
     }
 }
@@ -111,7 +112,7 @@ fun dateStrToDigit(str: String): String {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String {
+fun dateDigitToStr(digital : String) : String {
     val course = listOf(
         "января" ,
         "февраля" ,
@@ -153,10 +154,10 @@ fun dateDigitToStr(digital: String): String {
  *
  * PS: Дополнительные примеры работы функции можно посмотреть в соответствующих тестах.
  */
-fun flattenPhoneNumber(phone: String): String {
+fun flattenPhoneNumber(phone : String) : String {
     var result = ""
     if (phone.contains("()")) return ""
-    val phonee = phone.split(" ", "-", "(", ")").filter { it != "" }
+    val phonee = phone.split(" " , "-" , "(" , ")").filter { it != "" }
     try {
         for (part in phonee) {
             part.toInt()
@@ -167,6 +168,7 @@ fun flattenPhoneNumber(phone: String): String {
     }
     return result
 }
+
 /**
  * Средняя
  *
@@ -177,7 +179,7 @@ fun flattenPhoneNumber(phone: String): String {
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
-fun bestLongJump(jumps: String): Int = TODO()
+fun bestLongJump(jumps : String): Int = TODO()
 
 /**
  * Сложная
@@ -190,7 +192,7 @@ fun bestLongJump(jumps: String): Int = TODO()
  * При нарушении формата входной строки, а также в случае отсутствия удачных попыток,
  * вернуть -1.
  */
-fun bestHighJump(jumps: String): Int = TODO()
+fun bestHighJump(jumps : String) : Int = TODO()
 
 /**
  * Сложная
@@ -201,7 +203,22 @@ fun bestHighJump(jumps: String): Int = TODO()
  * Вернуть значение выражения (6 для примера).
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
-fun plusMinus(expression: String): Int = TODO()
+fun plusMinus(expression : String) : Int {
+    val exp = expression.split(" ")
+    var op = 1
+    var result = 0
+    for (i in exp.indices) {
+        if (i % 2 == 0) {
+            result += exp[i].toInt() * op
+            require(exp[i].toList().all { it in '0'..'9' })
+        } else when {
+            exp[i] == "+" -> op = 1
+            exp[i] == "-" -> op = -1
+            else -> throw IllegalArgumentException()
+        }
+    }
+    return result
+}
 
 /**
  * Сложная
@@ -212,7 +229,17 @@ fun plusMinus(expression: String): Int = TODO()
  * Вернуть индекс начала первого повторяющегося слова, или -1, если повторов нет.
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
-fun firstDuplicateIndex(str: String): Int = TODO()
+fun firstDuplicateIndex(str : String) : Int {
+    val course = str.toLowerCase().split(" ")
+    var result = 0
+    if (course.size == 1) return -1
+    for (i in 0..course.size - 2) {
+        if (course[i] == course[i + 1]) break
+        else if (i == course.size - 2) return -1
+        result += course[i].length + 1
+    }
+    return result
+}
 
 /**
  * Сложная
@@ -225,7 +252,7 @@ fun firstDuplicateIndex(str: String): Int = TODO()
  * или пустую строку при нарушении формата строки.
  * Все цены должны быть больше либо равны нуля.
  */
-fun mostExpensive(description: String) =
+fun mostExpensive(description : String) =
     description.split("; ").map { it.split(" ") }.maxBy { it[1].toDouble() }?.get(0).toString()
 
 /**
@@ -239,7 +266,7 @@ fun mostExpensive(description: String) =
  *
  * Вернуть -1, если roman не является корректным римским числом
  */
-fun fromRoman(roman: String): Int = TODO()
+fun fromRoman(roman : String) : Int = TODO()
 
 /**
  * Очень сложная
@@ -277,4 +304,4 @@ fun fromRoman(roman: String): Int = TODO()
  * IllegalArgumentException должен бросаться даже если ошибочная команда не была достигнута в ходе выполнения.
  *
  */
-fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> = TODO()
+fun computeDeviceCells(cells : Int , commands : String , limit : Int) : List<Int> = TODO()
