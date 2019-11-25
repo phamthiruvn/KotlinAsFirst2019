@@ -60,6 +60,20 @@ fun main() {
     }
 }
 
+val course = listOf(
+    "января",
+    "февраля",
+    "марта",
+    "апреля",
+    "мая",
+    "июня",
+    "июля",
+    "августа",
+    "сентября",
+    "октября",
+    "ноября",
+    "декабря"
+)
 
 /**
  * Средняя
@@ -73,29 +87,14 @@ fun main() {
  * входными данными.
  */
 fun dateStrToDigit(str: String): String {
-    val course = listOf(
-        "января",
-        "февраля",
-        "марта",
-        "апреля",
-        "мая",
-        "июня",
-        "июля",
-        "августа",
-        "сентября",
-        "октября",
-        "ноября",
-        "декабря"
-    )
-
     val parts = str.split(" ")
     if (parts.size != 3) return ""
     return try {
-        val dayis = parts[0].toInt()
-        val monthis = course.indexOf(parts[1]) + 1
-        val yearis = parts[2].toInt()
-        if (dayis > daysInMonth(monthis, yearis) || monthis == 0) ""
-        else String.format("%02d.%02d.%d", dayis, monthis, yearis)
+        val d = parts[0].toInt()
+        val m = course.indexOf(parts[1]) + 1
+        val y = parts[2].toInt()
+        if (d > daysInMonth(m, y) || m == 0) ""
+        else String.format("%02d.%02d.%d", d, m, y)
     } catch (e: NumberFormatException) {
         ""
     }
@@ -113,20 +112,6 @@ fun dateStrToDigit(str: String): String {
  * входными данными.
  */
 fun dateDigitToStr(digital: String): String {
-    val course = listOf(
-        "января",
-        "февраля",
-        "марта",
-        "апреля",
-        "мая",
-        "июня",
-        "июля",
-        "августа",
-        "сентября",
-        "октября",
-        "ноября",
-        "декабря"
-    )
     val parts = digital.split(".")
     if (parts.size != 3) return ""
     return try {
@@ -167,7 +152,7 @@ else Regex("""[\s-()]""").replace(phone, "")
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
-fun bestLongJump(jumps: String) = if (Regex("""[^(\d\s-%)]""").find(jumps)?.value != null) -1
+fun bestLongJump(jumps: String) = if (Regex("""[^\d\s-%]""").find(jumps)?.value != null) -1
 else (Regex("""\d+""").findAll(jumps).toList().map { it.value.toInt() } + -1).max()
 
 /**
@@ -181,10 +166,10 @@ else (Regex("""\d+""").findAll(jumps).toList().map { it.value.toInt() } + -1).ma
  * При нарушении формата входной строки, а также в случае отсутствия удачных попыток,
  * вернуть -1.
  */
-fun bestHighJump(jumps: String) = if (Regex("""[^(\d\s-+%)]""").find(jumps)?.value != null) -1
+fun bestHighJump(jumps: String) = if (Regex("""[^\d\s-+%]""").find(jumps)?.value != null) -1
 else {
     val jmps = jumps.split(" ")
-    (jmps.filterIndexed { index, _ -> jmps.getOrNull(index + 1) == "+" }.map { it.toInt() } + -1).max()
+    (jmps.filterIndexed { index, _ -> jmps.getOrElse(index + 1) { "" }.contains('+') }.map { it.toInt() } + -1).max()
 }
 
 /**
@@ -201,23 +186,19 @@ fun plusMinus(expression: String): Int {
     require(exp[0] != "")
     var op = 1
     var result = 0
-    try {
-        for (i in exp.indices) {
-            if (i % 2 == 0) {
-                result += exp[i].toInt() * op
-                require(exp[i].toList().all { it in '0'..'9' })
-
-            } else when {
-                exp[i] == "+" -> op = 1
-                exp[i] == "-" -> op = -1
-                else -> throw IllegalArgumentException()
-            }
+    for (i in exp.indices) {
+        if (i % 2 == 0) {
+            result += exp[i].toInt() * op
+            require(exp[i].toList().all { it in '0'..'9' })
+        } else when {
+            exp[i] == "+" -> op = 1
+            exp[i] == "-" -> op = -1
+            else -> throw IllegalArgumentException()
         }
-        return result
-    } catch (e : Exception) {
-        throw IllegalArgumentException()
     }
+    return result
 }
+
 /**
  * Сложная
  *
@@ -230,13 +211,11 @@ fun plusMinus(expression: String): Int {
 fun firstDuplicateIndex(str: String): Int {
     val course = str.toLowerCase().split(" ")
     var result = 0
-    if (course.size == 1) return -1
     for (i in 0..course.size - 2) {
-        if (course[i] == course[i + 1]) break
-        else if (i == course.size - 2) return -1
+        if (course[i] == course[i + 1]) return result
         result += course[i].length + 1
     }
-    return result
+    return -1
 }
 
 /**
@@ -251,7 +230,7 @@ fun firstDuplicateIndex(str: String): Int {
  * Все цены должны быть больше либо равны нуля.
  */
 fun mostExpensive(description: String) =
-    description.split("; ").map { it.split(" ") }.maxBy { it[1].toDouble() }?.get(0).toString()
+    description.split("; ").map { it.split(" ") }.maxBy { it[1].toDouble() }?.get(0)
 
 /**
  * Сложная
@@ -268,7 +247,7 @@ fun fromRoman(roman: String): Int {
     if (!roman.matches((Regex("""(M*)(CM|CD|D|)(C{0,3})(XC|XL|L|)(X{0,3})(IX|IV|V|)(I{0,3})"""))) || roman == "") return -1
     val course = mapOf("I" to 1, "V" to 5, "X" to 10, "L" to 50, "C" to 100, "D" to 500, "M" to 1000)
     val rmn = roman.split("").filter { it != "" }.map { course[it] }.toMutableList()
-    return rmn.foldIndexed(0 , { index , acc , _ ->
+    return rmn.foldIndexed(0, { index, acc, _ ->
         when {
             index == rmn.size - 1 -> acc + rmn[index]!!
             rmn[index]!! < rmn[index + 1]!! -> acc - rmn[index]!!

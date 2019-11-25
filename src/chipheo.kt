@@ -7,7 +7,7 @@ fun main() {
     println(reg)
     val jmps = "220 + 224 %+ 228 %- 230 + 232 %%- 234 %".split(" ")
 
-
+println( "+2".toInt())
 
 }
 
