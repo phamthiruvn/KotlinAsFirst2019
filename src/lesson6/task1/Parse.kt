@@ -3,6 +3,7 @@
 package lesson6.task1
 
 import lesson2.task2.daysInMonth
+import java.lang.IllegalArgumentException
 
 /**
  * Пример
@@ -185,17 +186,21 @@ fun plusMinus(expression: String): Int {
     require(exp[0] != "")
     var op = 1
     var result = 0
-    for (i in exp.indices) {
-        if (i % 2 == 0) {
-            result += exp[i].toInt() * op
-            require(exp[i].toList().all { it in '0'..'9' })
-        } else when {
-            exp[i] == "+" -> op = 1
-            exp[i] == "-" -> op = -1
-            else -> throw IllegalArgumentException()
+    try {
+        for (i in exp.indices) {
+            if (i % 2 == 0) {
+                result += exp[i].toInt() * op
+                require(Regex("""\d+""").matches(exp[i]))
+            } else when {
+                exp[i] == "+" -> op = 1
+                exp[i] == "-" -> op = -1
+            }
         }
+        return result
+    } catch (e : Exception) {
+        throw IllegalArgumentException()
     }
-    return result
+
 }
 
 /**
