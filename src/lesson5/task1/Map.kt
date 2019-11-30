@@ -158,6 +158,7 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>) =
         { it.first },
         { it.second }).mapValues { it.value.distinct().joinToString() }
 
+
 /**
  * Средняя
  *
@@ -302,11 +303,12 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
     val compare = mutableMapOf<Int, Int>()
     for (a in list.indices) {
-        if (list[a] in compare.values) return Pair((list.indexOf(number - list[a])), a)
-        compare[list[a]] = number - list[a]
+        if (list[a] in compare.keys) return Pair(compare.getOrDefault(list[a], -1), a)
+        compare[number - list[a]] = a
     }
     return Pair(-1, -1)
 }
+
 /**
  * Очень сложная
  *

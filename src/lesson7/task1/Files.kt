@@ -2,6 +2,7 @@
 
 package lesson7.task1
 
+import lesson5.task1.extractRepeats
 import java.io.File
 
 /**
@@ -53,7 +54,13 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
  * Регистр букв игнорировать, то есть буквы е и Е считать одинаковыми.
  *
  */
-fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> = TODO()
+fun countSubstrings(inputName: String, substrings: List<String>): Map<String , Int>? {
+    for (line in File(inputName).readLines()) {
+        val linex = line.split(" ")
+        for (word in linex) return null
+    }
+    return null
+}
 
 
 /**
