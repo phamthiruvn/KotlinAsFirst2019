@@ -4,21 +4,26 @@ import java.lang.Integer
 
 
 fun main() {
-    val jumps = "706 % - 717 - 703"
-    val reg = Regex("""[^(\d\s%-)]""").find("700 717 g 707 % 754")?.value
-    val jmps = "220 + 224 %+ 228 %- 230 + 232 %%- 234 %".split(" ")
-    var x : String = ""
-    for (line in File("input/substrings_in1.txt").readLines()) x += line
-
-
-    var mapp = mutableMapOf<String , MutableList<String>>()
-    val a = mapOf("Emergency" to "112" , "Fire department" to "01")
-    val b = mapOf("Emergency" to "911" , "Police" to "02")
-    println((a.toList() + b.toList()).groupBy({ it.first } , { it.second }))
-    val lol = mapOf("Марат" to 3 , "Семён" to 5 , "Михаил" to 5)
-    println(lol.toList().groupBy({ it.second } , { it.first }))
-
+    val file = File("input/sibilants_in1.txt").readLines()
+    val changee = mapOf("И" to "Ы" , "А" to "Я" , "У" to "Ю")
+    val nocle = listOf("Ж" , "Ч" , "Ш" , "Щ")
+    val outputStream = File("temp.txt").bufferedWriter()
+    for (line in File("input/sibilants_in1.txt").readLines()) {
+        if (line.isEmpty()) {
+            outputStream.newLine()
+            continue
+        }
+        for (word in line.split("")) {
+            word.toList().mapIndexed { index, c ->   }
+            outputStream.write(word)
+        }
+        outputStream.newLine()
+    }
+    outputStream.close()
+    println(File("temp.txt").readText())
 }
+
+
 
 
 

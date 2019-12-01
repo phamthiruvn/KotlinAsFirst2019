@@ -2,7 +2,6 @@
 
 package lesson7.task1
 
-import lesson5.task1.extractRepeats
 import java.io.File
 
 /**
@@ -54,12 +53,20 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
  * Регистр букв игнорировать, то есть буквы е и Е считать одинаковыми.
  *
  */
-fun countSubstrings(inputName: String, substrings: List<String>): Map<String , Int>? {
-    for (line in File(inputName).readLines()) {
-        val linex = line.split(" ")
-        for (word in linex) return null
+fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
+    val result = mutableMapOf<String, Int>()
+    val file = File(inputName).readText().toLowerCase()
+    var stat = -1
+    for (a in substrings) {
+        var res = 0
+        while (file.indexOf(a.toLowerCase(), stat + 1) != -1) {
+            res += 1
+            stat = file.indexOf(a.toLowerCase(), stat + 1)
+        }
+        result[a] = res
+        stat = 0
     }
-    return null
+    return result
 }
 
 
@@ -77,7 +84,20 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String , I
  *
  */
 fun sibilants(inputName: String, outputName: String) {
-    TODO()
+    val changee = mapOf("И" to "Ы", "А" to "Я", "У" to "Ю")
+    val nocle = listOf("Ж", "Ч", "Ш", "Щ")
+    val outputStream = File(outputName).bufferedWriter()
+    for (line in File(inputName).readLines()) {
+        if (line.isEmpty()) {
+            outputStream.newLine()
+            continue
+        }
+        for (word in line.split(" ")) {
+
+            outputStream.write(word)
+        }
+    }
+    outputStream.close()
 }
 
 /**
