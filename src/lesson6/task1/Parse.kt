@@ -234,7 +234,7 @@ fun firstDuplicateIndex(str: String): Int {
  * Все цены должны быть больше либо равны нуля.
  */
 fun mostExpensive(description: String) =
-    description.split("; ").map { it.split(" ") }.maxBy { it[1].toDouble() }?.get(0)
+    description.split("; ").map { it.split(" ") }.maxBy { it[1].toDouble() }?.get(0).orEmpty()
 
 /**
  * Сложная
