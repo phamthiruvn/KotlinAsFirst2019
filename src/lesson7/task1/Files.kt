@@ -124,11 +124,7 @@ fun centerFile(inputName: String, outputName: String) {
     val best = (lol.maxBy { it.length } ?: "").length
     val outputStream = File(outputName).bufferedWriter()
     for (line in lol) {
-        var i = 0
-        while (i < (best - line.length) / 2) {
-            outputStream.write(" ")
-            i++
-        }
+        outputStream.write(" ".repeat((best - line.length) / 2))
         outputStream.write(line.trim())
         outputStream.newLine()
     }
@@ -162,14 +158,32 @@ fun centerFile(inputName: String, outputName: String) {
  * 7) В самой длинной строке каждая пара соседних слов должна быть отделена В ТОЧНОСТИ одним пробелом
  * 8) Если входной файл удовлетворяет требованиям 1-7, то он должен быть в точности идентичен выходному файлу
  */
+
+fun spaces(dif: Int, siz: Int ): MutableList<String> {
+    val result = mutableListOf<String>()
+    for (i in 0 until siz) result.add(" ".repeat(dif / (siz - 1)))
+    for (i in 0 until dif % (siz - 1)) result[i] += " "
+    result[result.lastIndex] = ""
+    return result
+}
+
 fun alignFileByWidth(inputName: String, outputName: String) {
-val input = File(inputName).readLines()
-    val bestlong = (input.maxBy { it.length } ?: "").length
+    val lol = File(inputName).readLines().map { it.trim() }
+    val best = (lol.maxBy { it.length } ?: "").length
     val outputStream = File(outputName).bufferedWriter()
-    for (line in input)
-     {
-        val newline = mutableListOf<String>()
+    for (line in lol) {
+        val newline = line.split(" ")
+        if (newline.size == 1) outputStream.write(newline.joinToString(""))
+        else {
+            val space = spaces(best - newline.joinToString("").length , newline.size)
+            newline.mapIndexed { index , _ ->
+                outputStream.write(newline[index] + space[index])
+            }
+        }
+        outputStream.newLine()
     }
+    outputStream.close()
+
 }
 
 /**

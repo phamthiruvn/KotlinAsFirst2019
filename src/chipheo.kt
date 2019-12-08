@@ -5,21 +5,31 @@ import java.lang.Integer
 
 
 fun main() {
+    fun lis(dif: Int, siz: Int ): MutableList<String> {
+        val result = mutableListOf<String>()
+        for (i in 0 until siz) result.add(" ".repeat(dif / (siz - 1)))
+        for (i in 0 until dif % (siz - 1)) result[i] += " "
+        result[result.lastIndex] = ""
+        return result
+    }
+
     val lol = File("input/width_in1.txt").readLines().map { it.trim() }
     val best = (lol.maxBy { it.length } ?: "").length
     val outputStream = File("input/lol.txt").bufferedWriter()
     for (line in lol) {
-
         val newline = line.split(" ")
-        val add = (best - newline.joinToString("").length) / newline.size
-        println(add)
-        if (line.length == best) println(line)
-        if (newline.size == 1) println(newline.joinToString(""))
+        if (newline.size == 1) outputStream.write(newline.joinToString(""))
         else {
-            newline
+            val space = lis(best - newline.joinToString("").length , newline.size)
+            newline.mapIndexed { index , _ ->
+                outputStream.write(newline[index] + space[index])
+            }
         }
+        outputStream.newLine()
     }
+    outputStream.close()
 
+    println(File("input/lol.txt").readText())
 }
 
 
