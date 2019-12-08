@@ -1,6 +1,7 @@
 import lesson7.task1.countSubstrings
 import ru.spbstu.wheels.toMap
 import java.io.File
+import java.lang.IllegalArgumentException
 import java.lang.Integer
 
 
@@ -13,7 +14,7 @@ fun main() {
         return result
     }
 
-    val lol = File("input/width_in1.txt").readLines().map { it.trim() }
+    val lol = File("input/width_in1.txt").readLines().map { it.split(" ").filter { it != "" }.joinToString(" ").trim() }
     val best = (lol.maxBy { it.length } ?: "").length
     val outputStream = File("input/lol.txt").bufferedWriter()
     for (line in lol) {
@@ -29,7 +30,6 @@ fun main() {
     }
     outputStream.close()
 
-    println(File("input/lol.txt").readText())
 }
 
 

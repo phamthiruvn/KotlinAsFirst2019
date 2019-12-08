@@ -166,11 +166,11 @@ fun spaces(dif: Int, siz: Int): MutableList<String> {
 }
 
 fun alignFileByWidth(inputName: String, outputName: String) {
-    val lol = File(inputName).readLines().map { it.trim() }
+    val lol = File(inputName).readLines().map { it.split(" ").filter { it != "" }.joinToString(" ").trim() }
     val best = (lol.maxBy { it.length } ?: "").length
     val outputStream = File(outputName).bufferedWriter()
     for (line in lol) {
-        val newline = line.split(" ").filter { it != "" }
+        val newline = line.split(" ")
         if (newline.size == 1) outputStream.write(newline.joinToString(""))
         else {
             val space = spaces(best - newline.joinToString("").length, newline.size)
@@ -181,7 +181,6 @@ fun alignFileByWidth(inputName: String, outputName: String) {
         outputStream.newLine()
     }
     outputStream.close()
-
 }
 
 /**
