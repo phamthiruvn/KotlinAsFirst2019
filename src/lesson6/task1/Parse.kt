@@ -197,7 +197,7 @@ fun plusMinus(expression: String): Int {
             }
         }
         return result
-    } catch (e : Exception) {
+    } catch (e: Exception) {
         throw IllegalArgumentException()
     }
 }

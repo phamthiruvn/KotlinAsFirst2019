@@ -207,7 +207,9 @@ fun top20Words(inputName: String) =
             line,
             0
         ).map { it.value }
-    }.filter { it != "" }.groupBy { it }.map { it.value }.sortedByDescending { it.size }.take(20).groupBy({ it[0] }, { it.size })
+    }.filter { it != "" }.groupBy { it }.map { it.value }.sortedByDescending { it.size }.take(20).groupBy(
+        { it[0] },
+        { it.size })
         .mapValues { it.value[0] }
 
 /**
