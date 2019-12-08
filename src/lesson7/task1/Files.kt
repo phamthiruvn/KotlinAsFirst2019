@@ -233,11 +233,8 @@ fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: 
     val outputStream = File(outputName).bufferedWriter()
     val list = File(inputName).readText()
     for (i in list) {
-        val newi = when (i) {
-            in dic.keys -> if (i.isLowerCase()) dic.getOrDefault(i.toLowerCase() , "")
-            else dic.getOrDefault(i.toLowerCase() , "").capitalize()
-            else -> i.toString()
-        }
+        var newi = dic.getOrDefault(i.toLowerCase(), i.toString())
+        if (i.isUpperCase()) newi = newi.capitalize()
         outputStream.write(newi)
     }
     outputStream.close()
