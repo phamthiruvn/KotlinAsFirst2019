@@ -120,12 +120,12 @@ fun sibilants(inputName: String, outputName: String) {
  *
  */
 fun centerFile(inputName: String, outputName: String) {
-    val lol = File(inputName).readLines()
+    val lol = File(inputName).readLines().map { it.trim() }
     val best = (lol.maxBy { it.length } ?: "").length
     val outputStream = File(outputName).bufferedWriter()
     for (line in lol) {
         var i = 0
-        while (i < (best - (line.trim()).length) / 2) {
+        while (i < (best - line.length) / 2) {
             outputStream.write(" ")
             i++
         }
@@ -163,7 +163,13 @@ fun centerFile(inputName: String, outputName: String) {
  * 8) Если входной файл удовлетворяет требованиям 1-7, то он должен быть в точности идентичен выходному файлу
  */
 fun alignFileByWidth(inputName: String, outputName: String) {
-    TODO()
+val input = File(inputName).readLines()
+    val bestlong = (input.maxBy { it.length } ?: "").length
+    val outputStream = File(outputName).bufferedWriter()
+    for (line in input)
+     {
+        val newline = mutableListOf<String>()
+    }
 }
 
 /**
