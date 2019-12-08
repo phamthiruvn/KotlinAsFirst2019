@@ -172,7 +172,7 @@ fun alignFileByWidth(inputName: String, outputName: String) {
     val best = (lol.maxBy { it.length } ?: "").length
     val outputStream = File(outputName).bufferedWriter()
     for (line in lol) {
-        val newline = line.split(" ")
+        val newline = line.split(" ").filter { it != " " }
         if (newline.size == 1) outputStream.write(newline.joinToString(""))
         else {
             val space = spaces(best - newline.joinToString("").length , newline.size)
