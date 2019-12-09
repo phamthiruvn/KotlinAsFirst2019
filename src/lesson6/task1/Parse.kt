@@ -188,8 +188,8 @@ fun plusMinus(expression: String): Int {
     var result = 0
     for (i in exp.indices) {
         if (i % 2 == 0) {
-            result += exp[i].toInt() * op
             require(Regex("""\d+""").matches(exp[i]))
+            result += exp[i].toInt() * op
         } else when {
             exp[i] == "+" -> op = 1
             exp[i] == "-" -> op = -1
