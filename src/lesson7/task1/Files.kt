@@ -57,13 +57,12 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
     val result = mutableMapOf<String, Int>()
     val file = File(inputName).readText().toLowerCase()
     for (a in substrings) {
-        var res = 0
-        var stat = file.indexOf(a.toLowerCase(), 0)
+        result[a] = 0
+        var stat = file.indexOf(a.toLowerCase() , 0)
         while (stat != -1) {
-            res += 1
-            stat = file.indexOf(a.toLowerCase(), stat + 1)
+            result[a] = result[a]!! + 1
+            stat = file.indexOf(a.toLowerCase() , stat + 1)
         }
-        result[a] = res
     }
     return result
 }
@@ -86,16 +85,16 @@ fun sibilants(inputName: String, outputName: String) {
     val nocle = listOf('Ж', 'Ч', 'Ш', 'Щ', 'ж', 'ч', 'ш', 'щ')
     val outputStream = File(outputName).bufferedWriter()
     for (line in File(inputName).readLines()) {
-        val newline = mutableListOf<String>()
+        val newLine = mutableListOf<String>()
         for (word in line.split(" ")) {
             val analyze = word.toMutableList()
-            analyze.mapIndexed { index, c ->
+            analyze.forEachIndexed { index, _ ->
                 if (index < analyze.size - 1 && analyze[index] in nocle && analyze[index + 1] in changee.keys) analyze[index + 1] =
                     changee[analyze[index + 1]] ?: ' '
             }
-            newline.add(analyze.joinToString(""))
+            newLine.add(analyze.joinToString(""))
         }
-        outputStream.write(newline.joinToString(" "))
+        outputStream.write(newLine.joinToString(" "))
         outputStream.newLine()
     }
     outputStream.close()
@@ -166,15 +165,14 @@ fun spaces(dif: Int, siz: Int): MutableList<String> {
 }
 
 fun alignFileByWidth(inputName: String, outputName: String) {
-    val lol = File(inputName).readLines().map { it.split(" ").filter { it != "" }.joinToString(" ").trim() }
+    val lol = File(inputName).readLines().map { it -> it.split(" ").filter { it != "" }.joinToString(" ").trim() }
     val best = (lol.maxBy { it.length } ?: "").length
     val outputStream = File(outputName).bufferedWriter()
     for (line in lol) {
         val newline = line.split(" ")
-        if (newline.size == 1) outputStream.write(newline.joinToString(""))
-        else {
+        if (newline.size == 1) outputStream.write(newline.joinToString("")) else {
             val space = spaces(best - newline.joinToString("").length, newline.size)
-            newline.mapIndexed { index, _ ->
+            newline.forEachIndexed { index, _ ->
                 outputStream.write(newline[index] + space[index])
             }
         }

@@ -186,20 +186,17 @@ fun plusMinus(expression: String): Int {
     require(exp[0] != "")
     var op = 1
     var result = 0
-    try {
-        for (i in exp.indices) {
-            if (i % 2 == 0) {
-                result += exp[i].toInt() * op
-                require(Regex("""\d+""").matches(exp[i]))
-            } else when {
-                exp[i] == "+" -> op = 1
-                exp[i] == "-" -> op = -1
-            }
+    for (i in exp.indices) {
+        if (i % 2 == 0) {
+            result += exp[i].toInt() * op
+            require(Regex("""\d+""").matches(exp[i]))
+        } else when {
+            exp[i] == "+" -> op = 1
+            exp[i] == "-" -> op = -1
+            else -> throw IllegalArgumentException()
         }
-        return result
-    } catch (e: Exception) {
-        throw IllegalArgumentException()
     }
+    return result
 }
 
 /**
