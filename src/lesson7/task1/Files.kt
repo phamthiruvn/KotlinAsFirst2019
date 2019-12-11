@@ -1,4 +1,4 @@
-@file:Suppress("UNUSED_PARAMETER", "ConvertCallChainIntoSequence")
+@file:Suppress("UNUSED_PARAMETER", "ConvertCallChainIntoSequence", "NAME_SHADOWING")
 
 package lesson7.task1
 
@@ -58,10 +58,10 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
     val file = File(inputName).readText().toLowerCase()
     for (a in substrings) {
         result[a] = 0
-        var stat = file.indexOf(a.toLowerCase() , 0)
+        var stat = file.indexOf(a.toLowerCase(), 0)
         while (stat != -1) {
             result[a] = result[a]!! + 1
-            stat = file.indexOf(a.toLowerCase() , stat + 1)
+            stat = file.indexOf(a.toLowerCase(), stat + 1)
         }
     }
     return result
@@ -333,36 +333,39 @@ Suspendisse <s>et elit in enim tempus iaculis</s>.
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)
  */
 fun markdownToHtmlSimple(inputName: String, outputName: String) {
-    val lol = File(inputName).readText()
+    val loll = File(inputName).readLines().toMutableList()
     val outputStream = File(outputName).bufferedWriter()
     var a = 0
     var b = 1
     var s = 1
     var i = 1
-    outputStream.write("<html> <body> <p>")
-    while (a < lol.length - 1) {
-        if (a < lol.length - 3 && lol[a + 2] == '\n' && lol[a] == '\n') {
-            outputStream.write("</p><p>")
-            a += 3
-        } else if (a == lol.indexOf("**", a)) {
-            if (b == 1) outputStream.write("<b>") else outputStream.write("</b>")
-            b = -b
-            a += 2
-        }
-        if (a == lol.indexOf("~~", a)) {
-            if (s == 1) outputStream.write("<s>") else outputStream.write("</s>")
-            s = -s
-            a += 2
-        }
-        if (a == lol.indexOf("*", a)) {
-            if (i == 1) outputStream.write("<i>") else outputStream.write("</i>")
-            i = -i
-        } else if (lol[a].toInt() != 13) {
-            outputStream.write(lol[a].toString())
+    val result = mutableListOf("<html> <body> <p>")
+    loll.forEachIndexed { i, _ -> if (loll[i].isEmpty()) loll[i] = "</p><p>" }
+    val e = loll.joinToString("\n")
+    while (a < e.length) {
+        when (a) {
+            e.indexOf("**", a) -> {
+                if (b == 1) result.add("<b>") else result.add("</b>")
+                b = -b
+                a++
+            }
+            e.indexOf("~~", a) -> {
+                if (s == 1) result.add("<s>") else result.add("</s>")
+                s = -s
+                a++
+            }
+            e.indexOf("*", a) -> {
+                if (i == 1) result.add("<i>") else result.add("</i>")
+                i = -i
+            }
+            else -> {
+                result.add(e[a].toString())
+            }
         }
         a++
     }
-    outputStream.write("</p></body></html>")
+    result.add("</p></body></html>")
+    outputStream.write((result.joinToString("")))
     outputStream.close()
 }
 
