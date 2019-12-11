@@ -6,30 +6,45 @@ import java.lang.Integer
 
 
 fun main() {
-    fun lis(dif: Int, siz: Int ): MutableList<String> {
-        val result = mutableListOf<String>()
-        for (i in 0 until siz) result.add(" ".repeat(dif / (siz - 1)))
-        for (i in 0 until dif % (siz - 1)) result[i] += " "
-        result[result.lastIndex] = ""
-        return result
-    }
-
-    val lol = File("input/width_in1.txt").readLines().map { it.split(" ").filter { it != "" }.joinToString(" ").trim() }
-    val best = (lol.maxBy { it.length } ?: "").length
-    val outputStream = File("input/lol.txt").bufferedWriter()
-    for (line in lol) {
-        val newline = line.split(" ")
-        if (newline.size == 1) outputStream.write(newline.joinToString(""))
-        else {
-            val space = lis(best - newline.joinToString("").length , newline.size)
-            newline.mapIndexed { index , _ ->
-                outputStream.write(newline[index] + space[index])
+    val lol = File("input/markdown_simple.md").readText()
+    val outputStream = File("input/lol.TXT").bufferedWriter()
+    var a = 0
+    var b = 1
+    var s = 1
+    var i = 1
+    outputStream.write("<html> <body> <p>")
+    while (a < lol.length - 1) {
+        when {
+            a < lol.length - 3 && lol[a + 2] == '\n' && lol[a] == '\n'
+            -> {
+                outputStream.write("</p><p>")
+                a += 3
             }
-        }
-        outputStream.newLine()
-    }
-    outputStream.close()
+            a == lol.indexOf("**" , a) -> {
+                if (b == 1) outputStream.write("<b>") else outputStream.write("</b>")
+                b = -b
+                a += 2
+            }
 
+            a == lol.indexOf("~~" , a) -> {
+                if (s == 1) outputStream.write("<s>") else outputStream.write("</s>")
+                s = -s
+                a += 2
+            }
+            a == lol.indexOf("*" , a) -> {
+                if (i == 1) outputStream.write("<i>") else outputStream.write("</i>")
+                i = -i
+            }
+            lol[a].toInt() != 13 -> {
+                outputStream.write(lol[a].toString())
+            }
+
+        }
+        a++
+    }
+    outputStream.write("</p><body><html>")
+    outputStream.close()
+    println(File("input/lol.TXT").readText())
 
 }
 

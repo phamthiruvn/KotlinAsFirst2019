@@ -333,7 +333,37 @@ Suspendisse <s>et elit in enim tempus iaculis</s>.
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)
  */
 fun markdownToHtmlSimple(inputName: String, outputName: String) {
-    TODO()
+    val lol = File(inputName).readText()
+    val outputStream = File(outputName).bufferedWriter()
+    var a = 0
+    var b = 1
+    var s = 1
+    var i = 1
+    outputStream.write("<html> <body> <p>")
+    while (a < lol.length - 1) {
+        if (a < lol.length - 3 && lol[a + 2] == '\n' && lol[a] == '\n') {
+            outputStream.write("</p><p>")
+            a += 3
+        } else if (a == lol.indexOf("**", a)) {
+            if (b == 1) outputStream.write("<b>") else outputStream.write("</b>")
+            b = -b
+            a += 2
+        }
+        if (a == lol.indexOf("~~", a)) {
+            if (s == 1) outputStream.write("<s>") else outputStream.write("</s>")
+            s = -s
+            a += 2
+        }
+        if (a == lol.indexOf("*", a)) {
+            if (i == 1) outputStream.write("<i>") else outputStream.write("</i>")
+            i = -i
+        } else if (lol[a].toInt() != 13) {
+            outputStream.write(lol[a].toString())
+        }
+        a++
+    }
+    outputStream.write("</p></body></html>")
+    outputStream.close()
 }
 
 /**
@@ -390,48 +420,7 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
  *
  * Соответствующий выходной файл:
 ///////////////////////////////начало файла/////////////////////////////////////////////////////////////////////////////
-<html>
-<body>
-<ul>
-<li>
-Утка по-пекински
-<ul>
-<li>Утка</li>
-<li>Соус</li>
-</ul>
-</li>
-<li>
-Салат Оливье
-<ol>
-<li>Мясо
-<ul>
-<li>
-Или колбаса
-</li>
-</ul>
-</li>
-<li>Майонез</li>
-<li>Картофель</li>
-<li>Что-то там ещё</li>
-</ol>
-</li>
-<li>Помидоры</li>
-<li>
-Фрукты
-<ol>
-<li>Бананы</li>
-<li>
-Яблоки
-<ol>
-<li>Красные</li>
-<li>Зелёные</li>
-</ol>
-</li>
-</ol>
-</li>
-</ul>
-</body>
-</html>
+
 ///////////////////////////////конец файла//////////////////////////////////////////////////////////////////////////////
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)
  */
