@@ -45,6 +45,8 @@ fun main() {
     outputStream.write((result.joinToString("")))
     outputStream.close()
     println(result.joinToString(""))
+    val loe = File("input/markdown_simple.md").readText().trim('\n')
+println(loe)
 }
 
 
