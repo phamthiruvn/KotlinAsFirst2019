@@ -333,8 +333,8 @@ Suspendisse <s>et elit in enim tempus iaculis</s>.
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)
  */
 fun markdownToHtmlSimple(inputName: String, outputName: String) {
-    val e = File("input/markdown_simple.md").readText()
-    val outputStream = File("input/lol.TXT").bufferedWriter()
+    val e = File(inputName).readText()
+    val outputStream = File(outputName).bufferedWriter()
     var a = 0
     var b = 1
     var s = 1
