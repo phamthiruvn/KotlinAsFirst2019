@@ -357,7 +357,7 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
                 i = -i
             }
             e.indexOf("\n\n", a) -> {
-                result.add("<p></p>")
+                result.add("</p><p>")
                 a++
             }
             else -> result.add(e[a].toString())
