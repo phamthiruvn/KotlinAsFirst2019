@@ -304,6 +304,7 @@ fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> {
     require(checkcmd.sum() == 0)
     val duo = mutableMapOf<Int, Int>()
     for (x in checkcmd.indices) {
+        require(checkcmd.take(x + 1).sum() >= 0)
         if (checkcmd[x] == 1) {
             for (y in x until checkcmd.size) if (checkcmd.take(y + 1).drop(x).sum() == 0 && checkcmd[y] == -1) {
                 duo[x] = y
