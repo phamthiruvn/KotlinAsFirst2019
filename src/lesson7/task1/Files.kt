@@ -343,7 +343,7 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
     while (a < e.length) {
         when (a) {
             e.indexOf("\r", a) -> {
-                result.add("</p>")
+                result.add("</p >")
             }
             e.indexOf("**", a) -> {
                 if (b == 1) result.add("<b>") else result.add("</b>")
@@ -364,7 +364,9 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
         a++
     }
     result.add("</p></body></html>")
-    outputStream.write((result.joinToString("")))
+    val last = result.joinToString("").replace(Regex("[\\n]"), "")
+        .replace(Regex("""</p >( +)?</p >"""), "</p><p>").replace(Regex("""</p >"""), "")
+    outputStream.write(last)
     outputStream.close()
 }
 
