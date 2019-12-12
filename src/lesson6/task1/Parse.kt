@@ -321,7 +321,6 @@ fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> {
     var sensor = cells / 2
     for (i in 0 until cells) result.add(0)
     while (cmd < commands.length && numcmd < limit) {
-        check(sensor in 0 until cells)
         when (commands[cmd]) {
             '+' -> result[sensor]++
             '-' -> result[sensor]--
@@ -330,6 +329,7 @@ fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> {
             '[' -> if (result[sensor] == 0) cmd = duo[cmd] ?: cmd
             ']' -> if (result[sensor] != 0) cmd = duo[cmd] ?: cmd
         }
+        check(sensor in 0 until cells)
         cmd++
         numcmd++
     }
