@@ -366,6 +366,7 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
         a++
     }
     result.add("</p></body></html>")
+    println(result.joinToString(""))
     outputStream.write((result.joinToString("")))
     outputStream.close()
 }
