@@ -1,41 +1,51 @@
+import lesson1.task1.accountInThreeYears
+import lesson6.task1.computeDeviceCells
 import java.io.File
 
 fun main() {
-    val e = File("input/markdown_simple.md").readText()
-    val outputStream = File("input/lol.TXT").bufferedWriter()
-    var a = 0
-    var b = 1
-    var s = 1
-    var i = 1
-    val result = mutableListOf("<html> <body> <p>")
-    while (a < e.length) {
-        when (a) {
-            e.indexOf("**", a) -> {
-                if (b == 1) result.add("<b>") else result.add("</b>")
-                b = -b
-                a++
+    fun computeDeviceCells(cells : Int , commands : String , limit : Int) : List<Int> {
+        val checkcmd = commands.toList().map {
+            when (it) {
+                '[' -> 1
+                ']' -> -1
+                else -> 0
             }
-            e.indexOf("~~", a) -> {
-                if (s == 1) result.add("<s>") else result.add("</s>")
-                s = -s
-                a++
-            }
-            e.indexOf("*", a) -> {
-                if (i == 1) result.add("<i>") else result.add("</i>")
-                i = -i
-            }
-            e.indexOf("\n\n", a) -> {
-                result.add("\n\n")
-                a++
-            }
-            else -> result.add(e[a].toString())
-
         }
-        a++
+        val duo = mutableMapOf<Int , Int>()
+        for (x in checkcmd.indices) {
+            if (checkcmd[x] == 1) {
+                for (y in x until checkcmd.size) if (checkcmd.take(y + 1).drop(x).sum() == 0 && checkcmd[y] == -1) {
+                    duo[x] = y
+                    duo[y] = x
+                    break
+                }
+            }
+        }
+        val set = setOf('+' , '-' , '>' , '<' , '[' , ']' , ' ')
+        require(commands.toSet() + set == set)
+        val result = mutableListOf<Int>()
+        var cmd = 0
+        var numcmd = 0
+        var sensor = cells / 2
+        for (i in 0 until cells) result.add(0)
+        while (cmd < commands.length) {
+            when (commands[cmd]) {
+                '+' -> result[sensor]++
+                '-' -> result[sensor]--
+                '>' -> sensor++
+                '<' -> sensor--
+                '[' -> if (result[sensor] == 0) cmd = duo[cmd] ?: cmd
+                ']' -> if (result[sensor] != 0) cmd = duo[cmd] ?: cmd
+            }
+            cmd++
+            numcmd++
+        }
+        return result.toList()
     }
-    result.add("</p></body></html>")
-    outputStream.write((result.joinToString("")))
-    outputStream.close()
+    println(computeDeviceCells(11 , "<<<<< + >>>>>>>>>> --[<-] >+" , 10000))
+    println(computeDeviceCells(11 , "<<<<< + >>>>>>>>>> --[<-] >+[>+]" , 10000))
+    println(computeDeviceCells(11 , "<<<<< + >>>>>>>>>> --[<-] >+[>+] >++" , 10000))
+    println(computeDeviceCells(11 , "<<<<< + >>>>>>>>>> --[<-] >+[>+] >++[--< <[<] >+[>+] >++]" , 10000))
 }
 
 
