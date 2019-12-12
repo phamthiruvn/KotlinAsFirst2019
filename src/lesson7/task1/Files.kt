@@ -334,7 +334,6 @@ Suspendisse <s>et elit in enim tempus iaculis</s>.
  */
 fun markdownToHtmlSimple(inputName: String, outputName: String) {
     val e = File(inputName).readLines().toList().joinToString(" ") { if (it == " ") "</p><p>" else it }
-    println(e.indexOf("\\n\\n", 0))
     val outputStream = File(outputName).bufferedWriter()
     var a = 0
     var b = 1
