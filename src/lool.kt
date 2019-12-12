@@ -6,7 +6,11 @@ import javax.swing.text.html.HTML.Attribute.N
 
 
 fun main() {
-    val e = File("input/jjjj.md").readLines().toList().joinToString(" ") { if (it == " ") "</p><p>" else it }
+    val e = File("input/jjjj.md").readLines().toMutableList().joinToString("") { if (it.isEmpty()) "</p><p>" else it }
+    println(
+        ("\n" +
+                "\n").length
+    )
     val outputStream = File("input/lol.TXT").bufferedWriter()
     var a = 0
     var b = 1
@@ -17,8 +21,11 @@ fun main() {
         when (a) {
             e.indexOf("\\n\\n" , a) -> {
                 result.add("</p><p>")
-                println("loz")
                 a += 2
+            }
+            e.indexOf("\n\n" , a) -> {
+                result.add("</p><p>")
+                a++
             }
             e.indexOf("**" , a) -> {
                 if (b == 1) result.add("<b>") else result.add("</b>")
@@ -34,18 +41,15 @@ fun main() {
                 if (i == 1) result.add("<i>") else result.add("</i>")
                 i = -i
             }
-
             else -> result.add(e[a].toString())
-
         }
         a++
     }
     result.add("</p></body></html>")
-    println(result.joinToString(""))
     outputStream.write((result.joinToString("")))
     outputStream.close()
+    println(result.joinToString(""))
 }
-
 
 
 
