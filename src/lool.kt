@@ -15,24 +15,26 @@ fun main() {
     val result = mutableListOf("<html> <body> <p>")
     while (a < e.length) {
         when (a) {
-            e.indexOf("**", a) -> {
+            e.indexOf("\\n\\n" , a) -> {
+                result.add("</p><p>")
+                println("loz")
+                a += 2
+            }
+            e.indexOf("**" , a) -> {
                 if (b == 1) result.add("<b>") else result.add("</b>")
                 b = -b
                 a++
             }
-            e.indexOf("~~", a) -> {
+            e.indexOf("~~" , a) -> {
                 if (s == 1) result.add("<s>") else result.add("</s>")
                 s = -s
                 a++
             }
-            e.indexOf("*", a) -> {
+            e.indexOf("*" , a) -> {
                 if (i == 1) result.add("<i>") else result.add("</i>")
                 i = -i
             }
-            e.indexOf("\\n\\n", a) -> {
-                result.add("</p><p>")
-                a += 2
-            }
+
             else -> result.add(e[a].toString())
 
         }
