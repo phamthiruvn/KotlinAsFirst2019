@@ -342,6 +342,10 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
     val result = mutableListOf("<html> <body> <p>")
     while (a < e.length) {
         when (a) {
+            e.indexOf("\\n\\n", a) -> {
+                result.add("</p><p>")
+                a += 2
+            }
             e.indexOf("\n\n", a) -> {
                 result.add("</p><p>")
                 a += 2
