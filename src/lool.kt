@@ -7,10 +7,6 @@ import javax.swing.text.html.HTML.Attribute.N
 
 fun main() {
     val e = File("input/jjjj.md").readLines().toMutableList().joinToString("") { if (it.isEmpty()) "</p><p>" else it }
-    println(
-        ("\n" +
-                "\n").length
-    )
     val outputStream = File("input/lol.TXT").bufferedWriter()
     var a = 0
     var b = 1
