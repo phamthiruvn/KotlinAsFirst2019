@@ -367,6 +367,7 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
     val last = result.joinToString("").replace(Regex("[\\n]"), "")
         .replace(Regex("""</p >( +)?</p >"""), "</p><p>").replace(Regex("""</p >"""), "")
     outputStream.write(last)
+    println(last)
     outputStream.close()
 }
 
