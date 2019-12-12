@@ -343,7 +343,7 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
     while (a < e.length) {
         when (a) {
             e.indexOf("\r", a) -> {
-                result.add("</p><p>")
+                result.add("</p>")
             }
             e.indexOf("**", a) -> {
                 if (b == 1) result.add("<b>") else result.add("</b>")
