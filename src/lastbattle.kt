@@ -73,5 +73,6 @@ fun main() {
         }
     }
     println(duo)
+    println("as<p>asdasd</p>dasdasd<p></p>asdasda<p></p>sd".replace("<p></p>",""))
 
 }
