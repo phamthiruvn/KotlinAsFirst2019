@@ -362,8 +362,8 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
         a++
     }
     result.add("</p></body></html>")
-    val newLine = result.joinToString("")
-    outputStream.write(newLine.replace("<p></p>", ""))
+    val newLine = result.joinToString("").replace("<p></p>", "")
+    outputStream.write(newLine.replace(Regex("""<p><\/p>"""), ""))
     outputStream.close()
 }
 

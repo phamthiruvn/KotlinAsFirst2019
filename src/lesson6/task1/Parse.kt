@@ -302,6 +302,7 @@ fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> {
     val keys = duo.keys.toList()
     val vals = duo.values.toList()
     require(vals.sum() == 0)
+    require(vals.first() != -1)
     for (x in keys.indices) {
         check(vals.take(x + 1).sum() >= 0)
         if (vals[x] == 1) {
