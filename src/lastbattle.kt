@@ -71,5 +71,5 @@ fun main() {
         }
     }
     val l  =duo
-    println(duo)
+println("       ".length)
 }
