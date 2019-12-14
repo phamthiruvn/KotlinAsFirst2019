@@ -52,4 +52,6 @@ fun main() {
     val e = File("input/markdown_simple.md").readLines().toMutableList().map{ if (it == "") "</p><p>" else it }.joinToString("")
 println(e)
 
+
+    "</p><p></p><p>".replace("</p><p></p><p>", "</p><p>")
 }
