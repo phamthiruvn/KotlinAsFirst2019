@@ -53,7 +53,7 @@ fun main() {
     val e = File("input/markdown_simple.md").readLines().toMutableList().map { if (it == "") "</p><p>" else it }
         .joinToString("")
     println(e)
-    var commands = "<<<<< + >>>>>>>>>> --<-] >+[>+] >++[--< <[<] >+[>+] >++]"
+    var commands = "<<<<< + >>>>>>>>>> --[<-] >+[>+] >++[--< <[<] >+[>+] >++]"
     var duo = mutableMapOf<Int , Int>()
     for (i in commands.indices) {
         if (commands[i] == '[') duo[i] = 1
@@ -62,7 +62,6 @@ fun main() {
     val keys = duo.keys.toList()
     val vals = duo.values.toList()
     for (x in keys.indices) {
-        check(vals.take(x + 1).sum() >= 0)
         if (vals[x] == 1) {
             for (y in x until keys.size) if (vals.take(y + 1).drop(x).sum() == 0 && vals[y] == -1) {
                 duo[keys[x]] = keys[y]
@@ -73,6 +72,6 @@ fun main() {
     }
     println(vals.take(1).sum())
     println(duo)
-    println("as<p>asdasd</p>dasdasd<p></p>asdasda<p></p>sd".replace("<p></p>",""))
+    println("IWnaqK?</b>]i</s>o-sQqP<i>CKia%E@t,]Gm<b>w<s></s>E<s>}zBqusyH4c3'U</s><s>)</s>XS[ES]9M</b>_rn-xi</i>?YZ7:<b>=FCU/</b>UlI)E`ESWWvxeib-^7=E\\\\A#flbfA<i>yJ+</i>jB'BcWhAVA,h;<i><s>f+'<b>/</b>pN(,sgeFy</s></i>%d<b>P<s>9[<i>5</i>JD</s>q:<s>=N<i>X,e/2</i>rxq#Z<i>4</i>X@</s><i>G</i>j<s>OQ]62<i>e</i></s>m@v^a</b>P</p><p></p><p>f$=)&.ZZi47R<i>12DHps4F?G94Si8ye4kOYXa}_D4:)O6XA&<s>ab{;JD8|fo&QhFyG'vy|mI|r&h!T0ZIQ!tTAYYGq7-N#<b>Ns'R?v\\\\W</b>H6`dNXc<b>_w{Le</b>}</s>5o<b>f,C5r</b>9ja\\\"Ez!r%qt|j8)<b><s>csK</s>MI(iQ1w#e\\\\9N-=wI=BTY</b>#{</i>6q_HkrY{SrDH4{%,ebtne/Rq.14D24K\\\\WF.LO9,#qa\\\"V<b></b>{uB<i>J.r3<b>O</b>vak<s>aT1<b>C?</b>qs>d)fxm</i>\\\"<i>DK<b>2kov\\\\wSDvQm<s>P</s>:_\\\"+<s>$.!z0jWf</s><s>0vv</s><s>Tm</s".replace("<p></p>",""))
 
 }

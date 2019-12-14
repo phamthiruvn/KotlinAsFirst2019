@@ -294,21 +294,21 @@ fun fromRoman(roman: String): Int {
  *
  */
 fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> {
-    var duo = mutableMapOf<Int, Int>()
-    for (i in commands.indices) {
-        if (commands[i] == '[') duo[i] = 1
-        if (commands[i] == ']') duo[i] = -1
+    val checkcmd = commands.toList().map {
+        when (it) {
+            '[' -> 1
+            ']' -> -1
+            else -> 0
+        }
     }
-    val keys = duo.keys.toList()
-    val vals = duo.values.toList()
-    require(vals.sum() == 0)
-    require(vals.first() != -1)
-    for (x in keys.indices) {
-        check(vals.take(x + 1).sum() >= 0)
-        if (vals[x] == 1) {
-            for (y in x until keys.size) if (vals.take(y + 1).drop(x).sum() == 0 && vals[y] == -1) {
-                duo[keys[x]] = keys[y]
-                duo[keys[y]] = keys[x]
+    require(checkcmd.sum() == 0)
+    val duo = mutableMapOf<Int, Int>()
+    for (x in checkcmd.indices) {
+        require(checkcmd.take(x + 1).sum() >= 0)
+        if (checkcmd[x] == 1) {
+            for (y in x until checkcmd.size) if (checkcmd.take(y + 1).drop(x).sum() == 0 && checkcmd[y] == -1) {
+                duo[x] = y
+                duo[y] = x
                 break
             }
         }
