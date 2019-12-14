@@ -333,7 +333,7 @@ Suspendisse <s>et elit in enim tempus iaculis</s>.
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)
  */
 fun markdownToHtmlSimple(inputName: String, outputName: String) {
-    val e = File("input/markdown_simple.md").readLines().toMutableList().map{ if (it == "") "</p><p>" else it }.joinToString("")
+    val e = File(inputName).readLines().toMutableList().map{ if (it == "") "</p><p>" else it }.joinToString("")
     val outputStream = File(outputName).bufferedWriter()
     var a = 0
     var b = 1
