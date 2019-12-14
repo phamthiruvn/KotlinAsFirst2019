@@ -72,4 +72,7 @@ fun main() {
     }
     val l  =duo
 println("       ".length)
+
+    val x= 0
+    require(x != 0)
 }

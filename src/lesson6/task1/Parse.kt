@@ -304,7 +304,7 @@ fun computeDeviceCells(cells: Int, commands: String, limit: Int): List<Int> {
     require(vals.sum() == 0)
     if (vals.isNotEmpty()) require(vals[0] != -1)
     for (x in keys.indices) {
-        check(vals.take(x + 1).sum() >= 0)
+        require(vals.take(x + 1).sum() >= 0)
         if (vals[x] == 1) {
             for (y in x until keys.size) if (vals.take(y + 1).drop(x).sum() == 0 && vals[y] == -1) {
                 duo[keys[x]] = keys[y]
