@@ -333,7 +333,7 @@ Suspendisse <s>et elit in enim tempus iaculis</s>.
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)
  */
 fun markdownToHtmlSimple(inputName: String, outputName: String) {
-    val e = File(inputName).readText()
+    val e = File("input/markdown_simple.md").readLines().toMutableList().map{ if (it == "") "</p><p>" else it }.joinToString("")
     val outputStream = File(outputName).bufferedWriter()
     var a = 0
     var b = 1
@@ -342,8 +342,9 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
     val result = mutableListOf("<html> <body> <p>")
     while (a < e.length) {
         when (a) {
-            e.indexOf("\r", a) -> {
-                result.add("</p >")
+            e.indexOf("\\n\\n", a) -> {
+                result.add("</p><p>")
+                a += 2
             }
             e.indexOf("**", a) -> {
                 if (b == 1) result.add("<b>") else result.add("</b>")
@@ -360,14 +361,12 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
                 i = -i
             }
             else -> result.add(e[a].toString())
+
         }
         a++
     }
     result.add("</p></body></html>")
-    val last = result.joinToString("").replace(Regex("[\\n]"), "")
-        .replace(Regex("""</p >( +)?</p >"""), "</p><p>").replace(Regex("""</p >"""), "")
-    outputStream.write(last)
-    println(last)
+    outputStream.write((result.joinToString("")))
     outputStream.close()
 }
 
