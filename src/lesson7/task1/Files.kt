@@ -89,8 +89,8 @@ fun sibilants(inputName: String, outputName: String) {
         for (word in line.split(" ")) {
             val analyze = word.toMutableList()
             analyze.forEachIndexed { index, _ ->
-                if (index < analyze.size - 1 && analyze[index] in nocle && analyze[index + 1] in changee.keys) analyze[index + 1] =
-                    changee[analyze[index + 1]] ?: ' '
+                if (index < analyze.size - 1 && analyze[index] in nocle && analyze[index + 1] in changee.keys)
+                    analyze[index + 1] = changee[analyze[index + 1]] ?: ' '
             }
             newLine.add(analyze.joinToString(""))
         }
