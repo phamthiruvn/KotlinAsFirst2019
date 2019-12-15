@@ -170,12 +170,12 @@ fun alignFileByWidth(inputName: String, outputName: String) {
     val outputStream = File(outputName).bufferedWriter()
     for (line in lol) {
         val newline = line.split(" ")
-        if (newline.size == 1) outputStream.write(newline.joinToString("")) else {
+        if (newline.size != 1) {
             val space = spaces(best - newline.joinToString("").length, newline.size)
             newline.forEachIndexed { index, _ ->
                 outputStream.write(newline[index] + space[index])
             }
-        }
+        } else outputStream.write(newline.joinToString(""))
         outputStream.newLine()
     }
     outputStream.close()
@@ -335,8 +335,9 @@ Suspendisse <s>et elit in enim tempus iaculis</s>.
 fun markdownToHtmlSimple(inputName: String, outputName: String) {
     val list = File(inputName).readLines()
     val e =
-        list.mapIndexed { index, s -> if (index in 0..list.size - 2 && s == "" && list[index + 1] != "") "</p><p>" else s }.filter { it != "" }
-            .mapIndexed { index, s -> if (index == 0 && s == "</p><p>") "" else s }
+        list.mapIndexed { index, s -> if (index in 0..list.size - 2 && s == "" && list[index + 1] != "") "</p><p>" else s }
+            .filter { it != "" }
+            .mapIndexed { index , s -> if (index == 0 && s == "</p><p>") "" else s }
             .joinToString("\n")
     val outputStream = File(outputName).bufferedWriter()
     var a = 0

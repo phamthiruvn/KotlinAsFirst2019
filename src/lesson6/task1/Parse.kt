@@ -183,16 +183,13 @@ else {
  */
 fun plusMinus(expression: String): Int {
     val exp = expression.split(" ")
-    require(exp[0] != "")
     var op = 1
     var result = 0
     for (i in exp.indices) {
-        if (i % 2 == 0) {
-            require(Regex("""\d+""").matches(exp[i]))
-            result += exp[i].toInt() * op
-        } else when {
-            exp[i] == "+" -> op = 1
-            exp[i] == "-" -> op = -1
+        when {
+            i % 2 == 0 && Regex("""\d+""").matches(exp[i]) -> result += exp[i].toInt() * op
+            i % 2 == 1 && exp[i] == "+" -> op = 1
+            i % 2 == 1 && exp[i] == "-" -> op = -1
             else -> throw IllegalArgumentException()
         }
     }
