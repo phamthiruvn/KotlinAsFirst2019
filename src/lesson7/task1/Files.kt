@@ -118,10 +118,10 @@ fun sibilants(inputName: String, outputName: String) {
  *
  */
 fun centerFile(inputName: String, outputName: String) {
-    val lol = File(inputName).readLines().map { it.trim() }
-    val best = (lol.maxBy { it.length } ?: "").length
+    val list = File(inputName).readLines().map { it.trim() }
+    val best = (list.maxBy { it.length } ?: "").length
     val outputStream = File(outputName).bufferedWriter()
-    for (line in lol) {
+    for (line in list) {
         outputStream.write(" ".repeat((best - line.length) / 2))
         outputStream.write(line.trim())
         outputStream.newLine()
@@ -158,6 +158,7 @@ fun centerFile(inputName: String, outputName: String) {
  */
 fun spaces(dif: Int, siz: Int): MutableList<String> {
     val result = mutableListOf<String>()
+    if (siz == 1) return mutableListOf("")
     for (i in 0 until siz) result.add(" ".repeat(dif / (siz - 1)))
     for (i in 0 until dif % (siz - 1)) result[i] += " "
     result[result.lastIndex] = ""
@@ -165,17 +166,15 @@ fun spaces(dif: Int, siz: Int): MutableList<String> {
 }
 
 fun alignFileByWidth(inputName: String, outputName: String) {
-    val lol = File(inputName).readLines().map { it -> it.split(" ").filter { it != "" }.joinToString(" ").trim() }
-    val best = (lol.maxBy { it.length } ?: "").length
+    val list = File(inputName).readLines().map { it -> it.split(" ").filter { it != "" }.joinToString(" ").trim() }
+    val best = (list.maxBy { it.length } ?: "").length
     val outputStream = File(outputName).bufferedWriter()
-    for (line in lol) {
+    for (line in list) {
         val newline = line.split(" ")
-        if (newline.size != 1) {
-            val space = spaces(best - newline.joinToString("").length, newline.size)
-            newline.forEachIndexed { index, _ ->
-                outputStream.write(newline[index] + space[index])
-            }
-        } else outputStream.write(newline.joinToString(""))
+        val space = spaces(best - newline.joinToString("").length, newline.size)
+        newline.forEachIndexed { index, _ ->
+            outputStream.write(newline[index] + space[index])
+        }
         outputStream.newLine()
     }
     outputStream.close()
@@ -280,9 +279,9 @@ fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: 
  * Обратите внимание: данная функция не имеет возвращаемого значения
  */
 fun chooseLongestChaoticWord(inputName: String, outputName: String) {
-    val lol = File(inputName).readLines()
+    val list = File(inputName).readLines()
     val outputStream = File(outputName).bufferedWriter()
-    val chao = lol.filter { it.toLowerCase().toSet().count() == it.length }
+    val chao = list.filter { it.toLowerCase().toSet().count() == it.length }
     val best = (chao.maxBy { it.length } ?: "").length
     outputStream.write(chao.filter { it.length == best }.joinToString(", "))
     outputStream.close()
