@@ -244,13 +244,5 @@ fun circleByThreePoints(a: Point, b: Point, c: Point): Circle {
  * три точки данного множества, либо иметь своим диаметром отрезок,
  * соединяющий две самые удалённые точки в данном множестве.
  */
-fun minContainingCircle(vararg points: Point): Circle? {
-    require(points.isNotEmpty())
-    if (points.size == 1) return Circle(points[0], 0.0)
-    if (points.size == 2) return Circle(
-        Point((points[0].x + points[1].x) / 2 , (points[0].y + points[1].y) / 2) ,
-        points[0].distance(points[1]) / 2
-    )
-return null
-    }
+fun minContainingCircle(vararg points: Point): Circle = TODO()
 

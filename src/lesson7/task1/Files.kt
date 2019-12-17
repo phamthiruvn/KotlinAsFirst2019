@@ -2,6 +2,7 @@
 
 package lesson7.task1
 
+import lesson4.task1.convert
 import java.io.File
 
 /**
@@ -472,8 +473,22 @@ fun markdownToHtml(inputName: String, outputName: String) {
  *
  */
 fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
-    TODO()
+    val outputStream = File(outputName).bufferedWriter()
+    val max = "${lhv * rhv}".length + 1
+    val list = convert(rhv, 10).map { it * lhv }.reversed()
+    outputStream.write(" ".repeat(max - "$lhv".length) + "$lhv")
+    outputStream.newLine()
+    outputStream.write("*" + " ".repeat(max - "$rhv".length - 1) + "$rhv")
+    outputStream.newLine()
+    outputStream.write("-".repeat(max))
+    outputStream.newLine()
+    for (i in list.indices)
+    {
+        val num = list[i]
+    }
+
 }
+
 
 
 /**
