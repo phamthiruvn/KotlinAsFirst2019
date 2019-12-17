@@ -1,9 +1,9 @@
 import lesson4.task1.convert
+import lesson8.task2.knightTrajectory
+import lesson8.task2.square
 import java.io.File
+import java.lang.Math.pow
 
 fun main() {
-    val max = "${12345 * 76}".length + 1
-    val list = convert(76, 10).map { it * 12345 }.reversed().map { "$it" }
-
-
+   print(knightTrajectory(square("a8") , square("h1")))
 }

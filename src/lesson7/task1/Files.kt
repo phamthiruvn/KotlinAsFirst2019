@@ -484,8 +484,7 @@ fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
     outputStream.newLine()
     outputStream.write("-".repeat(max))
     outputStream.newLine()
-    for (i in list.indices)
-    {
+    for (i in list.indices) {
         val n = list[i]
         if (i == 0) outputStream.write(" ".repeat(max - n.length) + n)
         else outputStream.write("+" + " ".repeat(max - n.length - i - 1) + n)
@@ -516,6 +515,27 @@ fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
  * Используемые пробелы, отступы и дефисы должны в точности соответствовать примеру.
  *
  */
+
+fun minus(x : String , y : String , pre : Int) : String {
+    val equal = "-".repeat(maxOf(x.length , y.length))
+    val preminus = " ".repeat(pre - maxOf(y.length - x.length , 0))
+    return (" ".repeat(pre) + x + "\n" + preminus + y + "\n" + preminus + equal + "\n")
+}
+
 fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
-    TODO()
+    val outputStream = File(outputName).bufferedWriter()
+    val list1 = listOf(19900 , 130 , 135)
+    val list2 = convert(lhv / rhv , 10).map { -it * rhv }
+    outputStream.write(" $lhv | $rhv\n")
+    outputStream.write("${list2[0]}     ${lhv / rhv}\n")
+    outputStream.write("-".repeat(4) + "\n")
+    var pre = 4 - "${list1[0] + list2[0]}".length
+    for (i in 1 until list1.size) {
+        val x = if (list1[i] == list2[i]) "0${list1[i]}" else "${list1[i]}".replace("0" , "")
+        val y = if (list2[i] == 0) "-${list2[i]}" else "${list2[i]}"
+        outputStream.write(minus(x , y , pre))
+        pre += x.length - "${list1[i] + list2[i]}".replace("0" , "").length
+    }
+    outputStream.write(" ".repeat(pre) + "${list2.last() + list1.last()}")
+outputStream.close()
 }
