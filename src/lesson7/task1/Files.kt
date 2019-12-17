@@ -475,21 +475,27 @@ fun markdownToHtml(inputName: String, outputName: String) {
 fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
     val outputStream = File(outputName).bufferedWriter()
     val max = "${lhv * rhv}".length + 1
-    val list = convert(rhv, 10).map { it * lhv }.reversed()
-    outputStream.write(" ".repeat(max - "$lhv".length) + "$lhv")
+    val l = "$lhv"
+    val r = "$rhv"
+    val list = convert(rhv, 10).map { it * lhv }.reversed().map { "$it" }
+    outputStream.write(" ".repeat(max - l.length) + l)
     outputStream.newLine()
-    outputStream.write("*" + " ".repeat(max - "$rhv".length - 1) + "$rhv")
+    outputStream.write("*" + " ".repeat(max - r.length - 1) + r)
     outputStream.newLine()
     outputStream.write("-".repeat(max))
     outputStream.newLine()
     for (i in list.indices)
     {
-        val num = list[i]
+        val n = list[i]
+        if (i == 0) outputStream.write(" ".repeat(max - n.length) + n)
+        else outputStream.write("+" + " ".repeat(max - n.length - i - 1) + n)
+        outputStream.newLine()
     }
-
+    outputStream.write("-".repeat(max))
+    outputStream.newLine()
+    outputStream.write(" ${lhv * rhv}")
+    outputStream.close()
 }
-
-
 
 /**
  * Сложная
