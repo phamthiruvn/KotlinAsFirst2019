@@ -5,5 +5,7 @@ import java.io.File
 import java.lang.Math.pow
 
 fun main() {
-   print(knightTrajectory(square("a8") , square("h1")))
+   print(knightTrajectory(square("a8") , square("h1"))
+
+   )
 }

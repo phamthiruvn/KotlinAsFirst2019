@@ -67,7 +67,7 @@ fun square(notation: String): Square {
  * Пример: rookMoveNumber(Square(3, 1), Square(6, 3)) = 2
  * Ладья может пройти через клетку (3, 3) или через клетку (6, 1) к клетке (6, 3).
  */
-fun rookMoveNumber(start: Square, end: Square): Int  {
+fun rookMoveNumber(start: Square, end: Square): Int {
     require(start.inside() && end.inside())
     return when {
         start == end -> 0
@@ -90,12 +90,14 @@ fun rookMoveNumber(start: Square, end: Square): Int  {
  *          rookTrajectory(Square(3, 5), Square(8, 5)) = listOf(Square(3, 5), Square(8, 5))
  * Если возможно несколько вариантов самой быстрой траектории, вернуть любой из них.
  */
-fun rookTrajectory(start: Square, end: Square) = when {
-    (rookMoveNumber(start , end) == 0) -> listOf(start)
-    (rookMoveNumber(start , end) == 1) -> listOf(start , end)
-    else -> listOf(start , Square(start.column , end.row) , end)
+fun rookTrajectory(start: Square, end: Square): List<Square> {
+    require(start.inside() && end.inside())
+    return when {
+        (rookMoveNumber(start , end) == 0) -> listOf(start)
+        (rookMoveNumber(start , end) == 1) -> listOf(start , end)
+        else -> listOf(start , Square(start.column , end.row) , end)
+    }
 }
-
 /**
  * Простая
  *
