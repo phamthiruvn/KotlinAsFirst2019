@@ -244,5 +244,24 @@ fun circleByThreePoints(a: Point, b: Point, c: Point): Circle {
  * три точки данного множества, либо иметь своим диаметром отрезок,
  * соединяющий две самые удалённые точки в данном множестве.
  */
-fun minContainingCircle(vararg points: Point): Circle = TODO()
+fun circleByTwoPoints(a: Point, b: Point): Circle {
+    val point = Point((a.x + b.x) / 2, (a.y + b.y) / 2)
+    val radius = point.distance(a)
+    return Circle(point, radius)
+}
+
+fun minContainingCircle(vararg points: Point): Circle {
+    val a = points.maxBy { it.x }!!.x
+    val b = points.minBy { it.x }!!.x
+    val c = points.maxBy { it.y }!!.y
+    val d = points.minBy { it.y }!!.y
+    val centerRectangle = Point( (a + b) / 2, (c + d) / 2)
+    val egdes = points.filter { it.x == a || it.x == b || it.y == c || it.y == d }
+    val length = egdes.sortedByDescending { it.distance(centerRectangle) }.take(3).toMutableList()
+    val p = mapOf(2 to length[0].distance(length[1]), 0 to length[1].distance(length[2]), 1 to length[0].distance(length[2])).maxBy { it.value } !!
+    println(circleByThreePoints(length[0], length[1], length[2]))
+    if (length[p.key].distance(centerRectangle) >= p.value / 2) return circleByThreePoints(length[0], length[1], length[2])
+    length.remove(length[p.key])
+    return circleByTwoPoints(length[0], length[1])
+}
 

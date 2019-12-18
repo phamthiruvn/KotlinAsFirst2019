@@ -523,19 +523,5 @@ fun minus(x : String , y : String , pre : Int) : String {
 }
 
 fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
-    val outputStream = File(outputName).bufferedWriter()
-    val list1 = listOf(19900 , 130 , 135)
-    val list2 = convert(lhv / rhv , 10).map { -it * rhv }
-    outputStream.write(" $lhv | $rhv\n")
-    outputStream.write("${list2[0]}     ${lhv / rhv}\n")
-    outputStream.write("-".repeat(4) + "\n")
-    var pre = 4 - "${list1[0] + list2[0]}".length
-    for (i in 1 until list1.size) {
-        val x = if (list1[i] == list2[i]) "0${list1[i]}" else "${list1[i]}".replace("0" , "")
-        val y = if (list2[i] == 0) "-${list2[i]}" else "${list2[i]}"
-        outputStream.write(minus(x , y , pre))
-        pre += x.length - "${list1[i] + list2[i]}".replace("0" , "").length
-    }
-    outputStream.write(" ".repeat(pre) + "${list2.last() + list1.last()}")
-outputStream.close()
+val listminus = convert((lhv / rhv), 10).map { -it * rhv }
 }
