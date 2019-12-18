@@ -229,7 +229,7 @@ fun findNearestCirclePair(vararg circles: Circle): Pair<Circle, Circle> {
  */
 fun circleByThreePoints(a: Point, b: Point, c: Point): Circle {
     val point = bisectorByPoints(a, b).crossPoint(bisectorByPoints(a, c))
-    val radius = max(point.distance(a), max(point.distance(b), point.distance(c)))
+    val radius = point.distance(a)
     return Circle(point, radius)
 }
 
@@ -258,9 +258,17 @@ fun minContainingCircle(vararg points: Point): Circle {
     val centerRectangle = Point( (a + b) / 2, (c + d) / 2)
     val egdes = points.filter { it.x == a || it.x == b || it.y == c || it.y == d }
     val length = egdes.sortedByDescending { it.distance(centerRectangle) }.take(3).toMutableList()
-    val p = mapOf(2 to length[0].distance(length[1]), 0 to length[1].distance(length[2]), 1 to length[0].distance(length[2])).maxBy { it.value } !!
-    println(circleByThreePoints(length[0], length[1], length[2]))
-    if (length[p.key].distance(centerRectangle) >= p.value / 2) return circleByThreePoints(length[0], length[1], length[2])
+    val p = mapOf(
+        2 to length[0].distance(length[1]),
+        0 to length[1].distance(length[2]),
+        1 to length[0].distance(length[2])
+    ).maxBy { it.value }!!
+    println(circleByThreePoints(length[0] , length[1] , length[2]))
+    if (length[p.key].distance(centerRectangle) >= p.value / 2) return circleByThreePoints(
+        length[0],
+        length[1],
+        length[2]
+    )
     length.remove(length[p.key])
     return circleByTwoPoints(length[0], length[1])
 }

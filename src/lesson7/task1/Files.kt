@@ -336,8 +336,7 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
     val list = File(inputName).readLines()
     val e =
         list.mapIndexed { index, s -> if (index in 0..list.size - 2 && s == "" && list[index + 1] != "") "</p><p>" else s }
-            .filter { it != "" }
-            .mapIndexed { index , s -> if (index == 0 && s == "</p><p>") "" else s }
+            .filterIndexed { index, s -> s != "" || index != 0 && s == "</p><p>"}
             .joinToString("\n")
     val outputStream = File(outputName).bufferedWriter()
     var a = 0
@@ -523,5 +522,5 @@ fun minus(x : String , y : String , pre : Int) : String {
 }
 
 fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
-val listminus = convert((lhv / rhv), 10).map { -it * rhv }
+TODO()
 }
