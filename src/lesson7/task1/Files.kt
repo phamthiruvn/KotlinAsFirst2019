@@ -349,7 +349,7 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
     val list = File(inputName).readLines()
     val e =
         list.mapIndexed { index, s -> if (index in 0..list.size - 2 && s == "" && list[index + 1] != "") "</p><p>" else s }
-            .filterIndexed { index, s -> s != "" || (s == "</p><p>" && list[index - 1] != "") }
+            .filterIndexed { index, s -> s != "" || s == "</p><p>" && (list[index - 1] != "" || index != 0) }
             .joinToString("\n")
     val outputStream = File(outputName).bufferedWriter()
     var a = 0
