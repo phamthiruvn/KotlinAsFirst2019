@@ -96,6 +96,7 @@ fun rookTrajectory(start: Square, end: Square): List<Square> {
         else -> listOf(start, Square(start.column, end.row), end)
     }
 }
+
 /**
  * Простая
  *
@@ -281,7 +282,7 @@ fun knightTrajectory(start: Square, end: Square): List<Square> {
         wait += can
         if (can.contains(end)) break
     }
-    val newCanMoves = canMoves.mapValues { it.value.filter { (it in canMoves.keys || it == end) && it != start } }
+    val newCanMoves = canMoves.mapValues { entry -> entry.value.filter { (it in canMoves.keys || it == end) && it != start } }
     var endGame = end
     val result = mutableListOf<Square>()
     while (endGame != start) {
