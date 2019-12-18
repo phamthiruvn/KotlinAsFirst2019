@@ -332,6 +332,19 @@ Suspendisse <s>et elit in enim tempus iaculis</s>.
  *
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)
  */
+fun newBalance (e: String, a: Int, mapznak: Map<String ,Int>): Triple<String, String, Int> {
+    val map = mapOf("**" to listOf("<b>" , "</b>") , "~~" to listOf("<s>" , "</s>") , "*" to listOf("<i>" , "</i>"))
+    for ((k, v) in map) {
+        val znak = mapznak[k]!!
+        if (e.indexOf(k, a) == a) {
+            val znak = mapznak[k]!!
+            val newznak = (znak + 1) % 2
+            return Triple(v[znak], k, newznak)
+        }
+    }
+    return Triple(e[a].toString(), "1", 0)
+}
+
 fun markdownToHtmlSimple(inputName: String, outputName: String) {
     val list = File(inputName).readLines()
     val e =
@@ -340,30 +353,13 @@ fun markdownToHtmlSimple(inputName: String, outputName: String) {
             .joinToString("\n")
     val outputStream = File(outputName).bufferedWriter()
     var a = 0
-    var b = 1
-    var s = 1
-    var i = 1
+    val mapOpenClose = mutableMapOf("**" to 0, "~~" to 0, "*" to 0)
     val result = mutableListOf("<html> <body> <p>")
     while (a < e.length) {
-        when (a) {
-            e.indexOf("**", a) -> {
-                if (b == 1) result.add("<b>") else result.add("</b>")
-                b = -b
-                a++
-            }
-            e.indexOf("~~", a) -> {
-                if (s == 1) result.add("<s>") else result.add("</s>")
-                s = -s
-                a++
-            }
-            e.indexOf("*", a) -> {
-                if (i == 1) result.add("<i>") else result.add("</i>")
-                i = -i
-            }
-            else -> result.add(e[a].toString())
-
-        }
-        a++
+        val newBalance = newBalance(e, a, mapOpenClose)
+        result.add(newBalance.first)
+        mapOpenClose[newBalance.second] = newBalance.third
+        a += newBalance.second.length
     }
     result.add("</p></body></html>")
     var newLine = result.joinToString("")
