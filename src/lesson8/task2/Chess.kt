@@ -2,8 +2,6 @@
 
 package lesson8.task2
 
-import lesson4.task1.abs
-import lesson4.task1.invertPositives
 import kotlin.math.abs
 
 /**
@@ -93,9 +91,9 @@ fun rookMoveNumber(start: Square, end: Square): Int {
 fun rookTrajectory(start: Square, end: Square): List<Square> {
     require(start.inside() && end.inside())
     return when {
-        (rookMoveNumber(start , end) == 0) -> listOf(start)
-        (rookMoveNumber(start , end) == 1) -> listOf(start , end)
-        else -> listOf(start , Square(start.column , end.row) , end)
+        (rookMoveNumber(start, end) == 0) -> listOf(start)
+        (rookMoveNumber(start, end) == 1) -> listOf(start, end)
+        else -> listOf(start, Square(start.column, end.row), end)
     }
 }
 /**
@@ -156,8 +154,9 @@ fun bishopTrajectory(start: Square, end: Square): List<Square> {
     val y1 = start.column + start.row - x1
     val y2 = end.column + end.row - x2
     var thre = listOf(start, Square(x1, y1), Square(x2, y2), end).filter { it.inside() }
-    if (Square(x1, y1).inside() && Square(x2, y2).inside()) thre = listOf(start, Square(x2, y2), end).filter { it.inside() }
-    return when (bishopMoveNumber(start , end)) {
+    if (Square(x1, y1).inside() && Square(x2, y2).inside()) thre =
+        listOf(start, Square(x2, y2), end).filter { it.inside() }
+    return when (bishopMoveNumber(start, end)) {
         -1 -> emptyList()
         0 -> listOf(start)
         1 -> listOf(start, end)

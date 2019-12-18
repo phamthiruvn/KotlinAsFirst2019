@@ -255,7 +255,7 @@ fun minContainingCircle(vararg points: Point): Circle {
     val b = points.minBy { it.x }!!.x
     val c = points.maxBy { it.y }!!.y
     val d = points.minBy { it.y }!!.y
-    val centerRectangle = Point( (a + b) / 2, (c + d) / 2)
+    val centerRectangle = Point((a + b) / 2, (c + d) / 2)
     val egdes = points.filter { it.x == a || it.x == b || it.y == c || it.y == d }
     val length = egdes.sortedByDescending { it.distance(centerRectangle) }.take(3).toMutableList()
     val p = mapOf(
@@ -263,7 +263,7 @@ fun minContainingCircle(vararg points: Point): Circle {
         0 to length[1].distance(length[2]),
         1 to length[0].distance(length[2])
     ).maxBy { it.value }!!
-    println(circleByThreePoints(length[0] , length[1] , length[2]))
+    println(circleByThreePoints(length[0], length[1], length[2]))
     if (length[p.key].distance(centerRectangle) >= p.value / 2) return circleByThreePoints(
         length[0],
         length[1],
@@ -272,4 +272,3 @@ fun minContainingCircle(vararg points: Point): Circle {
     length.remove(length[p.key])
     return circleByTwoPoints(length[0], length[1])
 }
-

@@ -332,10 +332,9 @@ Suspendisse <s>et elit in enim tempus iaculis</s>.
  *
  * (Отступы и переносы строк в примере добавлены для наглядности, при решении задачи их реализовывать не обязательно)
  */
-fun newBalance (e: String, a: Int, mapznak: Map<String, Int>): Triple<String, String, Int> {
+fun newBalance(e: String, a: Int, mapznak: Map<String, Int>): Triple<String, String, Int> {
     val map = mapOf("**" to listOf("<b>", "</b>"), "~~" to listOf("<s>", "</s>"), "*" to listOf("<i>", "</i>"))
     for ((k, v) in map) {
-        val znak = mapznak[k] ?: -1
         if (e.indexOf(k, a) == a) {
             val znak = mapznak[k] ?: -1
             val newznak = (znak + 1) % 2
@@ -511,4 +510,6 @@ fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
  *
  */
 
-fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) { TODO() }
+fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
+    TODO()
+}
