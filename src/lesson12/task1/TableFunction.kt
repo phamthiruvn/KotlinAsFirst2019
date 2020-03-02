@@ -2,6 +2,10 @@
 
 package lesson12.task1
 
+import com.sun.org.apache.xpath.internal.compiler.FunctionTable
+import java.lang.IllegalStateException
+import kotlin.math.abs
+
 /**
  * Класс "табличная функция".
  *
@@ -15,10 +19,12 @@ package lesson12.task1
  */
 class TableFunction {
 
+    private var xy = mutableMapOf<Double, Double>()
+
     /**
      * Количество пар в таблице
      */
-    val size: Int get() = TODO()
+    val size: Int get() = xy.size
 
     /**
      * Добавить новую пару.
@@ -26,7 +32,13 @@ class TableFunction {
      * или false, если она уже есть (в этом случае перезаписать значение y)
      */
     fun add(x: Double, y: Double): Boolean {
-        TODO()
+        return if (xy[x] == null) {
+            xy[x] = y
+            true
+        } else {
+            xy[x] = y
+            false
+        }
     }
 
     /**
@@ -34,20 +46,28 @@ class TableFunction {
      * Вернуть true, если пара была удалена.
      */
     fun remove(x: Double): Boolean {
-        TODO()
+        return if (xy[x] == null) false
+        else {
+            xy.remove(x)
+            true
+        }
     }
 
     /**
      * Вернуть коллекцию из всех пар в таблице
      */
-    fun getPairs(): Collection<Pair<Double, Double>> = TODO()
+    fun getPairs(): Collection<Pair<Double, Double>> = xy.toList()
 
     /**
      * Вернуть пару, ближайшую к заданному x.
      * Если существует две ближайшие пары, вернуть пару с меньшим значением x.
      * Если таблица пуста, бросить IllegalStateException.
      */
-    fun findPair(x: Double): Pair<Double, Double>? = TODO()
+    fun findPair(x: Double): Pair<Double, Double>? {
+        if (xy.isEmpty()) throw IllegalStateException()
+        val new = xy.toList().sortedBy { abs(it.first - x) }
+        return new.first()
+    }
 
     /**
      * Вернуть значение y по заданному x.
@@ -57,11 +77,23 @@ class TableFunction {
      * Если существуют две пары, такие, что x1 < x < x2, использовать интерполяцию.
      * Если их нет, но существуют две пары, такие, что x1 < x2 < x или x > x2 > x1, использовать экстраполяцию.
      */
-    fun getValue(x: Double): Double = TODO()
+    fun getValue(x: Double): Double {
+        if (xy.isEmpty()) throw IllegalStateException()
+        if (xy.size == 1) return xy.toList()[0].second
+        val new = xy.toList().sortedBy { it.first }
+        val xs = xy.keys
+        if (x < xs.min()!! || x > xs.max()!!) return new[0].second + (x - new[0].first) / (new[1].first - new[0].first) * (new[1].second - new[0].second)
+        else {
+            val newnew = xy.toList().sortedBy { abs(it.first - x) }
+            val x1 = newnew[0]
+            val x2 = newnew[1]
+            return (x2.second * (x - x1.first) + x1.second * (x2.first - x)) / (x2.first - x1.first)
+        }
+    }
 
     /**
      * Таблицы равны, если в них одинаковое количество пар,
      * и любая пара из второй таблицы входит также и в первую
      */
-    override fun equals(other: Any?): Boolean = TODO()
+    override fun equals(other: Any?): Boolean = other is TableFunction && other.xy == this.xy
 }
