@@ -43,6 +43,9 @@ internal class TableFunctionTest {
     @Tag("Normal")
     fun findPair() {
         val function = TableFunction()
+        assertThrows(IllegalStateException::class.java) {
+            function.findPair(0.0)
+        }
         function.add(1.0, 2.0)
         function.add(3.0, 4.0)
         function.add(5.0, 6.0)
@@ -54,6 +57,7 @@ internal class TableFunctionTest {
     @Tag("Hard")
     fun getValue() {
         val function = TableFunction()
+
         assertThrows(IllegalStateException::class.java) {
             function.getValue(0.0)
         }
