@@ -45,7 +45,10 @@ class TrainTimeTable(val baseStationName: String) {
      * @param train название поезда
      * @return true, если поезд успешно удалён, false, если такой поезд не существует
      */
-    fun removeTrain(train: String): Boolean = trainS.removeIf { it.name == train }
+    fun removeTrain(train: String): Boolean = if (trainS.map { it.name }.contains(train)) {
+        trainS.removeIf { it.name == train }
+        true
+    } else false
 
     /**
      * Добавить/изменить начальную, промежуточную или конечную остановку поезду.
@@ -93,6 +96,7 @@ class TrainTimeTable(val baseStationName: String) {
                 return false
             }
             else -> {
+
                 if(stop.time !in thistrainstop.first().time..thistrainstop.last().time) throw IllegalArgumentException()
                 thistrainstop.add(stop)
                 trainS.remove(thistrain)
@@ -150,6 +154,14 @@ class TrainTimeTable(val baseStationName: String) {
      * и поезда с тем же именем останавливаются на одинаковых станциях в одинаковое время.
      */
     override fun equals(other: Any?): Boolean = other is TrainTimeTable && other.trainS == trainS
+
+    override fun hashCode(): Int {
+        var result = 113
+        for (train in trainS) {
+            result += train.hashCode()
+        }
+        return result
+    }
 }
 
 /**
@@ -173,5 +185,11 @@ data class Stop(val name: String, val time: Time)
  */
 data class Train(val name: String, val stops: List<Stop>) {
     constructor(name: String, vararg stops: Stop) : this(name, stops.asList())
+    override fun hashCode(): Int {
+        var result = 113
+        result += name.hashCode() + stops.sumBy { it.name.hashCode() + it.time.hour * 60 + it.time.minute }
+        return result
+    }
 
-}
+
+    }
