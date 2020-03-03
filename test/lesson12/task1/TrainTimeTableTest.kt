@@ -184,6 +184,6 @@ class TrainTimeTableTest {
         assertTrue(ttt4.removeTrain("N4"))
         assertTrue(ttt3.addTrain("N2", Time(6, 10), Stop("D", Time(6, 45))))
         assertFalse(ttt4.addStop("N3", Stop("B", Time(6, 38))))
-        assertEquals(ttt3.trains(), ttt4.trains())
+        assertEquals(ttt3, ttt4)
     }
 }

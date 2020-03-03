@@ -153,15 +153,11 @@ class TrainTimeTable(val baseStationName: String) {
      * Расписания считаются одинаковыми, если содержат одинаковый набор поездов,
      * и поезда с тем же именем останавливаются на одинаковых станциях в одинаковое время.
      */
-    override fun equals(other: Any?): Boolean = other is TrainTimeTable && other.trainS == trainS
+    override fun equals(other: Any?): Boolean = other is TrainTimeTable && other.trains() == trains()
 
-    override fun hashCode(): Int {
-        var result = 113
-        for (train in trainS) {
-            result += train.hashCode()
-        }
-        return result
-    }
+    override fun hashCode() =
+        trainS.fold(1, { result, train -> result + train.name.hashCode() + train.stops.sumBy { it.hashCode() } })
+
 }
 
 /**
@@ -185,11 +181,5 @@ data class Stop(val name: String, val time: Time)
  */
 data class Train(val name: String, val stops: List<Stop>) {
     constructor(name: String, vararg stops: Stop) : this(name, stops.asList())
-    override fun hashCode(): Int {
-        var result = 113
-        result += name.hashCode() + stops.sumBy { it.name.hashCode() + it.time.hour * 60 + it.time.minute }
-        return result
-    }
 
-
-    }
+}
