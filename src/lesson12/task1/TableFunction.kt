@@ -31,27 +31,13 @@ class TableFunction {
      * Вернуть true, если пары с заданным x ещё нет,
      * или false, если она уже есть (в этом случае перезаписать значение y)
      */
-    fun add(x: Double, y: Double): Boolean {
-        return if (xy[x] == null) {
-            xy[x] = y
-            true
-        } else {
-            xy[x] = y
-            false
-        }
-    }
+    fun add(x: Double, y: Double): Boolean = xy.put(x, y) == null
 
     /**
      * Удалить пару с заданным значением x.
      * Вернуть true, если пара была удалена.
      */
-    fun remove(x: Double): Boolean {
-        return if (xy[x] == null) false
-        else {
-            xy.remove(x)
-            true
-        }
-    }
+    fun remove(x: Double): Boolean = xy.remove(x) != null
 
     /**
      * Вернуть коллекцию из всех пар в таблице
@@ -82,12 +68,12 @@ class TableFunction {
         if (xy.size == 1) return xy.toList()[0].second
         val new = xy.toList().sortedBy { it.first }
         val xs = xy.keys
-        if (x < xs.min()!! || x > xs.max()!!) return new[0].second + (x - new[0].first) / (new[1].first - new[0].first) * (new[1].second - new[0].second)
+        return if (x < xs.min()!! || x > xs.max()!!) new[0].second + (x - new[0].first) / (new[1].first - new[0].first) * (new[1].second - new[0].second)
         else {
             val newnew = xy.toList().sortedBy { abs(it.first - x) }
             val x1 = newnew[0]
             val x2 = newnew[1]
-            return (x2.second * (x - x1.first) + x1.second * (x2.first - x)) / (x2.first - x1.first)
+            (x2.second * (x - x1.first) + x1.second * (x2.first - x)) / (x2.first - x1.first)
         }
     }
 
@@ -96,4 +82,7 @@ class TableFunction {
      * и любая пара из второй таблицы входит также и в первую
      */
     override fun equals(other: Any?): Boolean = other is TableFunction && other.xy == this.xy
+
+    override fun hashCode(): Int =
+        xy.toList().fold(1, { result, xy -> result + xy.first.hashCode() + xy.second.hashCode() })
 }

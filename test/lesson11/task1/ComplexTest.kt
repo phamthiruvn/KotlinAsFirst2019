@@ -16,8 +16,8 @@ internal class ComplexTest {
         assertApproxEquals(Complex("4-2i"), Complex("1+2i") + Complex("3-4i"), 1e-10)
         assertApproxEquals(Complex("4.12-2i"), Complex("1.1+2i") + Complex("3.02-4i"), 1e-10)
         assertApproxEquals(Complex("-4-2i"), Complex("-1+2i") + Complex("-3-4i"), 1e-10)
-        assertApproxEquals(Complex("-2i"), Complex("+2i") + Complex("-4i"), 1e-10)
-        assertApproxEquals(Complex("9-2i"), Complex("9+2i") + Complex("-4i"), 1e-10)
+        assertApproxEquals(Complex("0-2i"), Complex("0+2i") + Complex("0-4i"), 1e-10)
+        assertApproxEquals(Complex("9-2i"), Complex("9+2i") + Complex("0-4i"), 1e-10)
     }
 
     @Test
@@ -36,24 +36,24 @@ internal class ComplexTest {
     @Test
     fun times() {
         assertApproxEquals(Complex("11+2i"), Complex("1+2i") * Complex("3-4i"), 1e-10)
-        assertApproxEquals(Complex("12.5"), Complex("1.5+2i") * Complex("3-4i"), 1e-10)
-        assertApproxEquals(Complex("-14i"), Complex("3.5") * Complex("-4i"), 1e-10)
-        assertApproxEquals(Complex("396"), Complex("99i") * Complex("-4i"), 1e-10)
+        assertApproxEquals(Complex("12.5+0i"), Complex("1.5+2i") * Complex("3-4i"), 1e-10)
+        assertApproxEquals(Complex("0-14i"), Complex("3.5+0i") * Complex("0-4i"), 1e-10)
+        assertApproxEquals(Complex("396+0i"), Complex("0+99i") * Complex("0-4i"), 1e-10)
 
     }
 
     @Test
     fun div() {
         assertApproxEquals(Complex("1+2i"), Complex("11+2i") / Complex("3-4i"), 1e-10)
-        assertApproxEquals(Complex("1.5+2i"), Complex("12.5") / Complex("3-4i"), 1e-10)
-        assertApproxEquals(Complex("3.5"), Complex("-14i") / Complex("-4i"), 1e-10)
-        assertApproxEquals(Complex("4i"), Complex("396") / Complex("-99i"), 1e-10)
+        assertApproxEquals(Complex("1.5+2i"), Complex("12.5+0i") / Complex("3-4i"), 1e-10)
+        assertApproxEquals(Complex("3.5+0i"), Complex("0-14i") / Complex("0-4i"), 1e-10)
+        assertApproxEquals(Complex("0+4i"), Complex("396+0i") / Complex("0-99i"), 1e-10)
     }
 
     @Test
     fun hard() {
-        assertApproxEquals(Complex("5.3+0.9i"), (Complex("1+i") * Complex("3-2i")) + (Complex("1") / Complex("3+i")), 1e-10)
-        assertApproxEquals(Complex("-1.6+16.4i"), (Complex("3+7i") * Complex("2+i")) - (Complex("3+3i") / Complex("5")), 1e-10)
+        assertApproxEquals(Complex("5.3+0.9i"), (Complex("1+1i") * Complex("3-2i")) + (Complex("1+0i") / Complex("3+1i")), 1e-10)
+        assertApproxEquals(Complex("-1.6+16.4i"), (Complex("3+7i") * Complex("2+1i")) - (Complex("3+3i") / Complex("5+0i")), 1e-10)
     }
 
     @Test

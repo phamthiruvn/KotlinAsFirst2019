@@ -18,15 +18,14 @@ class Complex(val re: Double, val im: Double) {
     /**
      * Конструктор из вещественного числа
      */
-    constructor(x: Double): this(x, 0.0)
+    constructor(x: Double) : this(x, 0.0)
+
+    constructor(list: List<Double>) : this(list.first(), list.last())
 
     /**
      * Конструктор из строки вида x+yi
      */
-    constructor(s: String): this(
-        Regex("""[+-]*\d+\.*\d*i*""").findAll(s).toList().map{it.value}.map {if (it.contains('i')) 0.0 else it.toDouble()}.getOrElse(0) { 0.0 },
-        Regex("""[+-]*\d+\.*\d*i""").find(s + if (!s.contains('i')) "+ 0i" else "+ 1i" , 0)!!.value.replace(Regex("""i"""), "").toDouble()
-    )
+    constructor(s: String) : this(Regex("""[+-]*\d+\.*\d*""").findAll(s).toList().map { it.value.toDouble() })
 
     /**
      * Сложение.
@@ -54,7 +53,7 @@ class Complex(val re: Double, val im: Double) {
     operator fun div(other: Complex): Complex {
         val x = Complex(re, im) * Complex(other.re, -other.im)
         val y = sqr(other.re) + sqr(other.im)
-        return Complex(x.re / y, x.im /y)
+        return Complex(x.re / y, x.im / y)
     }
 
     /**

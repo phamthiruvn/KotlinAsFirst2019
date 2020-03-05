@@ -35,7 +35,7 @@ class Polynom(vararg coeffs: Double) {
     /**
      * Геттер: вернуть значение коэффициента при x^i
      */
-    fun coeff(i: Int): Double = list[list.size - i -1]
+    fun coeff(i: Int): Double = list[list.size - i - 1]
 
     /**
      * Расчёт значения при заданном x
@@ -74,7 +74,7 @@ class Polynom(vararg coeffs: Double) {
             max = other.list
         }
         val start = max.size - min.size
-        var result = max.toMutableList()
+        val result = max.toMutableList()
         for (i in start until max.size) {
             result[i] += min[i - start]
         }
@@ -95,11 +95,11 @@ class Polynom(vararg coeffs: Double) {
      * Умножение
      */
     operator fun times(other: Polynom): Polynom {
-        var max = this.list.reversed()
-        var min = other.list.reversed()
-        var result = mutableListOf<Double>()
+        val max = this.list.reversed()
+        val min = other.list.reversed()
+        val result = mutableListOf<Double>()
         for (k in 0..max.lastIndex + min.lastIndex) result.add(0.0)
-        for (i in max.indices){
+        for (i in max.indices) {
             for (j in min.indices) {
                 result[i + j] += max[i] * min[j]
             }
@@ -120,7 +120,7 @@ class Polynom(vararg coeffs: Double) {
             this.degree() < other.degree() -> return Polynom(0.0)
             this == other -> return Polynom(1.0)
         }
-        var res = mutableListOf<Double>()
+        val res = mutableListOf<Double>()
         for (k in 0 until this.degree() - other.degree() + 1) res.add(0.0)
         var newi = this
         for (i in res.indices) {
