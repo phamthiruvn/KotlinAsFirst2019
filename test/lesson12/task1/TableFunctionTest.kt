@@ -67,6 +67,15 @@ internal class TableFunctionTest {
         function.add(5.0, 6.0)
         assertEquals(5.0, function.getValue(4.0), 1e-10)
         assertEquals(0.0, function.getValue(-1.0), 1e-10)
+        function.add(6.0, 8.0)
+        function.add(7.0, 9.0)
+        assertEquals(10.0, function.getValue(8.0), 1e-10)
+        function.add(6.0, 12.0)
+        function.add(7.0, 14.0)
+        assertEquals(20.0, function.getValue(10.0), 1e-10)
+        function.add(1.0, 10.0)
+        function.add(0.7, 7.0)
+        assertEquals(2.0, function.getValue(0.2), 1e-10)
     }
 
     @Test

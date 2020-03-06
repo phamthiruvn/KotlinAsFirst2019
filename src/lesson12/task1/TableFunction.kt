@@ -67,13 +67,16 @@ class TableFunction {
         if (xy.isEmpty()) throw IllegalStateException()
         if (xy.size == 1) return xy.toList()[0].second
         val new = xy.toList().sortedBy { it.first }
+        val meu = xy.toList().sortedByDescending { it.first }
         val xs = xy.keys
-        return if (x < xs.min()!! || x > xs.max()!!) new[0].second + (x - new[0].first) / (new[1].first - new[0].first) * (new[1].second - new[0].second)
-        else {
-            val newnew = xy.toList().sortedBy { abs(it.first - x) }
-            val x1 = newnew[0]
-            val x2 = newnew[1]
-            (x2.second * (x - x1.first) + x1.second * (x2.first - x)) / (x2.first - x1.first)
+        return when {
+            x < xs.min()!! -> new[0].second + (x - new[0].first) / (new[1].first - new[0].first) * (new[1].second - new[0].second)
+            x > xs.max()!! -> meu[0].second + (x - meu[0].first) / (meu[0].first - meu[1].first) * (meu[0].second - meu[1].second)
+            else -> {
+                val newnew = xy.toList().sortedBy { abs(it.first - x) }
+                val x1 = newnew[0]
+                val x2 = newnew[1]
+                (x2.second * (x - x1.first) + x1.second * (x2.first - x)) / (x2.first - x1.first)}
         }
     }
 
@@ -84,5 +87,5 @@ class TableFunction {
     override fun equals(other: Any?): Boolean = other is TableFunction && other.xy == this.xy
 
     override fun hashCode(): Int =
-        xy.toList().fold(1, { result, xy -> result + xy.first.hashCode() + xy.second.hashCode() })
+        xy.toList().fold(1, { result , (x , y) -> result + x.hashCode() + y.hashCode() })
 }
