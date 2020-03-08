@@ -45,7 +45,7 @@ class TrainTimeTable(val baseStationName: String) {
      * @param train название поезда
      * @return true, если поезд успешно удалён, false, если такой поезд не существует
      */
-    fun removeTrain(train: String): Boolean = trainS.removeIf{ it.name == train } != null
+    fun removeTrain(train: String): Boolean = trainS.removeIf { it.name == train } != null
 
     /**
      * Добавить/изменить начальную, промежуточную или конечную остановку поезду.
@@ -66,7 +66,7 @@ class TrainTimeTable(val baseStationName: String) {
      * @return true, если поезду была добавлена новая остановка, false, если было изменено время остановки на старой
      */
     fun addStop(train: String, stop: Stop): Boolean {
-        val thistrain = trainS.first{ it.name == train}
+        val thistrain = trainS.first { it.name == train }
         val thistrainstop = thistrain.stops.toMutableList()
         if (stop.time in thistrainstop.map { it.time } && stop.name !in thistrainstop.map { it.name }) throw IllegalArgumentException()
         when (stop.name) {
@@ -85,7 +85,7 @@ class TrainTimeTable(val baseStationName: String) {
                 return false
             }
             in thistrainstop.map { it.name } -> {
-                if(stop.time !in thistrainstop.first().time..thistrainstop.last().time) throw IllegalArgumentException()
+                if (stop.time !in thistrainstop.first().time..thistrainstop.last().time) throw IllegalArgumentException()
                 thistrainstop.removeIf { it.name == stop.name }
                 thistrainstop.add(stop)
                 trainS.remove(thistrain)
@@ -93,8 +93,7 @@ class TrainTimeTable(val baseStationName: String) {
                 return false
             }
             else -> {
-
-                if(stop.time !in thistrainstop.first().time..thistrainstop.last().time) throw IllegalArgumentException()
+                if (stop.time !in thistrainstop.first().time..thistrainstop.last().time) throw IllegalArgumentException()
                 thistrainstop.add(stop)
                 trainS.remove(thistrain)
                 trainS.add(Train(thistrain.name, thistrainstop.sortedBy { it.time }))
@@ -114,10 +113,10 @@ class TrainTimeTable(val baseStationName: String) {
      * @return true, если удаление успешно
      */
     fun removeStop(train: String, stopName: String): Boolean {
-        val thistrain = trainS.first{ it.name == train}
+        val thistrain = trainS.first { it.name == train }
         val thistrainstop = thistrain.stops.toMutableList()
         val i = thistrainstop.map { it.name }.indexOf(stopName)
-        if (i != -1 && i != 0 && i != thistrainstop.lastIndex){
+        if (i != -1 && i != 0 && i != thistrainstop.lastIndex) {
             thistrainstop.removeIf { it.name == stopName }
             trainS.remove(thistrain)
             trainS.add(Train(thistrain.name, thistrainstop.sortedBy { it.time }))
@@ -138,9 +137,11 @@ class TrainTimeTable(val baseStationName: String) {
      */
     fun trains(currentTime: Time, destinationName: String): List<Train> {
         val result = mutableListOf<Train>()
-        for (i in trainS){
+        for (i in trainS) {
             val stopss = i.stops
-            if (stopss.map { it.name }.contains(destinationName) && stopss.first { it.name == baseStationName }.time >= currentTime ) result.add(i)
+            if (stopss.map { it.name }.contains(destinationName) && stopss.first { it.name == baseStationName }.time >= currentTime) result.add(
+                i
+            )
         }
         return result.sortedBy { it.stops.first { it.name == destinationName }.time }
     }
