@@ -28,7 +28,7 @@ class Complex(val re: Double, val im: Double) {
     constructor(s: String) : this(Regex("""[+-]*\d+\.*\d*""").findAll(
         when {
             !s.contains('i') -> "$s+0i"
-            s.contains(Regex("""[^\d]i""")) -> s.replace(Regex("""i""") , "1i")
+            s.contains(Regex("""[^\d]i""")) -> s.replace(Regex("""i"""), "1i")
             s.matches(Regex("""[+-]*\d+\.*\d*i""")) -> "0+ $s"
             else -> s
         }

@@ -154,7 +154,7 @@ class TrainTimeTable(val baseStationName: String) {
     override fun equals(other: Any?): Boolean = other is TrainTimeTable && other.trains() == trains()
 
     override fun hashCode() =
-        trainS.fold(1, { result, train -> result + train.name.hashCode() + train.stops.sumBy { it.hashCode() } })
+        trainS.fold(1, { result, (name, stops) -> result + name.hashCode() + stops.sumBy { it.hashCode() } })
 
 }
 

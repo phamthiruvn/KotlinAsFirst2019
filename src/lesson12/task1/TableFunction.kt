@@ -76,7 +76,7 @@ class TableFunction {
                 val newnew = xy.toList().sortedBy { abs(it.first - x) }
                 val x1 = newnew[0]
                 val x2 = newnew[1]
-                (x2.second * (x - x1.first) + x1.second * (x2.first - x)) / (x2.first - x1.first)}
+                (x2.second * (x - x1.first) + x1.second * (x2.first - x)) / (x2.first - x1.first) }
         }
     }
 
@@ -87,5 +87,5 @@ class TableFunction {
     override fun equals(other: Any?): Boolean = other is TableFunction && other.xy == this.xy
 
     override fun hashCode(): Int =
-        xy.toList().fold(1, { result , (x , y) -> result + x.hashCode() + y.hashCode() })
+        xy.toList().fold(1, { result, (x, y) -> result + x.hashCode() + y.hashCode() })
 }

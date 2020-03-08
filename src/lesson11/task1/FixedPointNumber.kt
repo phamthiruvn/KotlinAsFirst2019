@@ -2,6 +2,9 @@
 
 package lesson11.task1
 
+import java.lang.NumberFormatException
+import kotlin.math.max
+
 /**
  * Класс "вещественное число с фиксированной точкой"
  *
@@ -17,10 +20,15 @@ package lesson11.task1
  * Представление числа должно позволять хранить числа с общим числом десятичных цифр не менее 9.
  */
 class FixedPointNumber : Comparable<FixedPointNumber> {
+
+    private var dec = ""
+
     /**
      * Точность - число десятичных цифр после запятой.
      */
-    val precision: Int get() = TODO()
+    val precision: Int
+        get() = if (dec.contains('.')) dec.length - 1 - dec.indexOfFirst { it == '.' }
+        else 0
 
     /**
      * Конструктор из строки, точность выбирается в соответствии
@@ -31,21 +39,23 @@ class FixedPointNumber : Comparable<FixedPointNumber> {
      * Внимание: этот или другой конструктор можно сделать основным
      */
     constructor(s: String) {
-        TODO()
+        if(!s.matches(Regex("""-*\d+.\d+"""))) throw NumberFormatException()
+        dec = s
     }
 
     /**
      * Конструктор из вещественного числа с заданной точностью
      */
     constructor(d: Double, p: Int) {
-        TODO()
+        val index = d.toString().indexOf('.') + p
+        dec = d.toString().split("").take(index + 1).joinToString {""}
     }
 
     /**
      * Конструктор из целого числа (предполагает нулевую точность)
      */
     constructor(i: Int) {
-        TODO()
+        dec = i.toString()
     }
 
     /**
@@ -55,7 +65,10 @@ class FixedPointNumber : Comparable<FixedPointNumber> {
      * точность результата выбирается как наибольшая точность аргументов.
      * Лишние знаки отрбрасываются, число округляется по правилам арифметики.
      */
-    operator fun plus(other: FixedPointNumber): FixedPointNumber = TODO()
+    operator fun plus(other: FixedPointNumber): FixedPointNumber {
+        val maxp = max(precision, other.precision)
+        return FixedPointNumber(dec.toDouble() + other.dec.toDouble(), maxp)
+    }
 
     /**
      * Смена знака
@@ -80,7 +93,7 @@ class FixedPointNumber : Comparable<FixedPointNumber> {
     /**
      * Сравнение на равенство
      */
-    override fun equals(other: Any?): Boolean = TODO()
+    override fun equals(other: Any?): Boolean = other is FixedPointNumber
 
     /**
      * Сравнение на больше/меньше
