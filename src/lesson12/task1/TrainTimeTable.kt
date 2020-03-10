@@ -45,8 +45,7 @@ class TrainTimeTable(val baseStationName: String) {
      * @param train название поезда
      * @return true, если поезд успешно удалён, false, если такой поезд не существует
      */
-    fun removeTrain(train: String): Boolean = trainS.removeIf { it.name == train } != null
-
+    fun removeTrain(train: String): Boolean = trainS.removeIf { it.name == train }
     /**
      * Добавить/изменить начальную, промежуточную или конечную остановку поезду.
      *
