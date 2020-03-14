@@ -24,7 +24,7 @@ import kotlin.math.pow
  * Старшие коэффициенты, равные нулю, игнорировать, например Polynom(0.0, 0.0, 5.0, 3.0) соответствует 5x+3
  */
 class Polynom(vararg coeffs: Double) {
-    private val list = coeffs.toList()
+    private val list = coeffs.toList().dropWhile { it == 0.0  }
 
     /**
      * Конструктор из строки an * x^n + an-1 * x^n-1...a1 * x + a0
@@ -138,10 +138,10 @@ class Polynom(vararg coeffs: Double) {
     /**
      * Сравнение на равенство
      */
-    override fun equals(other: Any?): Boolean = other is Polynom && this.hashCode() == other.hashCode()
+    override fun equals(other: Any?): Boolean = other is Polynom && list == other.list
 
     /**
      * Получение хеш-кода
      */
-    override fun hashCode() = this.getValue(31.0).toInt()
+    override fun hashCode() = list.fold(1, { result, p -> result + p.toInt() * 31 })
 }

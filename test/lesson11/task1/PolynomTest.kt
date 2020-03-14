@@ -96,6 +96,8 @@ class PolynomTest {
     fun equals() {
         assertEquals(Polynom(1.0, 2.0, 3.0), Polynom(1.0, 2.0, 3.0))
         assertEquals(Polynom(0.0, 2.0, 3.0), Polynom(2.0, 3.0))
+        assertEquals(Polynom(0.0, 2.0, 3.0), Polynom(0.0, 0.0, 0.0, 0.0, 2.0, 3.0))
+        assertFalse(Polynom(0.0, 2.0, 3.0, 0.0) == Polynom(0.0, 0.0, 0.0, 0.0, 2.0, 3.0))
     }
 
     @Test

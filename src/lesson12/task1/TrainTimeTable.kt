@@ -18,7 +18,7 @@ import java.lang.IllegalArgumentException
  * В конструктор передаётся название станции отправления для данного расписания.
  */
 class TrainTimeTable(val baseStationName: String) {
-    private val trainS = mutableListOf<Train>()
+    private val allTrain = mutableListOf<Train>()
     /**
      * Добавить новый поезд.
      *
@@ -30,8 +30,8 @@ class TrainTimeTable(val baseStationName: String) {
      * @return true, если поезд успешно добавлен, false, если такой поезд уже есть
      */
     fun addTrain(train: String, depart: Time, destination: Stop): Boolean {
-        if (!trainS.map { it.name }.contains(train)) {
-            trainS.add(Train(train, listOf(Stop(baseStationName, depart), destination).sortedBy { it.time }))
+        if (!allTrain.map { it.name }.contains(train)) {
+            allTrain.add(Train(train, listOf(Stop(baseStationName, depart), destination).sortedBy { it.time }))
             return true
         }
         return false
@@ -45,7 +45,7 @@ class TrainTimeTable(val baseStationName: String) {
      * @param train название поезда
      * @return true, если поезд успешно удалён, false, если такой поезд не существует
      */
-    fun removeTrain(train: String): Boolean = trainS.removeIf { it.name == train }
+    fun removeTrain(train: String): Boolean = allTrain.removeIf { it.name == train }
     /**
      * Добавить/изменить начальную, промежуточную или конечную остановку поезду.
      *
@@ -65,37 +65,37 @@ class TrainTimeTable(val baseStationName: String) {
      * @return true, если поезду была добавлена новая остановка, false, если было изменено время остановки на старой
      */
     fun addStop(train: String, stop: Stop): Boolean {
-        val thistrain = trainS.first { it.name == train }
+        val thistrain = allTrain.first { it.name == train }
         val thistrainstop = thistrain.stops.toMutableList()
         if (stop.time in thistrainstop.map { it.time } && stop.name !in thistrainstop.map { it.name }) throw IllegalArgumentException()
         when (stop.name) {
             baseStationName -> {
                 thistrainstop[0] = stop
                 if (stop.time >= thistrainstop[1].time) throw IllegalArgumentException()
-                trainS.remove(thistrain)
-                trainS.add(Train(thistrain.name, thistrainstop.sortedBy { it.time }))
+                allTrain.remove(thistrain)
+                allTrain.add(Train(thistrain.name, thistrainstop.sortedBy { it.time }))
                 return false
             }
             thistrainstop.last().name -> {
                 thistrainstop[thistrainstop.lastIndex] = stop
                 if (stop.time <= thistrainstop[thistrainstop.lastIndex - 1].time) throw IllegalArgumentException()
-                trainS.remove(thistrain)
-                trainS.add(Train(thistrain.name, thistrainstop.sortedBy { it.time }))
+                allTrain.remove(thistrain)
+                allTrain.add(Train(thistrain.name, thistrainstop.sortedBy { it.time }))
                 return false
             }
             in thistrainstop.map { it.name } -> {
                 if (stop.time !in thistrainstop.first().time..thistrainstop.last().time) throw IllegalArgumentException()
                 thistrainstop.removeIf { it.name == stop.name }
                 thistrainstop.add(stop)
-                trainS.remove(thistrain)
-                trainS.add(Train(thistrain.name, thistrainstop.sortedBy { it.time }))
+                allTrain.remove(thistrain)
+                allTrain.add(Train(thistrain.name, thistrainstop.sortedBy { it.time }))
                 return false
             }
             else -> {
                 if (stop.time !in thistrainstop.first().time..thistrainstop.last().time) throw IllegalArgumentException()
                 thistrainstop.add(stop)
-                trainS.remove(thistrain)
-                trainS.add(Train(thistrain.name, thistrainstop.sortedBy { it.time }))
+                allTrain.remove(thistrain)
+                allTrain.add(Train(thistrain.name, thistrainstop.sortedBy { it.time }))
                 return true
             }
         }
@@ -112,13 +112,13 @@ class TrainTimeTable(val baseStationName: String) {
      * @return true, если удаление успешно
      */
     fun removeStop(train: String, stopName: String): Boolean {
-        val thistrain = trainS.first { it.name == train }
+        val thistrain = allTrain.first { it.name == train }
         val thistrainstop = thistrain.stops.toMutableList()
         val i = thistrainstop.map { it.name }.indexOf(stopName)
         if (i != -1 && i != 0 && i != thistrainstop.lastIndex) {
             thistrainstop.removeIf { it.name == stopName }
-            trainS.remove(thistrain)
-            trainS.add(Train(thistrain.name, thistrainstop.sortedBy { it.time }))
+            allTrain.remove(thistrain)
+            allTrain.add(Train(thistrain.name, thistrainstop.sortedBy { it.time }))
             return true
         }
         return false
@@ -127,7 +127,7 @@ class TrainTimeTable(val baseStationName: String) {
     /**
      * Вернуть список всех поездов, упорядоченный по времени отправления с baseStationName
      */
-    fun trains(): List<Train> = trainS.sortedBy { it.stops.first { it.name == baseStationName }.time }
+    fun trains(): List<Train> = allTrain.sortedBy { it.stops.first { it.name == baseStationName }.time }
 
     /**
      * Вернуть список всех поездов, отправляющихся не ранее currentTime
@@ -136,7 +136,7 @@ class TrainTimeTable(val baseStationName: String) {
      */
     fun trains(currentTime: Time, destinationName: String): List<Train> {
         val result = mutableListOf<Train>()
-        for (i in trainS) {
+        for (i in allTrain) {
             val stopss = i.stops
             if (stopss.map { it.name }.contains(destinationName) && stopss.first { it.name == baseStationName }.time >= currentTime) result.add(
                 i
@@ -153,7 +153,7 @@ class TrainTimeTable(val baseStationName: String) {
     override fun equals(other: Any?): Boolean = other is TrainTimeTable && other.trains() == trains()
 
     override fun hashCode() =
-        trainS.fold(1, { result, (name, stops) -> result + name.hashCode() + stops.sumBy { it.hashCode() } })
+        this.trains().fold(1, { result, (name, stops) -> result + name.hashCode() + stops.sumBy { it.hashCode() } })
 
 }
 
